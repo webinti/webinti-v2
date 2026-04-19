@@ -207,6 +207,9 @@ h1.hero-title .line:nth-child(2)>span{animation-delay:.15s}
 .trust-label{font-size:12px;text-transform:uppercase;letter-spacing:0.18em;color:var(--text-faint);margin-bottom:24px;font-family:var(--mono)}
 .trust-logos{display:flex;gap:40px;align-items:center;justify-content:center;flex-wrap:wrap;opacity:.7}
 .trust-logos b{font-weight:700;font-size:17px;color:var(--text-dim);letter-spacing:-0.02em}
+.trust-label-sub{margin-top:36px}
+.trust-logos-schools{opacity:.5}
+.trust-logos-schools b{font-size:15px;font-weight:600}
 
 /* ============ SECTION HEADERS ============ */
 section{position:relative}
