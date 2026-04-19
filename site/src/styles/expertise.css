@@ -17,7 +17,7 @@
   linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px);
   background-size:48px 48px;mask-image:radial-gradient(ellipse 800px 400px at 50% 20%,#000 30%,transparent 70%)}
 .ex-hero-inner{position:relative;z-index:1;max-width:980px}
-.crumb{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-faint);margin-bottom:20px}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-faint);margin-bottom:20px;flex-wrap:wrap}
 .crumb a{color:var(--text-dim);transition:color .2s}
 .crumb a:hover{color:var(--text)}
 .crumb svg{width:14px;height:14px;opacity:.5}
