@@ -8,15 +8,27 @@ const projects = (await getCollection('projects')).sort(
   (a, b) => a.data.order - b.data.order
 );
 
-const categories = [
-  { slug: 'all', label: 'Tous' },
-  { slug: 'web', label: 'Web' },
-  { slug: 'mobile', label: 'Mobile' },
-  { slug: 'ia', label: 'IA' },
-  { slug: 'marketplace', label: 'Marketplace' },
-  { slug: 'crm', label: 'CRM' },
-  { slug: 'saas', label: 'SaaS' },
-];
+// Gradient presets per category — used on project tiles (no screenshots yet)
+const gradientByCategory: Record<string, string> = {
+  web:         'linear-gradient(135deg, #1a1525 0%, #3a1f2f 100%)',
+  mobile:      'linear-gradient(135deg, #0f1c2a 0%, #223a52 100%)',
+  ia:          'linear-gradient(135deg, #2a1310 0%, #C8403F 100%)',
+  marketplace: 'linear-gradient(135deg, #1a2e1f 0%, #4a5a2e 100%)',
+  crm:         'linear-gradient(135deg, #1f1a2e 0%, #4a2e5a 100%)',
+  saas:        'linear-gradient(135deg, #2a1a1f 0%, #5a2e3a 100%)',
+};
+const hoverByCategory: Record<string, string> = {
+  web:         'linear-gradient(135deg, #3a1f2f 0%, #C8403F 100%)',
+  mobile:      'linear-gradient(135deg, #223a52 0%, #4a7dc0 100%)',
+  ia:          'linear-gradient(135deg, #C8403F 0%, #FFB199 100%)',
+  marketplace: 'linear-gradient(135deg, #4a5a2e 0%, #B6F26A 100%)',
+  crm:         'linear-gradient(135deg, #4a2e5a 0%, #a678d8 100%)',
+  saas:        'linear-gradient(135deg, #5a2e3a 0%, #E87472 100%)',
+};
+
+// Split into 3 balanced columns
+const cols: typeof projects[] = [[], [], []];
+projects.forEach((p, i) => cols[i % 3].push(p));
 ---
 <BaseLayout
   title="Showcase — Projets Webinti"
@@ -27,79 +39,119 @@ const categories = [
   <main>
     <section class="sc-hero">
       <div class="container">
-        <span class="eyebrow">Showcase</span>
-        <h1>Les projets qu'on a livrés.</h1>
-        <p class="lead">Marketplaces, CRM sur-mesure, assistants IA, apps mobiles — une sélection de ce qu'on a construit pour nos clients.</p>
+        <span class="eyebrow-pill">Showcase</span>
+        <h1>Les projets <em>qu'on a livrés.</em></h1>
+        <p class="lead">Marketplaces, CRM, assistants IA, apps mobiles — une sélection de ce qu'on a construit avec nos clients.</p>
       </div>
     </section>
 
-    <section class="sc-list">
-      <div class="container">
-        <div class="sc-filter" role="tablist">
-          {categories.map((c) => (
-            <button type="button" class="sc-tab" data-cat={c.slug} aria-selected={c.slug === 'all'}>{c.label}</button>
-          ))}
-        </div>
+    <section class="sc-scroll" id="sc-scroll">
+      <div class="sc-scroll-inner" id="sc-scroll-inner">
+        {cols.map((col, ci) => (
+          <div class={`sc-col ${ci % 2 === 0 ? 'sc-col-rev' : ''}`}>
+            <div class="sc-col-list">
+              {col.map((p) => (
+                <a class="sc-tile" href={`/showcase/${p.id}/`}>
+                  <div class="sc-tile-frame">
+                    <div class="sc-tile-bg" style={`background:${gradientByCategory[p.data.category] || gradientByCategory.web};`}></div>
+                    <div class="sc-tile-bg sc-tile-bg-hover" style={`background:${hoverByCategory[p.data.category] || hoverByCategory.web};`}></div>
+                    <div class="sc-tile-overlay"></div>
 
-        <div class="sc-grid">
-          {projects.map((p) => (
-            <a class="sc-card" href={`/showcase/${p.id}/`} data-cat={p.data.category}>
-              <div class="sc-cover" aria-hidden="true">
-                <span class="sc-cat">{p.data.category}</span>
-              </div>
-              <div class="sc-body">
-                <h3>{p.data.title}</h3>
-                <p>{p.data.summary}</p>
-                <ul class="sc-stack">
-                  {p.data.stack.slice(0, 4).map((s) => <li>{s}</li>)}
-                </ul>
-                <div class="sc-meta">
-                  <span>{p.data.client}</span>
-                  <span>{p.data.year}</span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
+                    <div class="sc-tile-info">
+                      <span class="sc-tile-cat">{p.data.category}</span>
+                      <h3 class="sc-tile-title">{p.data.title}</h3>
+                      <div class="sc-tile-meta">{p.data.client} · {p.data.year}</div>
+                    </div>
+
+                    <span class="sc-tile-btn">Voir le projet <i>→</i></span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="sc-cta">
+      <div class="container">
+        <p class="sc-cta-text">Un projet similaire en tête ?</p>
+        <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="btn-primary">Démarrer un projet <span>→</span></a>
       </div>
     </section>
   </main>
   <Footer />
 
   <style>
-    .sc-hero{padding:120px 0 40px;border-bottom:1px solid var(--border)}
-    .sc-hero h1{font-size:clamp(40px,6vw,72px);line-height:1.05;margin:16px 0 12px;font-weight:700;letter-spacing:-0.02em}
-    .sc-hero .lead{color:var(--text-dim);max-width:640px;font-size:18px}
-    .sc-list{padding:60px 0 120px}
-    .sc-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
-    .sc-tab{padding:10px 18px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-size:14px;cursor:pointer;transition:all .2s}
-    .sc-tab:hover{border-color:var(--text);color:var(--text)}
-    .sc-tab[aria-selected="true"]{background:var(--ember);border-color:var(--ember);color:#fff}
-    .sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
-    .sc-card{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;background:var(--card);transition:transform .3s,border-color .3s}
-    .sc-card:hover{transform:translateY(-4px);border-color:var(--ember)}
-    .sc-card[hidden]{display:none}
-    .sc-cover{aspect-ratio:16/10;background:linear-gradient(135deg,#1a1a1a,#2a1a1a);position:relative;display:flex;align-items:flex-end;padding:16px}
-    .sc-cat{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:rgba(200,64,63,0.15);color:var(--ember-light);border:1px solid rgba(200,64,63,0.3)}
-    .sc-body{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
-    .sc-body h3{font-size:20px;font-weight:600;letter-spacing:-0.01em}
-    .sc-body p{color:var(--text-dim);font-size:14px;line-height:1.55;flex:1}
-    .sc-stack{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0}
-    .sc-stack li{font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text-dim)}
-    .sc-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);padding-top:8px;border-top:1px solid var(--border)}
+    .sc-hero{padding:140px 0 60px;text-align:center}
+    .sc-hero .eyebrow-pill{display:inline-block;padding:6px 14px;border-radius:999px;background:rgba(200,64,63,0.12);border:1px solid rgba(200,64,63,0.3);color:var(--accent);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}
+    .sc-hero h1{font-size:clamp(40px,6vw,80px);line-height:1.02;font-weight:700;letter-spacing:-0.03em;margin:0 0 18px;max-width:14ch;margin-inline:auto}
+    .sc-hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--text) 0%,var(--accent-2) 40%,var(--accent) 60%,var(--accent-3) 85%,var(--text) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 8s linear infinite}
+    .sc-hero .lead{color:var(--text-dim);max-width:560px;margin:0 auto;font-size:17px;line-height:1.55}
+
+    .sc-scroll{padding:40px 0;overflow:hidden}
+    .sc-scroll-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:0 40px;align-items:start}
+    .sc-col{min-width:0}
+    .sc-col-list{display:flex;flex-direction:column;gap:32px;will-change:transform}
+    .sc-col-rev .sc-col-list{flex-direction:column-reverse}
+
+    .sc-tile{display:block;text-decoration:none;color:inherit}
+    .sc-tile-frame{position:relative;aspect-ratio:3/4;border-radius:18px;border:1px solid var(--border-strong);overflow:hidden;background:var(--panel);box-shadow:0 20px 60px rgba(0,0,0,0.35)}
+    .sc-tile-bg{position:absolute;inset:0;transition:opacity .6s ease;z-index:1}
+    .sc-tile-bg-hover{opacity:0;z-index:2}
+    .sc-tile:hover .sc-tile-bg-hover{opacity:1}
+    .sc-tile-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,0.75) 100%);z-index:3;pointer-events:none}
+
+    .sc-tile-info{position:absolute;left:0;right:0;bottom:0;padding:22px 22px 24px;z-index:4;transition:opacity .4s ease,transform .4s ease}
+    .sc-tile:hover .sc-tile-info{opacity:0;transform:translateY(10px)}
+    .sc-tile-cat{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,0.12);color:#fff;backdrop-filter:blur(6px);margin-bottom:10px}
+    .sc-tile-title{font-size:20px;font-weight:600;letter-spacing:-0.01em;color:#fff;line-height:1.2;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,0.4)}
+    .sc-tile-meta{font-size:12.5px;color:rgba(255,255,255,0.7);font-family:var(--mono)}
+
+    .sc-tile-btn{position:absolute;left:50%;bottom:32px;transform:translate(-50%,14px);z-index:5;opacity:0;padding:11px 22px;border-radius:999px;background:rgba(10,10,16,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:13px;font-weight:500;white-space:nowrap;transition:opacity .35s ease,transform .35s ease,background .2s;display:inline-flex;align-items:center;gap:8px}
+    .sc-tile-btn i{font-style:normal;transition:transform .2s}
+    .sc-tile:hover .sc-tile-btn{opacity:1;transform:translate(-50%,0)}
+    .sc-tile-btn:hover{background:var(--accent);border-color:var(--accent)}
+    .sc-tile:hover .sc-tile-btn i{transform:translateX(2px)}
+
+    .sc-cta{padding:120px 0;text-align:center;border-top:1px solid var(--border);margin-top:60px}
+    .sc-cta-text{color:var(--text-dim);font-size:18px;margin-bottom:20px}
+
+    @media (max-width:900px){
+      .sc-scroll-inner{grid-template-columns:1fr;gap:24px;padding:0 20px}
+      .sc-col-rev .sc-col-list{flex-direction:column}
+      .sc-col-list{gap:24px}
+      .sc-tile-frame{aspect-ratio:4/5}
+    }
   </style>
 
   <script>
-    const tabs = document.querySelectorAll<HTMLButtonElement>('.sc-tab');
-    const cards = document.querySelectorAll<HTMLElement>('.sc-card');
-    tabs.forEach((t) => {
-      t.addEventListener('click', () => {
-        tabs.forEach((x) => x.setAttribute('aria-selected', 'false'));
-        t.setAttribute('aria-selected', 'true');
-        const cat = t.dataset.cat;
-        cards.forEach((c) => {
-          c.hidden = cat !== 'all' && c.dataset.cat !== cat;
-        });
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 901px)', () => {
+      const reverseCols = gsap.utils.toArray<HTMLElement>('.sc-col-rev .sc-col-list');
+      reverseCols.forEach((el) => {
+        const h = el.offsetHeight;
+        const vh = window.innerHeight;
+        const distance = h + vh * 0.5;
+        gsap.fromTo(
+          el,
+          { yPercent: -15 },
+          {
+            yPercent: 15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: el.closest('.sc-col'),
+              start: 'top bottom',
+              end: `+=${distance}`,
+              scrub: true,
+            },
+          }
+        );
       });
     });
   </script>
