@@ -12,3 +12,12 @@ dist/
 
 # Local history / scratch
 .remember/
+
+# Legacy Webflow export (kept locally only)
+/index.html
+/assets/
+/expertise/
+/uploads/
+/screenshots/
+/design/
+/logo.af~lock~
