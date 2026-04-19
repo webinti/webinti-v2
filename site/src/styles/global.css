@@ -32,6 +32,9 @@ nav.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;
 .nav-inner{background:rgba(10,10,16,0.72);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);border:1px solid var(--border-strong);border-radius:999px;padding:10px 14px 10px 22px;display:flex;align-items:center;gap:20px;box-shadow:0 10px 40px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.06)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;letter-spacing:-0.01em}
 .brand-dot{display:inline-block;width:22px;height:22px;background:url('/assets/brand/logo.svg') center/contain no-repeat;flex-shrink:0}
+.brand .brand-dot{animation:emberPulse 2.2s ease-in-out infinite;will-change:filter,transform}
+@keyframes emberPulse{0%,100%{filter:drop-shadow(0 0 2px rgba(200,64,63,0.3));transform:scale(1)}50%{filter:drop-shadow(0 0 10px rgba(200,64,63,1)) drop-shadow(0 0 22px rgba(200,64,63,0.75)) drop-shadow(0 0 34px rgba(200,64,63,0.4));transform:scale(1.12)}}
+@media (prefers-reduced-motion:reduce){.brand .brand-dot{animation:none}}
 .nav-links{display:flex;gap:4px;margin-left:12px;position:relative}
 .nav-links>a,.nav-links>button{padding:8px 14px;border-radius:999px;font-size:14px;color:var(--text-dim);font-weight:500;transition:color .3s cubic-bezier(0.16,1,0.3,1);position:relative;background:transparent;border:0;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;z-index:1}
 .nav-links>a:hover,.nav-links>button:hover,.nav-links>a:focus-visible,.nav-links>button:focus-visible{color:var(--text)}
