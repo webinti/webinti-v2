@@ -1,0 +1,183 @@
+---
+import ExpertiseLayout from '../../layouts/ExpertiseLayout.astro';
+
+const faqs = [
+  {
+    "q": "Native ou cross-platform ?",
+    "a": "Cross-platform (FlutterFlow/Expo) dans 90% des cas : un seul codebase, performances quasi-natives, coût divisé par 2. Natif si vous ciblez un use case très spécifique (AR, audio temps réel, gaming)."
+  },
+  {
+    "q": "Combien coûte une app mobile ?",
+    "a": "MVP simple : 20-40k€. App complète avec backend : 40-90k€. On cadre le scope en atelier avant de chiffrer."
+  },
+  {
+    "q": "Publication sur les stores ?",
+    "a": "On s'en occupe : création des comptes Developer, assets marketing, descriptions ASO, compliance, review. Comptez 2-7 jours de review côté Apple."
+  },
+  {
+    "q": "Maintenance après livraison ?",
+    "a": "Forfaits mensuels à partir de 900€/mois : monitoring, hotfixes, MAJ iOS/Android, petits ajouts. Sans engagement."
+  }
+];
+---
+<ExpertiseLayout
+  title="Développement Mobile — Webinti"
+  description="Vous avez un projet pour créer une application mobile compatible iOS et Android ? Nous livrons en 6 à 14 semaines avec FlutterFlow, Expo ou Bravo Studio selon votre cas d'usage."
+  canonical="https://webinti.com/expertise/developpement-mobile/"
+  serviceName="Webinti — Développement Mobile"
+  faqs={faqs}
+>
+<section class="ex-hero">
+  <div class="ex-hero-bg"><div class="ex-hero-grid"></div></div>
+  <div class="container">
+    <div class="ex-hero-inner">
+      <nav class="crumb" aria-label="Fil d'Ariane">
+        <a href="/">Accueil</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <a href="/expertise/developpement-web/">Expertise</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>Développement Mobile</span>
+      </nav>
+      <div class="ex-eyebrow"><span class="dot"></span>iOS · Android · Cross-platform · Nouveau</div>
+      <h1 class="ex-title">Développement <em>Mobile</em><br>pensé pour livrer vite.</h1>
+      <p class="ex-sub">Vous avez un projet pour créer une application mobile compatible iOS et Android ? Nous livrons en 6 à 14 semaines avec FlutterFlow, Expo ou Bravo Studio selon votre cas d'usage.</p>
+      <div class="ex-cta-row">
+        <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="btn btn-primary">Parler à un expert
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+        <a href="#process" class="btn btn-ghost">Voir la méthode</a>
+      </div>
+      <div class="ex-meta">
+    <div class="ex-meta-item">
+      <span class="ex-meta-label">Délai moyen</span>
+      <span class="ex-meta-value">6 à 14 semaines</span>
+    </div>
+    <div class="ex-meta-item">
+      <span class="ex-meta-label">Stack</span>
+      <span class="ex-meta-value">FlutterFlow · Expo</span>
+    </div>
+    <div class="ex-meta-item">
+      <span class="ex-meta-label">Plateformes</span>
+      <span class="ex-meta-value">iOS + Android</span>
+    </div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">Ce que l'on fait</div>
+      <h2 class="sec-title">Un catalogue pensé pour les produits qui doivent sortir.</h2>
+      <p class="sec-lede">Des briques éprouvées, que l'on combine selon votre contexte — et que l'on ajuste selon votre stack et vos contraintes.</p>
+    </div>
+    <div class="feat-grid">
+    <div class="feat">
+      <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 19h2"/></svg></div>
+      <div class="feat-t">Apps natives</div>
+      <div class="feat-d">Expérience 60fps, accès caméra, notifications push, géoloc, paiements in-app.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/></svg></div>
+      <div class="feat-t">Cross-platform</div>
+      <div class="feat-d">Un seul build pour iOS et Android. Économie de temps et de budget.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div>
+      <div class="feat-t">Intégration stores</div>
+      <div class="feat-d">Préparation et soumission App Store et Google Play. Assets, textes, compliance.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+      <div class="feat-t">Backend</div>
+      <div class="feat-d">API REST/GraphQL, Supabase, Firebase. Authentification, sync offline, analytics.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M12 2v14"/><polyline points="6 10 12 16 18 10"/><path d="M4 20h16"/></svg></div>
+      <div class="feat-t">Mises à jour OTA</div>
+      <div class="feat-d">Push des nouvelles versions sans repasser par le store. Déploiement continu.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3h.1a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg></div>
+      <div class="feat-t">Maintenance</div>
+      <div class="feat-d">Monitoring, crash reporting, support multi-versions OS. SLA sur demande.</div>
+    </div></div>
+  </div>
+</section>
+
+<section class="sec" id="process">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">Méthode</div>
+      <h2 class="sec-title">4 étapes, zéro surprise.</h2>
+      <p class="sec-lede">Un process carré, des jalons clairs, une communication hebdomadaire.</p>
+    </div>
+    <div class="steps">
+    <div class="step">
+      <div class="step-t">Discovery</div>
+      <div class="step-d">Use cases, plateformes cibles, contraintes stores.</div>
+    </div>
+    <div class="step">
+      <div class="step-t">Prototype</div>
+      <div class="step-d">Figma + mock cliquable sur device.</div>
+    </div>
+    <div class="step">
+      <div class="step-t">Build</div>
+      <div class="step-d">Sprints bi-hebdo, builds TestFlight & APK.</div>
+    </div>
+    <div class="step">
+      <div class="step-t">Publication</div>
+      <div class="step-d">Soumission stores, suivi release, ASO.</div>
+    </div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">Stack</div>
+      <h2 class="sec-title">Les bons outils pour le bon projet.</h2>
+      <p class="sec-lede">Nous choisissons la stack en fonction de vos contraintes — pas l'inverse.</p>
+    </div>
+    <div class="tools-strip"><span class="tool-chip"><span class="tool-dot"></span>FlutterFlow</span><span class="tool-chip"><span class="tool-dot"></span>Expo</span><span class="tool-chip"><span class="tool-dot"></span>React Native</span><span class="tool-chip"><span class="tool-dot"></span>Supabase</span><span class="tool-chip"><span class="tool-dot"></span>Firebase</span><span class="tool-chip"><span class="tool-dot"></span>RevenueCat</span><span class="tool-chip"><span class="tool-dot"></span>Sentry</span></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">FAQ</div>
+      <h2 class="sec-title">Questions fréquentes.</h2>
+    </div>
+    <div class="faq">
+    <details class="faq-item">
+      <summary class="faq-q">Native ou cross-platform ?</summary>
+      <div class="faq-a">Cross-platform (FlutterFlow/Expo) dans 90% des cas : un seul codebase, performances quasi-natives, coût divisé par 2. Natif si vous ciblez un use case très spécifique (AR, audio temps réel, gaming).</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Combien coûte une app mobile ?</summary>
+      <div class="faq-a">MVP simple : 20-40k€. App complète avec backend : 40-90k€. On cadre le scope en atelier avant de chiffrer.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Publication sur les stores ?</summary>
+      <div class="faq-a">On s'en occupe : création des comptes Developer, assets marketing, descriptions ASO, compliance, review. Comptez 2-7 jours de review côté Apple.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Maintenance après livraison ?</summary>
+      <div class="faq-a">Forfaits mensuels à partir de 900€/mois : monitoring, hotfixes, MAJ iOS/Android, petits ajouts. Sans engagement.</div>
+    </details></div>
+  </div>
+</section>
+
+<section class="ex-cta">
+  <div class="container">
+    <div class="ex-cta-inner">
+      <h2>Parlons de votre projet.</h2>
+      <p>30 minutes en visio pour cadrer votre besoin, estimer le budget, et repartir avec un plan clair.</p>
+      <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="btn btn-primary">Réserver un créneau
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+</ExpertiseLayout>

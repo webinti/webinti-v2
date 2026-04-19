@@ -1,0 +1,738 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const stack = [
+  { name: 'Bubble',      icon: '/assets/images/Bubble.svg',      bg: '#0082F4' },
+  { name: 'n8n',         icon: '/assets/images/n8n.svg',         bg: '#EA4B71' },
+  { name: 'Next.js',     icon: '/assets/images/nextdotjs.svg',   bg: '#000000' },
+  { name: 'Supabase',    icon: '/assets/images/supabase.svg',    bg: '#3ECF8E' },
+  { name: 'Stripe',      icon: '/assets/images/stripe.svg',      bg: '#635BFF' },
+  { name: 'Claude Code', icon: '/assets/images/claude.svg',      bg: '#D97757' },
+  { name: 'Firebase',    icon: '/assets/images/firebase.svg',    bg: '#FFA500' },
+  { name: 'Obsidian',    icon: '/assets/images/obsidian.svg',    bg: '#7C3AED' },
+  { name: 'Webflow',     icon: '/assets/images/webflow.svg',     bg: '#146EF5' },
+];
+const stackRepeated = [...stack, ...stack];
+
+const testimonials = [
+  {
+    text: "Je recommande Tim ! Il m'a permis de lancer mon site internet avec Bubble. Il est de très bon conseil !!",
+    name: "Charlotte Quintin",
+    role: "CEO · Ezym",
+    avatar: "/assets/avatars/charlotte-quintin.jpeg",
+  },
+  {
+    text: "Nous recommandons cette agence. Nous avions un besoin spécifique de vente en ligne en BtoB sur Prestashop et nous avons trouvé une excellente solution pour notre business grâce à Webinti. Le site en ligne en moins de deux mois, pas mal :)",
+    name: "Fanny de Lipowski",
+    role: "CEO · L'atelier 14",
+    avatar: "/assets/avatars/fanny.avif",
+  },
+  {
+    text: "J'ai recours régulièrement à l'agence Webinti pour des opérations ponctuelles de maintenance après la refonte de mon site. Je retrouve toujours la même réactivité et le même sérieux dans leur travail, je vous recommande leurs services !",
+    name: "Tom Becquart",
+    role: "CEO · Tom Coss",
+    avatar: "/assets/avatars/tom.avif",
+  },
+  {
+    text: "Force de proposition et rigoureux, Tim démontre une très grande capacité d'adaptation. Il m'a aidé à sortir un projet important tout en y apportant des idées qui l'ont rendu bien plus efficace. Je recommande ++",
+    name: "Yohan Cary",
+    role: "CEO · Mon Agent",
+    avatar: "/assets/avatars/yohan.webp",
+  },
+  {
+    text: "En tant que Mentor durant les bootcamp chez Ottho, j'ai été surpris de la qualité pédagogique de Tim. Il arrive à traduire les notions complexes en termes simples. Son état d'esprit orienté solution et sa maîtrise totale de Bubble sont impressionnantes.",
+    name: "Wesley Wasielewski",
+    role: "CEO · DocComs",
+    avatar: "/assets/avatars/wesley.webp",
+  },
+  {
+    text: "Depuis maintenant plusieurs semaines, je m'éclate à suivre les Lives de Tim, qui prend le temps de bien expliquer, de donner des exemples concrets. Tim donne également de sa personne pour faire vivre la communauté et proposer de super formations sur son site !",
+    name: "Matthieu Berteaux",
+    role: "Senior Product Manager",
+    avatar: "/assets/avatars/matthieu.avif",
+  },
+  {
+    text: "Un excellent travail de A à Z. Tim avait pour mission le développement de notre site internet. Le travail a été fait de manière très professionnelle. Je recommande à 100% et il est certain que je ferais appel à cette agence pour d'autres projets.",
+    name: "Lydia Maneru",
+    role: "CEO · Goal Mama",
+    avatar: "/assets/avatars/lydia.webp",
+  },
+  {
+    text: "Excellent formateur Bubble. Pro et à l'écoute. J'ai beaucoup appris grâce à lui.",
+    name: "Kevin Teisseire",
+    role: "Développeur No-Code",
+    avatar: "/assets/avatars/kevin.avif",
+  },
+  {
+    text: "Cette agence de création de website est tout simplement au TOP, toujours disponible et super PRO. Moi qui est eu affaire avec beaucoup d'autres web masters, je peux vous dire que l'agence Webinti est tout simplement la référence dans ce domaine !",
+    name: "Frédéric Edange",
+    role: "Client · 2024",
+    avatar: "/assets/avatars/fred.avif",
+  },
+  {
+    text: "Super formation sur Bubble avec Tim ! Les tutos vidéos dispos sur la plateforme sont très quali ! Je recommande.",
+    name: "Coraline G.",
+    role: "Freelance Webflow · 2025",
+    avatar: "/assets/avatars/coraline.avif",
+  },
+  {
+    text: "Très bon formateur, très compétent et très impliqué dans sa manière d'enseigner et d'aider ses élèves. Recommandé à 200 % !",
+    name: "Mehdi Z.",
+    role: "Apprenant · 2025",
+    avatar: "/assets/avatars/mehdi.avif",
+  },
+  {
+    text: "J'ai pu apprécier l'étendue de ses compétences qui confirment son professionnalisme. Tim cerne les besoins, propose des solutions et livre dans les temps.",
+    name: "Charlotte Mendy",
+    role: "Développeuse Freelance",
+    avatar: "/assets/avatars/charlotte-mendy.webp",
+  },
+  {
+    text: "Tim cerne particulièrement bien les besoins du client, auxquels il apporte de nombreuses suggestions créatives. Il travaille avec rigueur sur les projets et les rend dans les temps définis. Je le recommande.",
+    name: "Félix Becquart",
+    role: "Développeur Freelance",
+    avatar: "/assets/avatars/felix.webp",
+  },
+  {
+    text: "Tim est un super formateur qui maîtrise parfaitement Bubble. Rien que ses lives m'ont beaucoup apporté, et je compte bien très bientôt intégrer sa formation pour aller plus loin.",
+    name: "Emmanuel",
+    role: "Apprenant Bubble",
+    avatar: "/assets/avatars/emmanuel.webp",
+  },
+];
+// 12+ testimonials répartis en 3 colonnes (scroll en boucle, dupliqués côté template)
+const testiCol1 = testimonials.filter((_, i) => i % 3 === 0);
+const testiCol2 = testimonials.filter((_, i) => i % 3 === 1);
+const testiCol3 = testimonials.filter((_, i) => i % 3 === 2);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Webinti',
+    url: 'https://webinti.com',
+    logo: 'https://webinti.com/assets/images/logo.png',
+    description: 'Agence NoCode & IA. Conception, développement, formations Bubble, FlutterFlow, n8n, Claude.',
+    sameAs: ['https://www.linkedin.com/company/webinti', 'https://twitter.com/webinti'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Webinti',
+    url: 'https://webinti.com',
+    inLanguage: 'fr-FR',
+  },
+];
+---
+<BaseLayout
+  title="Webinti — Agence NoCode & IA pour PME et grands comptes"
+  description="Webinti conçoit, développe et livre vos applications web et mobiles NoCode augmentées à l'IA en 4 à 12 semaines. Bubble, FlutterFlow, n8n, Claude. Formations et agents IA pour vos équipes."
+  jsonLd={jsonLd}
+>
+  <Nav active="why" />
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg">
+        <div class="hero-grid"></div>
+        <div class="hero-ember"></div>
+        <div class="hero-ember-core"></div>
+        <div class="hero-noise"></div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="eyebrow">
+          <span class="eyebrow-pill">2026</span>
+          Partenaire officiel Bubble • Bubble Champion
+          <span class="eyebrow-arrow">↗</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="line"><span>Agence IA &amp; NoCode,</span></span>
+          <span class="line"><span class="grad">votre projet au top.</span></span>
+        </h1>
+
+        <p class="hero-sub">
+          Webinti conçoit, développe et livre vos applications web & mobiles en quelques semaines.
+          Formation, développement, augmentation d'équipe — pour PME et grands comptes.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="btn-primary">Démarrer un projet <span>→</span></a>
+          <a href="/showcase/" class="btn-ghost">Voir nos réalisations <kbd>S</kbd></a>
+        </div>
+
+        <div class="hero-visual">
+          <div class="app-window">
+            <div class="aw-topbar">
+              <div class="aw-dots"><span></span><span></span><span></span></div>
+              <div class="aw-url"><span>app.</span>webinti<span>.com</span>/agents-marketing</div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <button class="dash-new">+ Nouvel agent</button>
+                <div class="dash-bell">🔔</div>
+                <div class="dash-avatar">TP</div>
+              </div>
+            </div>
+            <div class="aw-body">
+              <div class="aw-side">
+                <div class="aw-brand-side"><span class="brand-dot" style="width:18px;height:18px"></span><b>Webinti</b></div>
+                <div class="aw-item"><i>▦</i>Tableau de bord</div>
+                <div class="aw-item"><i>◫</i>Sociétés</div>
+                <div class="aw-item"><i>◉</i>Contacts</div>
+                <div class="aw-item"><i>⇥</i>Prospection</div>
+                <div class="aw-item"><i>✦</i>Prospection IA</div>
+                <div class="aw-item"><i>◇</i>Facturation</div>
+                <div class="aw-item active"><i>◈</i>Agents IA<span class="aw-pulse"></span></div>
+                <div class="aw-item"><i>⚙</i>Paramètres</div>
+              </div>
+              <div class="aw-main">
+                <div class="dash-h">
+                  <h3>Agents Marketing</h3>
+                  <div class="dash-sub">4 agents · 1 791 emails envoyés · 1 732 leads contactés</div>
+                </div>
+
+                <div class="dash-tabs">
+                  <button class="active">Dashboard</button>
+                  <button>Agents</button>
+                  <button>Activité</button>
+                </div>
+
+                <div class="dash-stats">
+                  <div class="dash-stat hoverable"><div class="dash-stat-lbl">✉ Emails envoyés</div><div class="dash-stat-v">1 791</div><div class="dash-stat-d">+506 ces 7 derniers jours</div></div>
+                  <div class="dash-stat hoverable"><div class="dash-stat-lbl">◉ Taux d'ouverture</div><div class="dash-stat-v">5%</div><div class="dash-stat-d">90 ouverts / 1 791 envoyés</div></div>
+                  <div class="dash-stat hoverable"><div class="dash-stat-lbl">↗ Taux de clic</div><div class="dash-stat-v">1%</div><div class="dash-stat-d">9 clics / 1 791 envoyés</div></div>
+                  <div class="dash-stat hoverable"><div class="dash-stat-lbl">⎈ Pipeline</div><div class="dash-stat-v">1 732</div><div class="dash-stat-d">contactés / 1 732 avec email</div></div>
+                </div>
+
+                <div class="dash-section-t">Pipeline de conversion</div>
+                <div class="dash-pipeline">
+                  <div class="dash-pipe hoverable"><b style="color:var(--accent)">3 264</b><span>Nouveau</span></div>
+                  <div class="dash-pipe hoverable"><b style="color:var(--accent-2)">1 732</b><span>Contacté</span></div>
+                  <div class="dash-pipe hoverable"><b style="color:#FFB870">428</b><span>Qualifié</span></div>
+                  <div class="dash-pipe hoverable"><b style="color:#6EE7B7">127</b><span>Converti</span></div>
+                  <div class="dash-pipe hoverable"><b class="muted">89</b><span>Rejeté</span></div>
+                </div>
+
+                <div class="dash-section-t">Équipe Marketing</div>
+                <div class="dash-agents">
+                  <div class="dash-agent hoverable"><div class="dash-agent-ico" style="background:rgba(139,92,246,.15);color:var(--accent-2)">✉</div><div><b>Email Optimizer</b><p>Optimise les sujets pour maximiser l'ouverture</p><div class="dash-agent-ft"><span class="dash-idle">idle</span><span>24 leads</span></div></div></div>
+                  <div class="dash-agent hoverable"><div class="dash-agent-ico" style="background:rgba(255,170,64,.15);color:#FFB870">↺</div><div><b>Follow-up Agent</b><p>Relances personnalisées</p><div class="dash-agent-ft"><span class="dash-idle">idle</span><span>139 leads</span></div></div></div>
+                  <div class="dash-agent hoverable"><div class="dash-agent-ico" style="background:rgba(74,222,128,.15);color:#6EE7B7">✓</div><div><b>Closer Agent</b><p>Convertit les leads chauds</p><div class="dash-agent-ft"><span class="dash-idle">idle</span><span>0 leads</span></div></div></div>
+                  <div class="dash-agent hoverable"><div class="dash-agent-ico" style="background:rgba(14,165,233,.15);color:#38BDF8">in</div><div><b>LinkedIn Scout</b><p>Trouve les décideurs</p><div class="dash-agent-ft"><span class="dash-idle">idle</span><span>0 leads</span></div></div></div>
+                </div>
+
+                <div class="dash-section-t">↗ Leads chauds — ont cliqué dans l'email</div>
+                <table class="dash-tbl">
+                  <thead><tr><th>Entreprise</th><th>Ville</th><th class="num">Clics</th><th class="num">Ouvertures</th><th>Dernier clic</th></tr></thead>
+                  <tbody>
+                    <tr class="hoverable"><td><b>MAJ</b> <span class="dash-chip">✦ Maquette envoyée</span></td><td>MONTMERLE-SUR-SAONE</td><td class="num" style="color:var(--accent)">2</td><td class="num">0</td><td>03/04/2026</td></tr>
+                    <tr class="hoverable"><td><b>E.P.C.</b> <span class="dash-chip">✦ Maquette envoyée</span></td><td>VIRIEU-LE-GRAND</td><td class="num" style="color:var(--accent)">2</td><td class="num">0</td><td>02/04/2026</td></tr>
+                    <tr class="hoverable"><td><b>MULTI PRT</b> <span class="dash-chip">✦ Maquette envoyée</span></td><td>TORCIEU</td><td class="num" style="color:var(--accent)">1</td><td class="num">0</td><td>03/04/2026</td></tr>
+                    <tr class="hoverable"><td><b>TMA</b> <span class="dash-chip alt">✦ Maquette prête</span></td><td>CONFRANCON</td><td class="num" style="color:var(--accent)">1</td><td class="num">0</td><td>01/04/2026</td></tr>
+                    <tr class="hoverable"><td><b>ADM</b> <span class="dash-chip">✦ Maquette envoyée</span></td><td>VILLIEU-LOYES-MOLLON</td><td class="num" style="color:var(--accent)">1</td><td class="num">0</td><td>02/04/2026</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="aw-cursor" id="aw-cursor">
+                  <svg width="20" height="20" viewBox="0 0 18 18"><path fill="#fff" stroke="#000" stroke-width=".5" d="M2 1l13 7-6 1.5-2 6z"/></svg>
+                </div>
+                <div class="aw-tooltip" id="aw-tooltip"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-reflect"></div>
+        </div>
+
+        <div class="trust">
+          <div class="trust-label">Ils nous font confiance</div>
+          <div class="trust-logos">
+            <b>Decathlon</b><b>BPI France</b><b>L'Oréal</b><b>Station F</b><b>Doctolib</b><b>Qonto</b><b>Alan</b><b>Back Market</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section class="stack">
+      <div class="stack-label">Le meilleur des technos <b>NoCode + IA</b> en 2026</div>
+      <div class="marquee">
+        <div class="marquee-track">
+          {stackRepeated.map((t) => (
+            <div class="stack-item">
+              <div class="stack-item-icon" style={`background:${t.bg}`}>
+                <img src={t.icon} alt="" width="18" height="18" loading="lazy" />
+              </div>
+              {t.name}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY / PILLARS -->
+    <section class="sec-pad" id="why">
+      <div class="container">
+        <div class="sec-head reveal">
+          <div class="sec-label">Pourquoi Webinti</div>
+          <h2 class="sec-title">Un studio produit <em>augmenté par l'IA.</em></h2>
+          <p class="sec-sub">On construit vite, bien, et on transmet. Chaque livraison embarque une couche d'IA pensée pour votre métier, et vos équipes sont formées pour prendre le relais.</p>
+        </div>
+
+        <div class="pillars">
+          <div class="pillar pillar-big reveal">
+            <div class="pillar-visual">
+              <div class="pv-nodes">
+                <div class="pv-node" style="top:20px;left:30px;">Brief client</div>
+                <div class="pv-node" style="top:20px;right:30px;">Design system</div>
+                <div class="pv-node" style="top:90px;left:80px;">Agent IA spec</div>
+                <div class="pv-node" style="top:90px;right:80px;">Prompt → UI</div>
+                <div class="pv-line" style="top:30px;left:120px;right:120px;"></div>
+                <div class="pv-line" style="top:100px;left:160px;right:160px;"></div>
+              </div>
+            </div>
+            <div class="pillar-num">01 / Vélocité</div>
+            <div class="pillar-title">De l'idée au produit en ligne,<br>en 4 à 12 semaines.</div>
+            <p class="pillar-desc">Bubble, FlutterFlow, Webflow : on livre des produits qui scalent, déjà prêts pour la production. Pas de roadmap à 18 mois — on expédie.</p>
+          </div>
+
+          <div class="pillar reveal">
+            <div class="pillar-visual">
+              <div class="pv-ai">
+                <div class="pv-ai-ring"></div>
+                <div class="pv-ai-ring"></div>
+                <div class="pv-ai-core"></div>
+              </div>
+            </div>
+            <div class="pillar-num">02 / IA native</div>
+            <div class="pillar-title">Agents IA intégrés<br>dans votre stack.</div>
+            <p class="pillar-desc">Workflows Claude, OpenAI, Make et n8n connectés à votre produit. Support client, qualification, génération — on automatise le bruit.</p>
+          </div>
+
+          <div class="pillar reveal">
+            <div class="pillar-num">03 / Formation</div>
+            <div class="pillar-title">Vos équipes<br>montent à bord.</div>
+            <p class="pillar-desc">+80h de formation, mentoring 1:1, handover technique. À la fin, votre équipe interne opère sans nous.</p>
+          </div>
+
+          <div class="pillar pillar-wide reveal">
+            <div class="pillar-visual">
+              <div class="pv-train">
+                <div class="pv-train-row"><span>Accès Linear & Notion</span><div class="pv-train-bar"><div style="width:100%"></div></div><span>100%</span></div>
+                <div class="pv-train-row"><span>Suivi temps réel</span><div class="pv-train-bar"><div style="width:100%"></div></div><span>100%</span></div>
+                <div class="pv-train-row"><span>Code review hebdo</span><div class="pv-train-bar"><div style="width:98%"></div></div><span>98%</span></div>
+                <div class="pv-train-row"><span>Handover technique</span><div class="pv-train-bar"><div style="width:96%"></div></div><span>96%</span></div>
+              </div>
+            </div>
+            <div class="pillar-num">04 / Transparence</div>
+            <div class="pillar-title">Chaque ligne, documentée.<br>Chaque décision, expliquée.</div>
+            <p class="pillar-desc">Accès direct à Linear, Figma, Notion. Vous suivez l'avancement en temps réel. Pas de black box, pas de surprise.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMATIONS -->
+    <section class="sec-pad" id="formations" style="background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+      <div class="container">
+        <div class="sec-head reveal">
+          <div class="sec-label">Formations</div>
+          <h2 class="sec-title">Apprendre <em>vite et bien,</em></h2>
+          <p class="sec-sub">Des parcours conçus avec des devs seniors, testés en conditions réelles, et mis à jour à chaque release majeure des outils.</p>
+        </div>
+
+        <div class="form-tabs reveal">
+          <button class="active" data-cat="all">Tout</button>
+          <button data-cat="bubble"><span class="ft-dot" style="background:#0082F4"></span>Bubble</button>
+          <button data-cat="flutterflow"><span class="ft-dot" style="background:#5D5DFF"></span>FlutterFlow</button>
+          <button data-cat="stripe"><span class="ft-dot" style="background:#635BFF"></span>Stripe</button>
+          <button data-cat="ia"><span class="ft-dot" style="background:#D97757"></span>IA</button>
+          <button data-cat="mentoring"><span class="ft-dot" style="background:#B6F26A"></span>Mentoring</button>
+        </div>
+
+        <div class="formations">
+          <a href="https://academy.webinti.com" class="formation reveal" data-cat="bubble" style="--fc:#0082F4;--fc2:#0B4A8C">
+            <div class="form-sheen"></div>
+            <div class="form-ico-wrap"><div class="form-ico">B</div></div>
+            <div class="form-arrow">↗</div>
+            <div class="form-tag"><span></span>Bubble — Fondamentaux</div>
+            <div class="form-title">Maîtriser Bubble<br>de A à Z</div>
+            <p class="form-desc">40h de contenu structuré. Data types, workflows, API, privacy rules, performances — tout pour livrer en production.</p>
+            <div class="form-meta"><span>40h</span><span>12 modules</span><span>Certificat</span></div>
+          </a>
+
+          <a href="https://academy.webinti.com" class="formation reveal" data-cat="flutterflow" style="--fc:#5D5DFF;--fc2:#2E2E99">
+            <div class="form-sheen"></div>
+            <div class="form-ico-wrap"><div class="form-ico">F</div></div>
+            <div class="form-arrow">↗</div>
+            <div class="form-tag"><span></span>FlutterFlow — Mobile</div>
+            <div class="form-title">Concevoir une app<br>iOS + Android</div>
+            <p class="form-desc">Architecture mobile, Firebase, publication stores. On construit ensemble une app marketplace complète.</p>
+            <div class="form-meta"><span>24h</span><span>8 modules</span><span>Projet final</span></div>
+          </a>
+
+          <a href="https://academy.webinti.com" class="formation reveal" data-cat="stripe" style="--fc:#635BFF;--fc2:#302BAD">
+            <div class="form-sheen"></div>
+            <div class="form-ico-wrap"><div class="form-ico">S</div></div>
+            <div class="form-arrow">↗</div>
+            <div class="form-tag"><span></span>Stripe — Paiement</div>
+            <div class="form-title">Maîtriser Stripe<br>sur Bubble</div>
+            <p class="form-desc">Abonnements, Connect, webhooks, factures. L'environnement paiement pro pour votre produit Bubble.</p>
+            <div class="form-meta"><span>12h</span><span>6 modules</span><span>Templates</span></div>
+          </a>
+
+          <a href="https://academy.webinti.com" class="formation reveal" data-cat="bubble" style="--fc:#00A8A0;--fc2:#004F4B">
+            <div class="form-sheen"></div>
+            <div class="form-ico-wrap"><div class="form-ico">M</div></div>
+            <div class="form-arrow">↗</div>
+            <div class="form-tag"><span></span>Marketplace — Avancé</div>
+            <div class="form-title">Construire un clone<br>type Vinted</div>
+            <p class="form-desc">Niveau avancé. Matching, paiement split, chat temps réel, modération. Parfait pour un Bubble confirmé.</p>
+            <div class="form-meta"><span>18h</span><span>10 modules</span><span>Code source</span></div>
+          </a>
+
+          <a href="https://academy.webinti.com" class="formation reveal" data-cat="ia" style="--fc:#D97757;--fc2:#7A3A22">
+            <div class="form-sheen"></div>
+            <div class="form-ico-wrap"><div class="form-ico">◆</div></div>
+            <div class="form-arrow">↗</div>
+            <div class="form-tag"><span></span>IA & Automatisation</div>
+            <div class="form-title">Agents IA dans<br>vos produits NoCode</div>
+            <p class="form-desc">Nouveau. Claude, OpenAI, Make, n8n. Intégrer un agent utile dans votre produit existant en 2 semaines.</p>
+            <div class="form-meta"><span>16h</span><span>7 modules</span><span>Nouveau</span></div>
+          </a>
+
+          <a href="https://rdv.webinti.com/tim/mentoring-personnalise" target="_blank" rel="noopener" class="formation reveal" data-cat="mentoring" style="--fc:#B6F26A;--fc2:#4E6A1E">
+            <div class="form-sheen"></div>
+            <div class="form-ico-wrap"><div class="form-ico" style="color:#000">★</div></div>
+            <div class="form-arrow">↗</div>
+            <div class="form-tag"><span></span>Mentoring 1:1</div>
+            <div class="form-title">Un expert<br>sur votre projet</div>
+            <p class="form-desc">Sessions d'1h avec un dev senior. Débloquer un point dur, valider une archi, recevoir un audit produit.</p>
+            <div class="form-meta"><span>1h/session</span><span>Sur mesure</span><span>Expert senior</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="sec-pad" id="pricing">
+      <div class="container">
+        <div class="sec-head reveal">
+          <div class="sec-label">Tarifs</div>
+          <h2 class="sec-title">Un prix clair.<br><em>Aucune surprise.</em></h2>
+          <p class="sec-sub">Formations one-shot, ou abonnement mensuel pour accéder à tout le catalogue. TVA incluse.</p>
+        </div>
+
+        <div class="pricing-wrap">
+          <div class="pricing-toggle">
+            <button class="active" data-tab="oneshot">One-shot</button>
+            <button data-tab="sub">Abonnement</button>
+          </div>
+
+          <div class="pricing-grid" id="pricing-os">
+            <div class="price reveal">
+              <div class="price-name">Stripe</div>
+              <div class="price-title">Maîtriser Stripe sur Bubble</div>
+              <div class="price-amount"><b>90</b><sup>€</sup><span class="per">TTC</span></div>
+              <div class="price-old">150€ — prix plein</div>
+              <ul class="price-feats">
+                <li>12h de contenu vidéo</li>
+                <li>6 modules pratiques</li>
+                <li>Templates Stripe fournis</li>
+                <li>Accès Discord privé</li>
+                <li>Mises à jour à vie</li>
+              </ul>
+              <a href="https://academy.webinti.com" class="price-cta">Commencer</a>
+            </div>
+
+            <div class="price reveal">
+              <div class="price-name">FlutterFlow</div>
+              <div class="price-title">App mobile iOS + Android</div>
+              <div class="price-amount"><b>250</b><sup>€</sup><span class="per">TTC</span></div>
+              <div class="price-old">500€ — prix plein</div>
+              <ul class="price-feats">
+                <li>24h de formation</li>
+                <li>Projet marketplace complet</li>
+                <li>Publication App Store & Play</li>
+                <li>Intégration Firebase</li>
+                <li>Mentoring 1h inclus</li>
+              </ul>
+              <a href="https://academy.webinti.com" class="price-cta">Commencer</a>
+            </div>
+
+            <div class="price featured reveal">
+              <div class="price-badge">Le + choisi</div>
+              <div class="price-name">Bubble</div>
+              <div class="price-title">Bubble — fondamentaux complets</div>
+              <div class="price-amount"><b>500</b><sup>€</sup><span class="per">TTC</span></div>
+              <div class="price-old">950€ — prix plein</div>
+              <ul class="price-feats">
+                <li>40h structurées</li>
+                <li>12 modules progressifs</li>
+                <li>2 projets complets</li>
+                <li>Revue de code 1:1</li>
+                <li>Certificat Webinti</li>
+              </ul>
+              <a href="https://academy.webinti.com" class="price-cta">Commencer</a>
+            </div>
+
+            <div class="price reveal">
+              <div class="price-name">IA & Automatisation</div>
+              <div class="price-title">Agents IA dans vos produits</div>
+              <div class="price-amount"><b>190</b><sup>€</sup><span class="per">TTC</span></div>
+              <div class="price-old">350€ — prix plein</div>
+              <ul class="price-feats">
+                <li>16h de formation</li>
+                <li>Claude, OpenAI, Make, n8n</li>
+                <li>3 projets d'intégration</li>
+                <li>Prompts & templates</li>
+                <li>Discord communauté</li>
+              </ul>
+              <a href="https://academy.webinti.com" class="price-cta">Commencer</a>
+            </div>
+          </div>
+
+          <div class="pricing-grid" id="pricing-sub" hidden>
+            <div class="price reveal">
+              <div class="price-name">Mensuel</div>
+              <div class="price-title">Tout le catalogue, sans engagement</div>
+              <div class="price-amount"><b>39</b><sup>€</sup><span class="per">/mois</span></div>
+              <div class="price-note">Résiliable à tout moment</div>
+              <ul class="price-feats">
+                <li>Accès à <b style="color:var(--text)">toutes</b> les formations</li>
+                <li>Nouveaux contenus chaque mois</li>
+                <li>Discord privé + événements</li>
+                <li>Mentoring 30min / mois</li>
+                <li>Sans engagement</li>
+              </ul>
+              <a href="https://academy.webinti.com" class="price-cta">S'abonner</a>
+            </div>
+
+            <div class="price featured reveal">
+              <div class="price-badge">Économisez 17%</div>
+              <div class="price-name">Annuel</div>
+              <div class="price-title">Tout le catalogue — 12 mois</div>
+              <div class="price-amount"><b>390</b><sup>€</sup><span class="per">/an</span></div>
+              <div class="price-note">≈ 32,50€/mois — 2 mois offerts</div>
+              <ul class="price-feats">
+                <li>Accès à <b style="color:var(--text)">toutes</b> les formations</li>
+                <li>Nouvelles sorties en avant-première</li>
+                <li>Discord privé + événements</li>
+                <li>Mentoring 1h / mois</li>
+                <li>Certificats Webinti inclus</li>
+              </ul>
+              <a href="https://academy.webinti.com" class="price-cta">Choisir l'annuel</a>
+            </div>
+
+            <div class="price reveal">
+              <div class="price-name">Équipe</div>
+              <div class="price-title">Jusqu'à 5 membres</div>
+              <div class="price-amount"><b>990</b><sup>€</sup><span class="per">/an</span></div>
+              <div class="price-old">Pour les agences et startups</div>
+              <ul class="price-feats">
+                <li>5 sièges inclus</li>
+                <li>Tableau de bord admin</li>
+                <li>Mentoring 2h / mois partagées</li>
+                <li>Facturation entreprise</li>
+                <li>Support prioritaire</li>
+              </ul>
+              <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="price-cta">Nous contacter</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="sec-pad" id="testimonials" style="background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+      <div class="container">
+        <div class="sec-head reveal">
+          <div class="sec-label">Ils nous ont fait confiance</div>
+          <h2 class="sec-title">Des produits <em>qui tournent.</em></h2>
+        </div>
+        <div class="testi-cols reveal">
+          <div class="testi-col" style="--dur:34s">
+            <div class="testi-track">
+              {[...testiCol1, ...testiCol1].map((t) => (
+                <div class="testi">
+                  <p class="testi-quote">"{t.text}"</p>
+                  <div class="testi-author">
+                    <img class="testi-avatar" src={t.avatar} alt={t.name} loading="lazy" width="40" height="40" />
+                    <div>
+                      <div class="testi-name">{t.name}</div>
+                      <div class="testi-role">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="testi-col testi-col-md" style="--dur:42s">
+            <div class="testi-track">
+              {[...testiCol2, ...testiCol2].map((t) => (
+                <div class="testi">
+                  <p class="testi-quote">"{t.text}"</p>
+                  <div class="testi-author">
+                    <img class="testi-avatar" src={t.avatar} alt={t.name} loading="lazy" width="40" height="40" />
+                    <div>
+                      <div class="testi-name">{t.name}</div>
+                      <div class="testi-role">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="testi-col testi-col-lg" style="--dur:38s">
+            <div class="testi-track">
+              {[...testiCol3, ...testiCol3].map((t) => (
+                <div class="testi">
+                  <p class="testi-quote">"{t.text}"</p>
+                  <div class="testi-author">
+                    <img class="testi-avatar" src={t.avatar} alt={t.name} loading="lazy" width="40" height="40" />
+                    <div>
+                      <div class="testi-name">{t.name}</div>
+                      <div class="testi-role">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="sec-pad" id="contact">
+      <div class="container">
+        <div class="cta-block reveal">
+          <h2 class="cta-title">Parlons de votre <em style="font-style:italic;background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent">projet.</em></h2>
+          <p class="cta-sub">Premier échange de 30 min, offert. On regarde ensemble ce qu'on peut livrer et dans quel délai.</p>
+          <div class="hero-ctas" style="margin-bottom:0">
+            <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="btn-primary">Réserver un créneau <span>→</span></a>
+            <a href="mailto:agence.webinti@gmail.com" class="btn-ghost">Nous écrire</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script>
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    // Pricing toggle — swap grids
+    const osGrid = document.getElementById('pricing-os');
+    const subGrid = document.getElementById('pricing-sub');
+    document.querySelectorAll<HTMLButtonElement>('.pricing-toggle button').forEach((b) => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.pricing-toggle button').forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        const tab = b.dataset.tab;
+        if (osGrid && subGrid) {
+          osGrid.hidden = tab !== 'oneshot';
+          subGrid.hidden = tab !== 'sub';
+        }
+      });
+    });
+
+    // Formations tab filter
+    document.querySelectorAll<HTMLButtonElement>('.form-tabs button').forEach((b) => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.form-tabs button').forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        const cat = b.dataset.cat;
+        document.querySelectorAll<HTMLElement>('.formation').forEach((f) => {
+          if (cat === 'all' || f.dataset.cat === cat) f.classList.remove('hidden');
+          else f.classList.add('hidden');
+        });
+      });
+    });
+
+    // Hero ember scroll intensifier
+    (function () {
+      const hero = document.querySelector<HTMLElement>('.hero');
+      if (!hero) return;
+      let ticking = false;
+      function update() {
+        const r = hero!.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const p = Math.min(1, Math.max(0, 1 - (r.bottom / (vh + r.height * 0.5))));
+        const op = 0.5 + p * 0.45;
+        const sc = 1 + p * 0.2;
+        hero!.style.setProperty('--ember-opacity', op.toFixed(3));
+        hero!.style.setProperty('--ember-scale', sc.toFixed(3));
+        ticking = false;
+      }
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      update();
+    })();
+
+    // Smooth scroll
+    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href') || '';
+        if (id.length > 1) {
+          const t = document.querySelector(id);
+          if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        }
+      });
+    });
+
+    // Dashboard cursor tour
+    (function () {
+      const cursor = document.getElementById('aw-cursor');
+      const tip = document.getElementById('aw-tooltip');
+      const main = document.querySelector<HTMLElement>('.aw-main');
+      if (!cursor || !main || !tip) return;
+      const targets = [
+        { sel: '.dash-stat:nth-child(2)', text: "Taux d'ouverture · 5%" },
+        { sel: '.dash-pipe:nth-child(1)', text: '3 264 leads · Nouveau' },
+        { sel: '.dash-agent:nth-child(2)', text: 'Follow-up Agent' },
+        { sel: '.dash-tbl tr:nth-child(2)', text: 'E.P.C. · 2 clics' },
+        { sel: '.dash-stat:nth-child(4)', text: 'Pipeline · 1 732 contacts' },
+      ];
+      let i = 0;
+      function step() {
+        const t = targets[i % targets.length];
+        const el = main!.querySelector<HTMLElement>(t.sel);
+        if (!el) { i++; setTimeout(step, 800); return; }
+        const mr = main!.getBoundingClientRect();
+        const er = el.getBoundingClientRect();
+        const x = er.left - mr.left + er.width * 0.35;
+        const y = er.top - mr.top + er.height * 0.5;
+        cursor!.style.transform = `translate(${x}px,${y}px)`;
+        document.querySelectorAll('.hoverable.cursor-active').forEach((e) => e.classList.remove('cursor-active'));
+        setTimeout(() => {
+          el.classList.add('hoverable', 'cursor-active');
+          tip!.textContent = t.text;
+          tip!.style.left = (x + 22) + 'px';
+          tip!.style.top = (y + 10) + 'px';
+          tip!.classList.add('on');
+        }, 1100);
+        setTimeout(() => {
+          tip!.classList.remove('on');
+          el.classList.remove('cursor-active');
+        }, 2400);
+        i++;
+        setTimeout(step, 2800);
+      }
+      setTimeout(step, 1500);
+    })();
+  </script>
+</BaseLayout>

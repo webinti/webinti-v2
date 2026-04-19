@@ -1,0 +1,209 @@
+---
+export interface Props {
+  active?: 'why' | 'expertise' | 'showcase' | 'contact' | null;
+}
+const { active = null } = Astro.props;
+const base = '/';
+---
+<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <filter id="nav-glass" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turbulence"/>
+      <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise"/>
+      <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="30" xChannelSelector="R" yChannelSelector="B" result="displaced"/>
+      <feGaussianBlur in="displaced" stdDeviation="2" result="finalBlur"/>
+      <feComposite in="finalBlur" in2="finalBlur" operator="over"/>
+    </filter>
+  </defs>
+</svg>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href={base} class="brand"><span class="brand-dot"></span>webinti</a>
+    <div class="nav-links" id="nav-links">
+      <span class="nav-pill" id="nav-pill" aria-hidden="true"></span>
+      <a href={`${base}#why`} class={active === 'why' ? 'active' : ''}>Pourquoi webinti ?</a>
+      <button class="nav-trigger" id="expertise-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="expertise-mega">
+        Expertise
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <a href="/showcase/" class={active === 'showcase' ? 'active' : ''}>Showcase</a>
+      <a href={`${base}#contact`} class={active === 'contact' ? 'active' : ''}>Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://academy.webinti.com" class="nav-cta nav-cta-desktop">Espace Client</a>
+      <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="nav-cta nav-cta-primary">Parler à un expert</a>
+      <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-drawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-drawer" id="nav-drawer" aria-hidden="true">
+  <a href={`${base}#why`}>Pourquoi webinti ?</a>
+  <details class="nav-drawer-group">
+    <summary>Expertise<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
+    <a href="/expertise/developpement-web/">Développement Web</a>
+    <a href="/expertise/developpement-mobile/">Développement Mobile</a>
+    <a href="/expertise/formations/">Formations</a>
+    <a href="/expertise/tutoriels/">Tutoriels</a>
+    <a href="https://rdv.webinti.com/tim/mentoring-personnalise" target="_blank" rel="noopener">Mentoring</a>
+  </details>
+  <a href="/showcase/">Showcase</a>
+  <a href={`${base}#contact`}>Contact</a>
+  <a href="https://academy.webinti.com" class="nav-drawer-cta">Espace Client</a>
+</div>
+
+<div class="mega-scrim" id="mega-scrim" aria-hidden="true"></div>
+<div class="mega" id="expertise-mega" role="menu" aria-label="Expertise">
+  <div class="mega-panel">
+    <div class="mega-label">Choisissez un service</div>
+    <div class="mega-grid">
+      <a href="/expertise/developpement-web/" class="mega-card" data-mega>
+        <div class="mega-card-head">
+          <span class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M8 18v2"/><path d="M16 18v2"/><path d="M6 20h12"/></svg></span>
+          <div class="mega-title">Développement Web</div>
+        </div>
+        <div class="mega-desc">Nous créons n'importe quel projet digital (Sites, CRM, Intranet, Marketplace, E-Commerce…)</div>
+      </a>
+      <a href="/expertise/developpement-mobile/" class="mega-card" data-mega>
+        <div class="mega-card-head">
+          <span class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 19h2"/></svg></span>
+          <div class="mega-title">Développement Mobile</div>
+          <span class="mega-new">New</span>
+        </div>
+        <div class="mega-desc">Vous avez un projet pour créer une application Mobile compatible avec iOS et Android</div>
+      </a>
+      <a href="/expertise/formations/" class="mega-card" data-mega>
+        <div class="mega-card-head">
+          <span class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5z"/><path d="M6 11v4c0 1.5 3 3 6 3s6-1.5 6-3v-4"/></svg></span>
+          <div class="mega-title">Formations</div>
+        </div>
+        <div class="mega-desc">+ de 80 heures de formation pour développer votre projet</div>
+      </a>
+      <a href="/expertise/tutoriels/" class="mega-card" data-mega>
+        <div class="mega-card-head">
+          <span class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polygon points="10 9 15 12 10 15" fill="currentColor" stroke="none"/></svg></span>
+          <div class="mega-title">Tutoriels</div>
+        </div>
+        <div class="mega-desc">Des vidéos à votre disposition pour monter en compétence</div>
+      </a>
+      <a href="https://rdv.webinti.com/tim/mentoring-personnalise" target="_blank" rel="noopener" class="mega-card" data-mega>
+        <div class="mega-card-head">
+          <span class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12a4 4 0 100-8 4 4 0 000 8z"/><path d="M4 21a8 8 0 0116 0"/><path d="M17 8l3-3M7 8L4 5"/></svg></span>
+          <div class="mega-title">Mentoring</div>
+        </div>
+        <div class="mega-desc">Discutez avec un expert sur vos problématiques techniques</div>
+      </a>
+    </div>
+    <div class="mega-foot">
+      <div class="mega-tools" aria-hidden="true">
+        <span class="mega-tool" title="FlutterFlow" aria-label="FlutterFlow"><svg viewBox="0 0 24 24" fill="none"><path d="M15.5 3L4 14.5 8.5 19 20 7.5 15.5 3z" fill="#4285F4"/><path d="M15.5 11L9 17.5l3 3 6.5-6.5-3-3z" fill="#1A73E8"/></svg></span>
+        <span class="mega-tool" title="Bubble" aria-label="Bubble"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#0C57F3"/><path d="M8.5 8.5c0-.8.7-1.5 1.5-1.5h2.5c2.2 0 4 1.8 4 4s-1.8 4-4 4h-2.5c-.8 0-1.5-.7-1.5-1.5v-5zm2 1v3h2c1 0 2-.8 2-1.8S13.5 9.5 12.5 9.5h-2z" fill="#fff"/></svg></span>
+        <span class="mega-tool" title="Figma" aria-label="Figma"><svg viewBox="0 0 24 24"><path fill="#F24E1E" d="M8 4h4v4H8a2 2 0 110-4z"/><path fill="#FF7262" d="M12 4h4a2 2 0 110 4h-4V4z"/><path fill="#A259FF" d="M12 8h4a2 2 0 110 4h-4V8z"/><circle cx="14" cy="14" r="2" fill="#1ABCFE"/><path fill="#0ACF83" d="M8 12h4v4a2 2 0 11-4 0v-4z"/><path fill="#A259FF" d="M8 8h4v4H8a2 2 0 110-4z"/></svg></span>
+        <span class="mega-tool" title="Framer" aria-label="Framer"><svg viewBox="0 0 24 24"><path fill="#0055FF" d="M6 3h12v6h-6l6 6h-6v6l-6-6V9h6L6 3z"/></svg></span>
+        <span class="mega-tool" title="Webflow" aria-label="Webflow"><svg viewBox="0 0 24 24"><path fill="#146EF5" d="M3 5h3.2l2.1 6.2L10.7 5h2.5l2.4 6.2L17.8 5H21l-4.7 14h-2.6l-2.2-6-2.2 6H6.7L3 5z"/></svg></span>
+      </div>
+      <div class="mega-foot-text">Plusieurs outils pour vous offrir le meilleur résultat</div>
+      <a href="/expertise/developpement-web/" class="mega-foot-cta">En savoir plus <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Liquid glass pill — glissement d'un onglet à l'autre au hover
+  const navLinks = document.getElementById('nav-links');
+  const navPill = document.getElementById('nav-pill');
+  if (navLinks && navPill) {
+    const items = Array.from(navLinks.querySelectorAll<HTMLElement>(':scope > a, :scope > button'));
+    const movePill = (el: HTMLElement) => {
+      const parentRect = navLinks.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      navPill.style.width = r.width + 'px';
+      navPill.style.height = r.height + 'px';
+      navPill.style.transform = `translate(${r.left - parentRect.left}px, ${r.top - parentRect.top}px)`;
+      navPill.classList.add('visible');
+    };
+    const hidePill = () => {
+      const expandedEl = items.find((el) => el.getAttribute('aria-expanded') === 'true');
+      if (expandedEl) movePill(expandedEl);
+      else navPill.classList.remove('visible');
+    };
+    items.forEach((el) => {
+      el.addEventListener('mouseenter', () => movePill(el));
+      el.addEventListener('focus', () => movePill(el));
+    });
+    navLinks.addEventListener('mouseleave', hidePill);
+  }
+
+  // Mobile drawer
+  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  if (burger && drawer) {
+    burger.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      drawer.setAttribute('aria-hidden', String(!open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    drawer.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        drawer.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  const trigger = document.getElementById('expertise-trigger');
+  const mega = document.getElementById('expertise-mega');
+  const scrim = document.getElementById('mega-scrim');
+  if (trigger && mega && scrim) {
+    let openT: number | undefined;
+    let closeT: number | undefined;
+    const open = () => {
+      if (closeT) clearTimeout(closeT);
+      mega.classList.add('open');
+      scrim.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+    };
+    const close = () => {
+      mega.classList.remove('open');
+      scrim.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+    const delayedClose = () => {
+      if (closeT) clearTimeout(closeT);
+      closeT = window.setTimeout(close, 140);
+    };
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      mega.classList.contains('open') ? close() : open();
+    });
+    trigger.addEventListener('mouseenter', () => {
+      if (closeT) clearTimeout(closeT);
+      openT = window.setTimeout(open, 80);
+    });
+    trigger.addEventListener('mouseleave', () => {
+      if (openT) clearTimeout(openT);
+      delayedClose();
+    });
+    mega.addEventListener('mouseenter', () => {
+      if (closeT) clearTimeout(closeT);
+      open();
+    });
+    mega.addEventListener('mouseleave', delayedClose);
+    scrim.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    document.querySelectorAll<HTMLElement>('.mega-card').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  }
+</script>

@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+*~lock~
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Astro build output
+dist/
+.astro/
+
+# Local history / scratch
+.remember/

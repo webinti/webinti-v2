@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const categories = [
+  { slug: 'all', label: 'Tous' },
+  { slug: 'web', label: 'Web' },
+  { slug: 'mobile', label: 'Mobile' },
+  { slug: 'ia', label: 'IA' },
+  { slug: 'marketplace', label: 'Marketplace' },
+  { slug: 'crm', label: 'CRM' },
+  { slug: 'saas', label: 'SaaS' },
+];
+---
+<BaseLayout
+  title="Showcase — Projets Webinti"
+  description="Sélection de projets NoCode & IA livrés par Webinti : marketplaces, CRM, assistants IA, apps mobiles."
+  canonical="https://webinti.com/showcase/"
+>
+  <Nav active="showcase" />
+  <main>
+    <section class="sc-hero">
+      <div class="container">
+        <span class="eyebrow">Showcase</span>
+        <h1>Les projets qu'on a livrés.</h1>
+        <p class="lead">Marketplaces, CRM sur-mesure, assistants IA, apps mobiles — une sélection de ce qu'on a construit pour nos clients.</p>
+      </div>
+    </section>
+
+    <section class="sc-list">
+      <div class="container">
+        <div class="sc-filter" role="tablist">
+          {categories.map((c) => (
+            <button type="button" class="sc-tab" data-cat={c.slug} aria-selected={c.slug === 'all'}>{c.label}</button>
+          ))}
+        </div>
+
+        <div class="sc-grid">
+          {projects.map((p) => (
+            <a class="sc-card" href={`/showcase/${p.id}/`} data-cat={p.data.category}>
+              <div class="sc-cover" aria-hidden="true">
+                <span class="sc-cat">{p.data.category}</span>
+              </div>
+              <div class="sc-body">
+                <h3>{p.data.title}</h3>
+                <p>{p.data.summary}</p>
+                <ul class="sc-stack">
+                  {p.data.stack.slice(0, 4).map((s) => <li>{s}</li>)}
+                </ul>
+                <div class="sc-meta">
+                  <span>{p.data.client}</span>
+                  <span>{p.data.year}</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+
+  <style>
+    .sc-hero{padding:120px 0 40px;border-bottom:1px solid var(--border)}
+    .sc-hero h1{font-size:clamp(40px,6vw,72px);line-height:1.05;margin:16px 0 12px;font-weight:700;letter-spacing:-0.02em}
+    .sc-hero .lead{color:var(--text-dim);max-width:640px;font-size:18px}
+    .sc-list{padding:60px 0 120px}
+    .sc-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
+    .sc-tab{padding:10px 18px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-size:14px;cursor:pointer;transition:all .2s}
+    .sc-tab:hover{border-color:var(--text);color:var(--text)}
+    .sc-tab[aria-selected="true"]{background:var(--ember);border-color:var(--ember);color:#fff}
+    .sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+    .sc-card{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;background:var(--card);transition:transform .3s,border-color .3s}
+    .sc-card:hover{transform:translateY(-4px);border-color:var(--ember)}
+    .sc-card[hidden]{display:none}
+    .sc-cover{aspect-ratio:16/10;background:linear-gradient(135deg,#1a1a1a,#2a1a1a);position:relative;display:flex;align-items:flex-end;padding:16px}
+    .sc-cat{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:rgba(200,64,63,0.15);color:var(--ember-light);border:1px solid rgba(200,64,63,0.3)}
+    .sc-body{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
+    .sc-body h3{font-size:20px;font-weight:600;letter-spacing:-0.01em}
+    .sc-body p{color:var(--text-dim);font-size:14px;line-height:1.55;flex:1}
+    .sc-stack{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0}
+    .sc-stack li{font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text-dim)}
+    .sc-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);padding-top:8px;border-top:1px solid var(--border)}
+  </style>
+
+  <script>
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.sc-tab');
+    const cards = document.querySelectorAll<HTMLElement>('.sc-card');
+    tabs.forEach((t) => {
+      t.addEventListener('click', () => {
+        tabs.forEach((x) => x.setAttribute('aria-selected', 'false'));
+        t.setAttribute('aria-selected', 'true');
+        const cat = t.dataset.cat;
+        cards.forEach((c) => {
+          c.hidden = cat !== 'all' && c.dataset.cat !== cat;
+        });
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  keywords?: string;
+  jsonLd?: Record<string, any>[];
+  extraStyles?: string[];
+}
+const {
+  title,
+  description,
+  canonical,
+  ogImage = 'https://webinti.com/assets/images/og.jpg',
+  keywords = 'agence nocode, agence IA, Bubble, FlutterFlow, n8n, Claude, agent IA, formation nocode, développement nocode',
+  jsonLd = [],
+  extraStyles = [],
+} = Astro.props;
+
+const siteUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://webinti.com').toString();
+const canonicalUrl = canonical ?? siteUrl;
+---
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<meta name="author" content="Webinti" />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#07070B" />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="icon" type="image/svg+xml" href="/assets/brand/logo.svg" />
+<link rel="apple-touch-icon" href="/assets/brand/logo.svg" />
+<link rel="mask-icon" href="/assets/brand/logo.svg" color="#C8403F" />
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:site_name" content="Webinti" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImage} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+
+<link rel="preload" href="/assets/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin />
+
+{jsonLd.map((obj) => (
+  <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+))}
+{extraStyles.map((href) => <link rel="stylesheet" href={href} />)}
+</head>
+<body>
+<slot />
+</body>
+</html>
