@@ -7,6 +7,7 @@
 
 /* HERO */
 .ex-hero{position:relative;padding:120px 0 64px;overflow:hidden;border-bottom:1px solid var(--border)}
+.ex-hero.ex-hero-tall{padding:240px 0 128px}
 .ex-hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
 .ex-hero-bg::before{content:"";position:absolute;inset:0;background:
   radial-gradient(900px 500px at 20% 0%,rgba(200,64,63,0.20),transparent 60%),
