@@ -17,6 +17,10 @@
   linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px);
   background-size:48px 48px;mask-image:radial-gradient(ellipse 800px 400px at 50% 20%,#000 30%,transparent 70%)}
 .ex-hero-inner{position:relative;z-index:1;max-width:980px}
+.ex-hero-inner.ex-hero-center{margin:0 auto;text-align:center}
+.ex-hero-inner.ex-hero-center .ex-sub{margin-left:auto;margin-right:auto}
+.ex-hero-inner.ex-hero-center .ex-cta-row{justify-content:center}
+.ex-hero-inner.ex-hero-center .ex-meta{justify-content:center}
 .crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-faint);margin-bottom:20px;flex-wrap:wrap}
 .crumb a{color:var(--text-dim);transition:color .2s}
 .crumb a:hover{color:var(--text)}
