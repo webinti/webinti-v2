@@ -1,13 +1,14 @@
 ---
-title: Tom Coss — Site coaching sportif
-client: Tom Coss
-summary: Site vitrine et plateforme de réservation pour coach sportif indépendant, avec Calendly et paiements intégrés.
-stack: [Webflow, Calendly, Stripe]
+title: "Tom Coss — Magicien"
+client: "Tom Coss"
+summary: "Portfolio magicien et mentaliste à Paris."
+stack: [Webflow]
 category: web
 year: 2024
-duration: 3 semaines
 featured: false
-order: 70
+order: 130
+cover: "/assets/showcase/tom-coss.avif"
+url: "https://tomlemagicien.com/"
 ---
 
-Site premium pour le coach Tom Coss : éditorial soigné, réservation de séances directement en ligne, paiement intégré, suivi des séances et relances automatiques.
+Portfolio magicien et mentaliste à Paris.
