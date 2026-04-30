@@ -53,7 +53,8 @@ nav.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;
 .mega-label{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);margin-bottom:14px;padding-left:2px}
 .mega-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
 .mega-grid .mega-card:nth-child(1),.mega-grid .mega-card:nth-child(2){grid-column:span 3}
-.mega-grid .mega-card:nth-child(n+3){grid-column:span 2}
+.mega-grid .mega-card:nth-child(3),.mega-grid .mega-card:nth-child(4),.mega-grid .mega-card:nth-child(5){grid-column:span 2}
+.mega-grid .mega-card-wide{grid-column:span 6}
 .mega-card{display:block;padding:18px 18px 20px;border-radius:14px;background:rgba(255,255,255,0.025);border:1px solid var(--border);transition:background .2s,border-color .2s,transform .2s;position:relative;overflow:hidden}
 .mega-card:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.14)}
 .mega-card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(242,106,50,0.18),transparent 40%);opacity:0;transition:opacity .3s;pointer-events:none}
@@ -74,7 +75,7 @@ nav.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;
 .mega-foot-cta:hover{background:rgba(242,106,50,0.12);border-color:rgba(242,106,50,0.4);color:#ffd4bd}
 .mega-scrim{position:fixed;inset:0;background:rgba(0,0,0,0.35);backdrop-filter:blur(3px);z-index:48;opacity:0;pointer-events:none;transition:opacity .22s}
 .mega-scrim.open{opacity:1;pointer-events:auto}
-@media (max-width: 820px){.mega-grid{grid-template-columns:1fr;gap:10px}.mega-grid .mega-card,.mega-grid .mega-card:nth-child(n+3),.mega-grid .mega-card:nth-child(1),.mega-grid .mega-card:nth-child(2){grid-column:span 1}}
+@media (max-width: 820px){.mega-grid{grid-template-columns:1fr;gap:10px}.mega-grid .mega-card,.mega-grid .mega-card:nth-child(n),.mega-grid .mega-card-wide{grid-column:span 1}}
 .nav-right{margin-left:auto;display:flex;gap:8px;align-items:center}
 .nav-cta{padding:9px 16px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid var(--border-strong);font-size:13.5px;font-weight:600;transition:all .2s}
 .nav-cta:hover{background:rgba(255,255,255,0.1)}
