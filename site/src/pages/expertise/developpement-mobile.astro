@@ -82,7 +82,7 @@ const faqs = [
           exposure="1.05"
           camera-orbit="-8deg 82deg 1.05m"
           field-of-view="32deg"
-          loading="eager"
+          loading="lazy"
           reveal="auto"
         ></model-viewer>
       </div>
@@ -208,8 +208,15 @@ const faqs = [
 </section>
 </ExpertiseLayout>
 
-<!-- Google model-viewer (Web Component) for the iPhone 3D scene -->
-<script type="module" src="https://unpkg.com/@google/model-viewer@4.0.0/dist/model-viewer.min.js" is:inline></script>
+<!-- Google model-viewer (Web Component) — only injected on desktop (>900px) -->
+<script is:inline>
+  if (window.matchMedia('(min-width: 901px)').matches) {
+    const s = document.createElement('script');
+    s.type = 'module';
+    s.src = 'https://unpkg.com/@google/model-viewer@4.0.0/dist/model-viewer.min.js';
+    document.head.appendChild(s);
+  }
+</script>
 
 <style>
   .ex-hero-mobile3d{padding-top:120px;padding-bottom:0;overflow:visible}
@@ -220,11 +227,8 @@ const faqs = [
   @keyframes glowPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
 
   @media(max-width:900px){
-    .hero3d-grid{grid-template-columns:1fr;gap:24px;min-height:0}
-    .hero3d-stage{order:-1;height:420px}
+    .hero3d-grid{grid-template-columns:1fr;gap:0;min-height:0}
+    .hero3d-stage{display:none}
     .ex-hero-mobile3d{padding-top:96px}
-  }
-  @media(max-width:560px){
-    .hero3d-stage{height:360px}
   }
 </style>
