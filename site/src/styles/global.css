@@ -395,9 +395,14 @@ footer{padding:80px 0 40px;border-top:1px solid var(--border);background:var(--b
   .pillars{grid-template-columns:1fr}
   .pillar,.pillar-big,.pillar-wide{grid-column:span 1}
   .formations,.testi-grid,.pricing-grid{grid-template-columns:1fr}
-  .testi-col-md,.testi-col-lg{display:none}
-  .testi-cols{max-height:560px;gap:0}
-  .testi-col{max-width:none}
+  /* Testimonials → static stack on mobile, all 3 columns visible, no animation, no mask, no duplicates */
+  .testi-cols{flex-direction:column;max-height:none;gap:14px;-webkit-mask-image:none;mask-image:none;overflow:visible}
+  .testi-col,.testi-col-md,.testi-col-lg{display:block;max-width:none;flex:0 0 auto}
+  .testi-track{animation:none !important;gap:14px}
+  .testi-dup{display:none}
+  .testi{padding:22px}
+  .testi-quote{font-size:14.5px;margin-bottom:16px}
+  .testi-author{padding-top:16px}
   .aw-body{grid-template-columns:1fr}
   .aw-side{display:none}
   .foot-top{grid-template-columns:1fr 1fr;gap:32px}

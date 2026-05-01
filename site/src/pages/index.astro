@@ -376,8 +376,8 @@ const jsonLd = [
         <div class="testi-cols reveal">
           <div class="testi-col" style="--dur:34s">
             <div class="testi-track">
-              {[...testiCol1, ...testiCol1].map((t) => (
-                <div class="testi">
+              {[...testiCol1, ...testiCol1].map((t, i) => (
+                <div class={`testi${i >= testiCol1.length ? ' testi-dup' : ''}`} aria-hidden={i >= testiCol1.length ? 'true' : undefined}>
                   <p class="testi-quote">"{t.text}"</p>
                   <div class="testi-author">
                     <img class="testi-avatar" src={t.avatar} alt={t.name} loading="lazy" width="40" height="40" />
@@ -392,8 +392,8 @@ const jsonLd = [
           </div>
           <div class="testi-col testi-col-md" style="--dur:42s">
             <div class="testi-track">
-              {[...testiCol2, ...testiCol2].map((t) => (
-                <div class="testi">
+              {[...testiCol2, ...testiCol2].map((t, i) => (
+                <div class={`testi${i >= testiCol2.length ? ' testi-dup' : ''}`} aria-hidden={i >= testiCol2.length ? 'true' : undefined}>
                   <p class="testi-quote">"{t.text}"</p>
                   <div class="testi-author">
                     <img class="testi-avatar" src={t.avatar} alt={t.name} loading="lazy" width="40" height="40" />
@@ -408,8 +408,8 @@ const jsonLd = [
           </div>
           <div class="testi-col testi-col-lg" style="--dur:38s">
             <div class="testi-track">
-              {[...testiCol3, ...testiCol3].map((t) => (
-                <div class="testi">
+              {[...testiCol3, ...testiCol3].map((t, i) => (
+                <div class={`testi${i >= testiCol3.length ? ' testi-dup' : ''}`} aria-hidden={i >= testiCol3.length ? 'true' : undefined}>
                   <p class="testi-quote">"{t.text}"</p>
                   <div class="testi-author">
                     <img class="testi-avatar" src={t.avatar} alt={t.name} loading="lazy" width="40" height="40" />

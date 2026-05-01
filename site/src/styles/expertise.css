@@ -92,3 +92,30 @@ details[open] .faq-q::after{transform:rotate(45deg)}
 .tools-strip{display:flex;gap:10px;flex-wrap:wrap}
 .tool-chip{padding:10px 16px;border-radius:999px;background:rgba(255,255,255,0.04);border:1px solid var(--border);font-size:13px;color:var(--text-dim);font-weight:500;display:inline-flex;align-items:center;gap:8px}
 .tool-chip .tool-dot{width:6px;height:6px;border-radius:50%;background:var(--accent-2)}
+
+/* RESPONSIVE — mobile pass */
+@media(max-width:760px){
+  .container{padding:0 20px}
+  .ex-hero{padding:96px 0 48px}
+  .ex-hero.ex-hero-tall{padding:160px 0 80px}
+  .ex-hero-inner{max-width:none}
+  .crumb{font-size:12px;margin-bottom:14px}
+  .ex-eyebrow{font-size:11px;padding:5px 12px;margin-bottom:18px}
+  .ex-sub{font-size:16px;margin-bottom:24px}
+  .ex-cta-row{width:100%;gap:10px}
+  .ex-cta-row .btn{flex:1 1 auto;justify-content:center;min-width:0}
+  .ex-meta{gap:16px 20px;margin-top:28px}
+  .ex-meta-label{font-size:10px}
+  .ex-meta-value{font-size:15px}
+  .sec{padding:64px 0}
+  .sec .sec-head{margin-bottom:32px}
+  .sec-lede{font-size:15.5px}
+  .feat{padding:22px}
+  .feat-t{font-size:16.5px}
+  .feat-d{font-size:14px}
+  .step{padding:20px}
+  .faq-q{font-size:16px}
+  .faq-a{font-size:14.5px}
+  .ex-cta{padding:60px 0}
+  .ex-cta-inner{padding:36px 22px;border-radius:18px}
+}
