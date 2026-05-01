@@ -395,12 +395,13 @@ footer{padding:80px 0 40px;border-top:1px solid var(--border);background:var(--b
   .pillars{grid-template-columns:1fr}
   .pillar,.pillar-big,.pillar-wide{grid-column:span 1}
   .formations,.testi-grid,.pricing-grid{grid-template-columns:1fr}
-  /* Testimonials → static stack on mobile, all 3 columns visible, no animation, no mask, no duplicates */
-  .testi-cols{flex-direction:column;max-height:none;gap:14px;-webkit-mask-image:none;mask-image:none;overflow:visible}
-  .testi-col,.testi-col-md,.testi-col-lg{display:block;max-width:none;flex:0 0 auto}
-  .testi-track{animation:none !important;gap:14px}
+  /* Testimonials → horizontal swipe slider on mobile (scroll-snap) */
+  .testi-cols{flex-direction:row;max-height:none;gap:12px;-webkit-mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding:0 16px;padding:4px 16px 28px;margin:24px -16px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+  .testi-cols::-webkit-scrollbar{display:none}
+  .testi-col,.testi-col-md,.testi-col-lg,.testi-track{display:contents}
+  .testi-track{animation:none !important}
   .testi-dup{display:none}
-  .testi{padding:22px}
+  .testi{flex:0 0 86%;max-width:360px;min-width:260px;padding:24px;scroll-snap-align:center;scroll-snap-stop:always;margin:0;height:auto}
   .testi-quote{font-size:14.5px;margin-bottom:16px}
   .testi-author{padding-top:16px}
   .aw-body{grid-template-columns:1fr}
