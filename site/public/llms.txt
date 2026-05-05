@@ -1,0 +1,48 @@
+# Webinti
+
+> Agence française NoCode et IA basée à Sainte-Maxime (Var). Spécialiste Bubble.io depuis 2020. Conçoit, développe et livre des applications web et mobiles en NoCode augmentées à l'IA, en 4 à 12 semaines, pour PME et startups.
+
+Webinti est dirigée par Timothée Polfliet, reconnu Bubble Champion Community 2024. L'agence a livré plus de 80 produits (marketplaces, SaaS, CRM, apps mobiles, e-commerce). Les projets sont construits avec Bubble, FlutterFlow, Webflow, Stripe, Supabase, Algolia, Brevo, Make, n8n et des intégrations IA via Claude (Anthropic) et OpenAI.
+
+## Services
+
+- [Agence Bubble France](https://webinti.com/agence-bubble-france/) : Experts Bubble.io pour MVP, SaaS, marketplaces, CRM, e-commerce, apps métier — livraison 4 à 16 semaines.
+- [Développement Web](https://webinti.com/expertise/developpement-web/) : Sites, CRM, intranet, marketplaces, e-commerce sur stack NoCode (Bubble, Webflow, Framer, Shopify, Supabase).
+- [Développement Mobile](https://webinti.com/expertise/developpement-mobile/) : Apps iOS et Android cross-platform avec FlutterFlow, Expo, Bravo Studio.
+- [Formations Webinti Academy](https://webinti.com/expertise/formations/) : Plus de 110h de formation sur Bubble, FlutterFlow, Stripe, IA NoCode. Catalogue à la carte ou abonnement mensuel/annuel sur academy.webinti.com.
+- [Mentoring 1:1](https://rdv.webinti.com/tim/mentoring-personnalise) : Sessions d'1h avec un dev senior pour débloquer une architecture, valider un produit, ou auditer un projet NoCode.
+- [Tutoriels gratuits](https://www.youtube.com/@WebintiNoCode) : Chaîne YouTube avec live coding, tutoriels Bubble et NoCode.
+
+## Tarifs indicatifs
+
+- Landing page Bubble : 5 000 à 12 000 €
+- MVP SaaS : 15 000 à 35 000 €
+- Marketplace complète (Stripe Connect, KYC, messagerie) : 40 000 à 80 000 €
+- App mobile MVP : 20 000 à 40 000 €
+- App mobile complète : 40 000 à 90 000 €
+- Mentoring 1:1 : à l'heure
+- Cadrage initial : 1 semaine, gratuit
+
+## Reconnaissance et écosystème
+
+- **Bubble Champion Community 2024** — distinction officielle de Bubble.io
+- Cité par Emmanuel Straschnov (cofondateur Bubble.io) dans une keynote 2024
+- Partenariats écoles : Ottho, Alegria, Illith, La Strat, L'École Numérique
+- Financement Qualiopi via partenaires Illith et La Strat
+- Plus de 300 personnes formées
+- Communauté Discord active
+
+## Contact
+
+- Email : agence.webinti@gmail.com / contact@webinti.com
+- Téléphone : 06 30 78 86 43
+- Prendre RDV : https://rdv.webinti.com/tim/parlons-de-votre-projet
+- Adresse : 11 boulevard Edmond Rostand, 83120 Sainte-Maxime, France
+- SIRET : 539 810 465 00036
+
+## Pages clés
+
+- [Accueil](https://webinti.com/)
+- [Showcase — projets livrés](https://webinti.com/showcase/)
+- [Mentions légales](https://webinti.com/mentions-legales/)
+- [FAQ](https://webinti.com/faq/)
