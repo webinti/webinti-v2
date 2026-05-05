@@ -40,9 +40,16 @@ Webinti est dirigée par Timothée Polfliet, reconnu Bubble Champion Community 2
 - Adresse : 11 boulevard Edmond Rostand, 83120 Sainte-Maxime, France
 - SIRET : 539 810 465 00036
 
+## Guides experts
+
+- [Combien coûte une application Bubble en 2026 ?](https://webinti.com/guides/combien-coute-application-bubble/) — tarifs détaillés MVP 15-35k€, marketplace 40-80k€, enterprise 80k€+, coûts cachés, leviers pour réduire le budget.
+- [Bubble vs FlutterFlow : quel outil NoCode choisir ?](https://webinti.com/guides/bubble-vs-flutterflow/) — comparatif détaillé web vs mobile natif, prix, cas d'usage, stratégie hybride.
+- [Créer une marketplace en NoCode](https://webinti.com/guides/creer-marketplace-nocode/) — architecture, stack Bubble + Stripe Connect + Algolia, étapes, budget 40-80k€, études de cas.
+
 ## Pages clés
 
 - [Accueil](https://webinti.com/)
+- [Tous les guides](https://webinti.com/guides/)
 - [Showcase — projets livrés](https://webinti.com/showcase/)
-- [Mentions légales](https://webinti.com/mentions-legales/)
 - [FAQ](https://webinti.com/faq/)
+- [Mentions légales](https://webinti.com/mentions-legales/)

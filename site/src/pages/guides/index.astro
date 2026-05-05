@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/guide.css';
+
+const guides = [
+  {
+    slug: 'combien-coute-application-bubble',
+    tag: 'Tarifs · Bubble',
+    title: 'Combien coûte une application Bubble en 2026 ?',
+    desc: "Tarifs détaillés MVP 15-35k€, marketplace 40-80k€, enterprise 80k€+. Coûts cachés, comparaison avec le code, leviers pour réduire le budget.",
+    duration: '8 min',
+    date: '5 mai 2026',
+  },
+  {
+    slug: 'bubble-vs-flutterflow',
+    tag: 'Comparaison · NoCode',
+    title: 'Bubble vs FlutterFlow : lequel choisir en 2026 ?',
+    desc: "Comparatif détaillé pour choisir entre web NoCode et mobile natif. Forces, faiblesses, prix, cas d'usage, écosystème, stratégie hybride.",
+    duration: '7 min',
+    date: '5 mai 2026',
+  },
+  {
+    slug: 'creer-marketplace-nocode',
+    tag: 'Méthode · Marketplace',
+    title: 'Créer une marketplace en NoCode : guide complet',
+    desc: "Architecture, stack (Bubble + Stripe Connect + Algolia), étapes, budget 40-80k€, pièges à éviter. Études de cas Webinti.",
+    duration: '9 min',
+    date: '5 mai 2026',
+  },
+];
+
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': 'https://webinti.com/guides/#blog',
+  name: 'Guides Webinti — NoCode, Bubble, IA',
+  description: 'Guides experts sur Bubble.io, FlutterFlow, marketplaces NoCode, IA et automatisation. Rédigés par Webinti, agence Bubble France certifiée Champion 2024.',
+  url: 'https://webinti.com/guides/',
+  publisher: { '@id': 'https://webinti.com/#organization' },
+  blogPost: guides.map((g) => ({
+    '@type': 'BlogPosting',
+    headline: g.title,
+    description: g.desc,
+    url: `https://webinti.com/guides/${g.slug}/`,
+    datePublished: '2026-05-01',
+    author: { '@type': 'Person', name: 'Timothée Polfliet' },
+  })),
+}];
+---
+<BaseLayout
+  title="Guides — Webinti, agence Bubble France"
+  description="Guides experts sur Bubble.io, FlutterFlow, marketplaces NoCode, IA et automatisation. Tarifs, comparaisons, méthodes — par Webinti, agence Bubble certifiée Champion 2024."
+  canonical="https://webinti.com/guides/"
+  keywords="guide bubble, guide nocode, tarifs bubble, marketplace nocode, agence bubble france, formation bubble"
+  jsonLd={jsonLd}
+>
+  <Nav />
+  <main>
+    <section class="guides-index">
+      <span class="guide-eyebrow"><span class="dot"></span>Guides Webinti</span>
+      <h1>Tout ce qu'on a appris en livrant <em>+80 produits.</em></h1>
+      <p class="lede">Tarifs réels, méthodes éprouvées, retours de terrain. Pas de bullshit marketing — juste ce qu'on aurait aimé lire avant de commencer.</p>
+
+      <div class="guides-grid">
+        {guides.map((g) => (
+          <a href={`/guides/${g.slug}/`} class="guide-card">
+            <span class="guide-card-tag">{g.tag}</span>
+            <h3>{g.title}</h3>
+            <p>{g.desc}</p>
+            <div class="guide-card-meta">{g.duration} de lecture · {g.date}</div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
