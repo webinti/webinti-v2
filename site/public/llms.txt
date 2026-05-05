@@ -44,6 +44,7 @@ Webinti est dirigée par Timothée Polfliet, reconnu Bubble Champion Community 2
 
 - [Combien coûte une application Bubble en 2026 ?](https://webinti.com/guides/combien-coute-application-bubble/) — tarifs détaillés MVP 15-35k€, marketplace 40-80k€, enterprise 80k€+, coûts cachés, leviers pour réduire le budget.
 - [Bubble vs FlutterFlow : quel outil NoCode choisir ?](https://webinti.com/guides/bubble-vs-flutterflow/) — comparatif détaillé web vs mobile natif, prix, cas d'usage, stratégie hybride.
+- [Bubble vs vibe coding (Claude Code, Cursor, Lovable)](https://webinti.com/guides/bubble-vs-vibe-coding/) — comparatif NoCode visuel vs IA qui code, vitesse, fiabilité, coût, stratégie hybride 2026.
 - [Créer une marketplace en NoCode](https://webinti.com/guides/creer-marketplace-nocode/) — architecture, stack Bubble + Stripe Connect + Algolia, étapes, budget 40-80k€, études de cas.
 
 ## Pages clés
