@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/expertise.css';
+
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Webinti — Agence NoCode et IA Marseille',
+  description: "Studio produit augmenté par l'IA pour startups et PME du Sud (Marseille, Aix-en-Provence, PACA). Apps web et mobile sur-mesure, Bubble, Claude Code, Next.js, FlutterFlow.",
+  url: 'https://webinti.com/agence/marseille/',
+  parentOrganization: { '@id': 'https://webinti.com/#organization' },
+  areaServed: { '@type': 'City', name: 'Marseille', containedInPlace: { '@type': 'AdministrativeArea', name: 'Provence-Alpes-Côte d\'Azur' } },
+  serviceArea: { '@type': 'GeoCircle', geoMidpoint: { '@type': 'GeoCoordinates', latitude: 43.2965, longitude: 5.3698 }, geoRadius: 80000 },
+  knowsAbout: ['Bubble.io', 'Claude Code', 'Cursor', 'Next.js', 'FlutterFlow', 'NoCode', 'IA', 'Marketplace', 'SaaS'],
+  inLanguage: 'fr-FR',
+}];
+---
+<BaseLayout
+  title="Agence NoCode et IA à Marseille — Webinti, studio produit"
+  description="Studio produit français pour startups et PME du Sud (Marseille, Aix, PACA, Côte d'Azur). Apps web et mobile augmentées par l'IA. Bubble, Claude Code, Next.js, FlutterFlow. +80 produits livrés."
+  canonical="https://webinti.com/agence/marseille/"
+  keywords="agence nocode marseille, agence ia marseille, agence bubble marseille, dev nocode marseille, créer app marseille, agence flutterflow marseille, agence nocode paca"
+  jsonLd={jsonLd}
+>
+  <Nav />
+  <main>
+    <section class="ex-hero">
+      <div class="ex-hero-bg"><div class="ex-hero-grid"></div></div>
+      <div class="container">
+        <div class="ex-hero-inner">
+          <nav class="crumb"><a href="/">Accueil</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg><span>Agence Marseille</span></nav>
+          <div class="ex-eyebrow"><span class="dot"></span>Agence NoCode &amp; IA · Marseille &amp; Sud</div>
+          <h1 class="ex-title">Studio produit pour le <em>Sud</em>.</h1>
+          <p class="ex-sub">Webinti est basée dans le Var (Sainte-Maxime) — on intervient régulièrement sur Marseille, Aix-en-Provence, Toulon et toute la région PACA. Apps web, mobile, marketplaces, IA. Vélocité, posture senior, livrables propres.</p>
+          <div class="ex-cta-row">
+            <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="btn btn-primary">Réserver un échange<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+            <a href="/showcase/" class="btn btn-ghost">Voir les projets</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="container">
+        <div class="sec-head">
+          <div class="sec-kicker">Sud Tech</div>
+          <h2 class="sec-title">L'agence locale, <em>vraiment locale</em>.</h2>
+          <p class="sec-lede">Pas une agence parisienne qui sous-traite ses projets PACA. Webinti est basée dans le Var depuis 2020 et accompagne les fondateurs du Sud — qu'ils soient à La Joliette, à la Pointe Rouge, à Aix Tech-Campus ou à Toulon.</p>
+        </div>
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Startups Marseille &amp; Aix</div><div class="feat-d">MVP rapides, marketplaces, SaaS — la French Tech du Sud mérite des outils de niveau parisien.</div></div>
+          <div class="feat"><div class="feat-t">Tourisme &amp; expérientiel</div><div class="feat-d">Apps mobiles, plateformes de réservation, booking sur-mesure pour le marché PACA et Côte d'Azur.</div></div>
+          <div class="feat"><div class="feat-t">Industries maritime &amp; logistique</div><div class="feat-d">Outils métier, dashboards opérationnels, intégrations ERP avec couche IA pertinente.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="container">
+        <div class="sec-head">
+          <div class="sec-kicker">Notre stack</div>
+          <h2 class="sec-title">La techno qui sert votre projet.</h2>
+          <p class="sec-lede">Pas de stack maison imposée. On choisit ce qui livre votre produit le plus vite, le plus propre, et avec le moins de dette technique.</p>
+        </div>
+        <div class="tools-strip">
+          <span class="tool-chip"><span class="tool-dot"></span>Claude Code</span>
+          <span class="tool-chip"><span class="tool-dot"></span>Cursor</span>
+          <span class="tool-chip"><span class="tool-dot"></span>Next.js</span>
+          <span class="tool-chip"><span class="tool-dot"></span>Supabase</span>
+          <span class="tool-chip"><span class="tool-dot"></span>Bubble</span>
+          <span class="tool-chip"><span class="tool-dot"></span>FlutterFlow</span>
+          <span class="tool-chip"><span class="tool-dot"></span>Stripe</span>
+          <span class="tool-chip"><span class="tool-dot"></span>Anthropic Claude</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="ex-cta">
+      <div class="container">
+        <div class="ex-cta-inner">
+          <h2>Vous êtes dans le Sud ?</h2>
+          <p>30 minutes en visio offertes — ou un café à Marseille, Aix ou Toulon. On cadre votre projet.</p>
+          <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="btn btn-primary">Réserver un créneau<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

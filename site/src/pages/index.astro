@@ -130,6 +130,14 @@ const jsonLd = [
     knowsAbout: ['Claude Code', 'Cursor', 'Vibe coding', 'Next.js', 'Supabase', 'Bubble.io', 'FlutterFlow', 'Webflow', 'NoCode', 'AI agents', 'Anthropic Claude', 'OpenAI', 'Stripe Connect', 'Marketplace', 'SaaS', 'Apps mobiles iOS Android', 'Make', 'n8n', 'Algolia', 'Brevo'],
     award: 'Bubble Champion Community 2024',
     sameAs: ['https://www.linkedin.com/in/tim-webinti-61503374/', 'https://www.youtube.com/@WebintiNoCode', 'https://discord.gg/cbJ5HCTKVS', 'https://www.malt.fr/profile/timotheepolfliet'],
+    aggregateRating: { '@type': 'AggregateRating', ratingValue: '5.0', reviewCount: testimonials.length, bestRating: '5', worstRating: '1' },
+    review: testimonials.map((t) => ({
+      '@type': 'Review',
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      author: { '@type': 'Person', name: t.name },
+      reviewBody: t.text,
+      itemReviewed: { '@id': 'https://webinti.com/#organization' },
+    })),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Services Webinti',
