@@ -4,12 +4,13 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
 const stack = [
-  { name: 'Bubble',      icon: '/assets/images/Bubble.svg',      bg: '#0082F4' },
-  { name: 'n8n',         icon: '/assets/images/n8n.svg',         bg: '#EA4B71' },
+  { name: 'Claude Code', icon: '/assets/images/claude.svg',      bg: '#D97757' },
   { name: 'Next.js',     icon: '/assets/images/nextdotjs.svg',   bg: '#000000' },
   { name: 'Supabase',    icon: '/assets/images/supabase.svg',    bg: '#3ECF8E' },
   { name: 'Stripe',      icon: '/assets/images/stripe.svg',      bg: '#635BFF' },
-  { name: 'Claude Code', icon: '/assets/images/claude.svg',      bg: '#D97757' },
+  { name: 'FlutterFlow', icon: '/assets/images/Flutterflow.svg', bg: '#5D5DFF' },
+  { name: 'n8n',         icon: '/assets/images/n8n.svg',         bg: '#EA4B71' },
+  { name: 'Bubble',      icon: '/assets/images/Bubble.svg',      bg: '#0082F4' },
   { name: 'Firebase',    icon: '/assets/images/firebase.svg',    bg: '#FFA500' },
   { name: 'Algolia',     icon: '/assets/images/algolia.svg',     bg: '#003DFF' },
   { name: 'Webflow',     icon: '/assets/images/webflow.svg',     bg: '#146EF5' },
@@ -113,11 +114,11 @@ const jsonLd = [
     '@type': 'ProfessionalService',
     '@id': 'https://webinti.com/#organization',
     name: 'Webinti',
-    alternateName: ['Webinti Agence NoCode', 'Agence Bubble France'],
+    alternateName: ['Webinti Studio', 'Studio produit augmenté par l\'IA', 'Agence Bubble France', 'Agence IA France'],
     url: 'https://webinti.com',
     logo: 'https://webinti.com/assets/images/logo.png',
     image: 'https://webinti.com/assets/images/og.jpg',
-    description: "Agence française NoCode et IA spécialiste Bubble.io depuis 2020. Conçoit, développe et livre des applications web et mobiles en 4 à 12 semaines pour PME et startups. Plus de 80 produits livrés.",
+    description: "Studio produit français qui conçoit, développe et livre des applications web et mobiles sur-mesure, augmentées par l'IA. Stack adaptée à chaque projet : code généré par IA (Claude Code, Cursor), NoCode (Bubble, FlutterFlow), ou hybride. Plus de 80 produits livrés depuis 2020.",
     foundingDate: '2020',
     founder: { '@type': 'Person', name: 'Timothée Polfliet', jobTitle: 'CEO & Bubble Champion Community 2024', sameAs: ['https://www.linkedin.com/in/tim-webinti-61503374/', 'https://www.malt.fr/profile/timotheepolfliet'] },
     areaServed: [{ '@type': 'Country', name: 'France' }, { '@type': 'Place', name: 'Belgique' }, { '@type': 'Place', name: 'Suisse' }, { '@type': 'Place', name: 'Canada' }],
@@ -126,7 +127,7 @@ const jsonLd = [
     telephone: '+33-6-30-78-86-43',
     email: 'contact@webinti.com',
     priceRange: '€€-€€€',
-    knowsAbout: ['Bubble.io', 'FlutterFlow', 'Webflow', 'NoCode', 'Stripe Connect', 'Marketplace', 'SaaS', 'Intelligence artificielle', 'Claude AI', 'OpenAI', 'Make', 'n8n', 'Supabase', 'Algolia'],
+    knowsAbout: ['Claude Code', 'Cursor', 'Vibe coding', 'Next.js', 'Supabase', 'Bubble.io', 'FlutterFlow', 'Webflow', 'NoCode', 'AI agents', 'Anthropic Claude', 'OpenAI', 'Stripe Connect', 'Marketplace', 'SaaS', 'Apps mobiles iOS Android', 'Make', 'n8n', 'Algolia', 'Brevo'],
     award: 'Bubble Champion Community 2024',
     sameAs: ['https://www.linkedin.com/in/tim-webinti-61503374/', 'https://www.youtube.com/@WebintiNoCode', 'https://discord.gg/cbJ5HCTKVS', 'https://www.malt.fr/profile/timotheepolfliet'],
     hasOfferCatalog: {
@@ -153,8 +154,9 @@ const jsonLd = [
 ];
 ---
 <BaseLayout
-  title="Webinti — Agence NoCode & IA pour PME"
-  description="Webinti conçoit, développe et livre vos applications web et mobiles NoCode augmentées à l'IA en 4 à 12 semaines. Bubble, FlutterFlow, n8n, Claude. Formations et agents IA pour vos équipes."
+  title="Webinti — Studio produit augmenté par l'IA"
+  description="Studio produit français qui conçoit, développe et livre vos applications web et mobiles en quelques semaines. Stack adaptée à votre projet : code généré par IA, NoCode, ou hybride. Posture senior, sans bullshit technique."
+  keywords="studio produit, agence IA, développement web sur mesure, app mobile sur mesure, vibe coding agence, agence ia france, claude code, cursor, bubble, flutterflow, nocode IA"
   jsonLd={jsonLd}
 >
   <Nav active="why" />
@@ -171,19 +173,19 @@ const jsonLd = [
 
       <div class="container hero-inner">
         <div class="eyebrow">
-          <span class="eyebrow-pill">Expert</span>
-          Bubble Champion Community 2024
+          <span class="eyebrow-pill">Studio</span>
+          Produit augmenté par l'IA · Depuis 2020
           <span class="eyebrow-arrow">↗</span>
         </div>
 
         <h1 class="hero-title">
-          <span class="line"><span>Agence <span class="grad">IA &amp; NoCode</span>,</span></span>
-          <span class="line"><span>votre projet sur mesure.</span></span>
+          <span class="line"><span>Vos apps web &amp; <span class="grad">mobile</span>,</span></span>
+          <span class="line"><span>livrées vite, sans compromis.</span></span>
         </h1>
 
         <p class="hero-sub">
-          Webinti conçoit, développe et livre vos applications web & mobiles en 4 à 12 semaines.
-          Développement, IA native, augmentation d'équipe — pour PME.
+          Studio produit augmenté par l'IA. On conçoit, développe et livre votre application sur-mesure
+          en quelques semaines — avec la stack qui sert votre projet, pas l'inverse.
         </p>
 
         <div class="hero-ctas">
@@ -287,7 +289,7 @@ const jsonLd = [
 
     <!-- STACK -->
     <section class="stack">
-      <div class="stack-label">Le meilleur des technos <b>NoCode + IA</b> en 2026</div>
+      <div class="stack-label">La stack qu'on choisit <b>selon votre projet</b> — pas l'inverse</div>
       <div class="marquee">
         <div class="marquee-track">
           {stackRepeated.map((t) => (
@@ -324,8 +326,8 @@ const jsonLd = [
               </div>
             </div>
             <div class="pillar-num">01 / Vélocité</div>
-            <div class="pillar-title">De l'idée au produit en ligne,<br>en 4 à 12 semaines.</div>
-            <p class="pillar-desc">Bubble, FlutterFlow, Webflow : on livre des produits qui scalent, déjà prêts pour la production. Pas de roadmap à 18 mois — on expédie.</p>
+            <div class="pillar-title">De l'idée au produit en ligne,<br>en quelques semaines.</div>
+            <p class="pillar-desc">Code généré par IA, NoCode, ou hybride — on choisit ce qui livre le plus vite sans dette technique. Démos hebdo, pas de roadmap à 18 mois.</p>
           </div>
 
           <div class="pillar reveal">
@@ -337,14 +339,14 @@ const jsonLd = [
               </div>
             </div>
             <div class="pillar-num">02 / IA native</div>
-            <div class="pillar-title">Agents IA intégrés<br>dans votre stack.</div>
-            <p class="pillar-desc">Workflows Claude, OpenAI, Make et n8n connectés à votre produit. Support client, qualification, génération — on automatise le bruit.</p>
+            <div class="pillar-title">L'IA dans le produit,<br>et dans le process.</div>
+            <p class="pillar-desc">Claude, OpenAI, Make, n8n — connectés à votre produit pour automatiser ce qui peut l'être. Et côté studio, on développe avec Cursor et Claude Code pour aller 3× plus vite.</p>
           </div>
 
           <div class="pillar reveal">
-            <div class="pillar-num">03 / Formation</div>
-            <div class="pillar-title">Vos équipes<br>montent à bord.</div>
-            <p class="pillar-desc">+110h de formation, mentoring 1:1, handover technique. À la fin, votre équipe interne opère sans nous.</p>
+            <div class="pillar-num">03 / Posture senior</div>
+            <div class="pillar-title">Architecte produit,<br>pas exécutant.</div>
+            <p class="pillar-desc">On challenge le brief, on cadre l'archi, on choisit la stack. Vous repartez avec un produit qui tient, pas avec un cahier des charges exécuté à la lettre.</p>
           </div>
 
           <div class="pillar pillar-wide reveal">
