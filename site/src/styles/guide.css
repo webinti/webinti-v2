@@ -48,7 +48,9 @@
 .guide-table td{padding:14px 18px;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top}
 .guide-table tr:last-child td{border-bottom:0}
 .guide-table strong{color:var(--text)}
-.guide-table .price{font-family:var(--mono);color:var(--accent-3);white-space:nowrap}
+.guide-table th.price,.guide-table td.price{font-family:var(--mono);color:var(--accent-3);white-space:nowrap;background:transparent;border:0;border-bottom:1px solid var(--border);border-radius:0;padding:14px 18px;display:table-cell;min-height:0;flex-direction:initial}
+.guide-table tr:last-child td.price{border-bottom:0}
+.guide-table thead th.price{border-bottom:1px solid var(--border)}
 
 /* Callout boxes */
 .guide-callout{margin:32px 0;padding:24px 26px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.025),rgba(255,255,255,0.01));border:1px solid var(--border-strong);position:relative}
