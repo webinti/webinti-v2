@@ -37,6 +37,9 @@
 .guide-body ol li::before{counter-increment:guideol;content:counter(guideol);position:absolute;left:0;top:6px;color:var(--accent-2);font-family:var(--mono);font-size:13px;font-weight:600;width:20px;text-align:right}
 
 .guide-body code{font-family:var(--mono);font-size:14.5px;padding:2px 7px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:5px;color:var(--text)}
+.guide-body pre{margin:24px 0 0;padding:18px 20px;background:rgba(0,0,0,0.35);border:1px solid var(--border);border-radius:12px;overflow-x:auto;font-size:13.5px;line-height:1.6;color:var(--text-dim)}
+.guide-body pre code{font-family:var(--mono);font-size:13.5px;padding:0;background:transparent;border:0;color:var(--text-dim);white-space:pre;display:block}
+.guide-body .guide-callout pre{margin-top:12px;background:rgba(0,0,0,0.3)}
 
 .guide-body blockquote{margin:32px 0;padding:18px 24px;border-left:3px solid var(--accent-2);background:rgba(200,64,63,0.06);border-radius:0 10px 10px 0;font-size:16.5px;color:var(--text);font-style:italic;line-height:1.65}
 .guide-body blockquote cite{display:block;margin-top:10px;font-size:13px;font-style:normal;color:var(--text-faint);font-family:var(--mono)}
