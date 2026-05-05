@@ -54,6 +54,7 @@ Webinti est dirigée par Timothée Polfliet, architecte produit avec plus de 80 
 
 ## Guides experts
 
+- [Comment publier une application iOS sur l'App Store en 2026 ?](https://webinti.com/guides/publier-app-ios/) — guide complet : Apple Developer Program, App Store Connect, Xcode, soumission, 6 motifs de rejet courants (guideline 4.8, 2.3.2, 3.1.2, 2.1, 1.4.1) avec fixes.
 - [Combien coûte une application mobile en 2026 ?](https://webinti.com/guides/combien-coute-application-mobile/) — tarifs détaillés iOS + Android, MVP 20-40k€, app complète 50-90k€, cross-platform vs natif.
 - [Combien coûte une application Bubble en 2026 ?](https://webinti.com/guides/combien-coute-application-bubble/) — tarifs détaillés MVP 15-35k€, marketplace 40-80k€, enterprise 80k€+.
 - [Bubble vs FlutterFlow](https://webinti.com/guides/bubble-vs-flutterflow/) — comparatif web NoCode vs mobile natif.
