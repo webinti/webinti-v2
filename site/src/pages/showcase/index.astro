@@ -65,9 +65,8 @@ projects.forEach((p, i) => cols[i % 3].push(p));
                       <span class="sc-tile-cat">{p.data.category}</span>
                       <h3 class="sc-tile-title">{p.data.title}</h3>
                       <div class="sc-tile-meta">{p.data.client} · {p.data.year}</div>
+                      <span class="sc-tile-btn">Voir le projet <i>→</i></span>
                     </div>
-
-                    <span class="sc-tile-btn">Voir le projet <i>→</i></span>
                   </div>
                 </a>
               ))}
@@ -107,15 +106,16 @@ projects.forEach((p, i) => cols[i % 3].push(p));
     .sc-tile:hover .sc-tile-bg-hover{opacity:1}
     .sc-tile-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,0.75) 100%);z-index:3;pointer-events:none}
 
-    .sc-tile-info{position:absolute;left:0;right:0;bottom:0;padding:22px 22px 24px;z-index:4;transition:opacity .4s ease,transform .4s ease}
-    .sc-tile:hover .sc-tile-info{opacity:0;transform:translateY(10px)}
-    .sc-tile-cat{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,0.12);color:#fff;backdrop-filter:blur(6px);margin-bottom:10px}
-    .sc-tile-title{font-size:20px;font-weight:600;letter-spacing:-0.01em;color:#fff;line-height:1.2;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,0.4)}
-    .sc-tile-meta{font-size:12.5px;color:rgba(255,255,255,0.7);font-family:var(--mono)}
+    .sc-tile-info{position:absolute;left:0;right:0;bottom:0;padding:22px 22px 24px;z-index:4;display:flex;flex-direction:column}
+    .sc-tile-cat{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,0.12);color:#fff;backdrop-filter:blur(6px);margin-bottom:10px;align-self:flex-start}
+    .sc-tile-title{font-size:20px;font-weight:600;letter-spacing:-0.01em;color:#fff;line-height:1.2;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,0.4);transition:transform .4s ease}
+    .sc-tile-meta{font-size:12.5px;color:rgba(255,255,255,0.7);font-family:var(--mono);transition:opacity .3s ease,max-height .35s ease,margin .35s ease;max-height:24px;overflow:hidden}
+    .sc-tile:hover .sc-tile-title{transform:translateY(-2px)}
+    .sc-tile:hover .sc-tile-meta{opacity:0;max-height:0;margin-top:-4px}
 
-    .sc-tile-btn{position:absolute;left:50%;bottom:32px;transform:translate(-50%,14px);z-index:5;opacity:0;padding:11px 22px;border-radius:999px;background:rgba(10,10,16,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:13px;font-weight:500;white-space:nowrap;transition:opacity .35s ease,transform .35s ease,background .2s;display:inline-flex;align-items:center;gap:8px}
+    .sc-tile-btn{margin-top:14px;align-self:flex-start;padding:9px 18px;border-radius:999px;background:rgba(10,10,16,0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.18);color:#fff;font-size:12.5px;font-weight:500;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;opacity:0;max-height:0;overflow:hidden;padding-top:0;padding-bottom:0;border-width:0;transition:opacity .3s ease,max-height .35s ease,padding .35s ease,border-width .35s ease,background .2s}
     .sc-tile-btn i{font-style:normal;transition:transform .2s}
-    .sc-tile:hover .sc-tile-btn{opacity:1;transform:translate(-50%,0)}
+    .sc-tile:hover .sc-tile-btn{opacity:1;max-height:40px;padding-top:9px;padding-bottom:9px;border-width:1px}
     .sc-tile-btn:hover{background:var(--accent);border-color:var(--accent)}
     .sc-tile:hover .sc-tile-btn i{transform:translateX(2px)}
 
