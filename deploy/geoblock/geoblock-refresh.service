@@ -1,0 +1,8 @@
+[Unit]
+Description=Refresh geo-block country IP sets from ipdeny.com
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/geoblock.sh refresh

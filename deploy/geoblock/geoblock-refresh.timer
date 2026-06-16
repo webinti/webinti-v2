@@ -1,0 +1,10 @@
+[Unit]
+Description=Monthly refresh of geo-block country IP sets
+
+[Timer]
+OnCalendar=monthly
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target

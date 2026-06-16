@@ -1,0 +1,12 @@
+[Unit]
+Description=Apply geo-block firewall (ipset + iptables) at boot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/geoblock.sh apply
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
