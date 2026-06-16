@@ -21,6 +21,8 @@ const {
 
 const siteUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://webinti.com').toString();
 const canonicalUrl = canonical ?? siteUrl;
+
+const gaId = import.meta.env.PUBLIC_GA_ID ?? 'G-X3CHN3DXXV';
 ---
 <!doctype html>
 <html lang="fr">
@@ -56,6 +58,18 @@ const canonicalUrl = canonical ?? siteUrl;
   <script type="application/ld+json" set:html={JSON.stringify(obj)} />
 ))}
 {extraStyles.map((href) => <link rel="stylesheet" href={href} />)}
+
+{gaId && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+    <script is:inline define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
+  </>
+)}
 </head>
 <body>
 <slot />
