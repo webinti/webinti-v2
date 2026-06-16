@@ -1,23 +1,27 @@
-# OS
-.DS_Store
-*~lock~
-
-# Node
-node_modules/
-npm-debug.log*
-
-# Astro build output
+# build output
 dist/
+# generated types
 .astro/
 
-# Local history / scratch
-.remember/
+# dependencies
+node_modules/
 
-# Legacy Webflow export (kept locally only)
-/index.html
-/assets/
-/expertise/
-/uploads/
-/screenshots/
-/design/
-/logo.af~lock~
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# Claude Code local state & worktrees
+.claude/

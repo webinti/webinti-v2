@@ -1,0 +1,380 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/guide.css';
+
+const datePub = '2026-05-05';
+const dateMod = '2026-05-05';
+
+const faqs = [
+  {
+    q: "Combien de temps prend la review Apple ?",
+    a: "24h à 7 jours pour une première soumission, 24-48h pour une update. La médiane est aujourd'hui sous les 48h. Évitez les soumissions le vendredi soir — les reviews ralentissent le week-end."
+  },
+  {
+    q: "Que faire si mon app est rejetée ?",
+    a: "Lisez attentivement le message du Resolution Center, identifiez la guideline citée, et répondez par écrit avant de re-soumettre. Souvent, un malentendu suffit : « voici comment fonctionne X, où le voir dans l'app : screen 3, écran Profil ». Si la guideline est valide, fixez le code et re-soumettez avec un nouveau build."
+  },
+  {
+    q: "Apple prend combien de commission ?",
+    a: "30 % la première année sur les abonnements et 30 % sur les achats one-shot. Après 12 mois consécutifs d'abonnement par utilisateur, ça tombe à 15 %. Si votre CA total est inférieur à 1 million USD/an, vous êtes éligible au Small Business Program : 15 % dès le premier euro. Inscrivez-vous une fois, c'est appliqué automatiquement."
+  },
+  {
+    q: "Faut-il publier sur iOS ou Android en premier ?",
+    a: "iOS d'abord, sauf cas particulier. La review Apple est plus stricte (si vous passez Apple, Google passe quasi systématiquement), le panier moyen iOS est environ 2× plus élevé sur les apps d'abonnement, et vos premiers utilisateurs en Europe ou aux US seront probablement sur iOS. Exception : si votre cible est l'Asie ou l'Afrique, Android domine et vous devriez commencer là."
+  },
+  {
+    q: "Peut-on publier sans Mac ?",
+    a: "Non, pas légalement. Toutes les solutions « no Mac » passent par du Mac à distance (MacinCloud, MacStadium) ou des CI cloud (Bitrise, Codemagic) qui louent des Mac à l'heure. Mais vous ne pouvez pas signer une app iOS depuis Windows ou Linux : Apple impose Xcode pour la signature finale."
+  },
+  {
+    q: "TestFlight, c'est obligatoire ?",
+    a: "Non, ce n'est pas obligatoire pour publier. Mais c'est fortement recommandé : vous y testez votre build en conditions réelles avec quelques bêta-testeurs avant de soumettre à la review publique. Détecter un crash en TestFlight (gratuit, illimité) coûte beaucoup moins cher qu'en review (1-7 jours perdus)."
+  },
+  {
+    q: "Mon app a été retirée. Pourquoi ?",
+    a: "Trois causes principales en 2026 : inactivité (pas d'update depuis 2-3 ans, Apple retire l'app pour faire de la place), violation de guideline détectée a posteriori (revente de données, parasitage, etc.), ou compte développeur expiré (99 USD/an, si vous oubliez de renouveler, l'app disparaît du store en 30 jours)."
+  }
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: "Publier une application iOS sur l'App Store en 2026",
+    description: "Étapes complètes pour publier une app iOS sur l'App Store : Apple Developer Program, Xcode, App Store Connect, soumission, review et corrections post-rejet.",
+    totalTime: "P6W",
+    estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '99' },
+    step: [
+      { '@type': 'HowToStep', name: 'Inscription Apple Developer Program', text: 'Créer le compte Apple Developer (99 USD/an), valider identité et moyen de paiement, choisir Individuel ou Organisation.' },
+      { '@type': 'HowToStep', name: 'Configuration App Store Connect', text: 'Créer la fiche de l app, choisir le bundle ID, préparer les métadonnées, screenshots et IAP.' },
+      { '@type': 'HowToStep', name: 'Build et signature Xcode', text: 'Générer un .ipa signé via Xcode Archive, uploader via Transporter ou Xcode Organizer.' },
+      { '@type': 'HowToStep', name: 'Préparation des assets', text: 'Capturer les screenshots aux bons formats (6,9", 6,5", iPad 13"), icône 1024×1024, vidéo optionnelle.' },
+      { '@type': 'HowToStep', name: 'Soumission et review', text: 'Soumettre pour examen, attendre 24h à 7 jours, fournir compte reviewer Premium si nécessaire.' },
+      { '@type': 'HowToStep', name: 'Corrections post-rejet', text: 'Lire le Resolution Center, répondre par message ou re-soumettre un build corrigé selon la guideline citée.' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: "Comment publier une application iOS sur l'App Store en 2026 — Guide complet",
+    description: "De l'inscription Apple Developer à la mise en ligne, toutes les étapes pour publier une app iOS sans se faire rejeter. Délais réels, coûts cachés, motifs de rejet courants — basé sur 80+ projets et la publication récente de Macrodiet.",
+    image: 'https://webinti.com/assets/images/og.jpg',
+    datePublished: datePub,
+    dateModified: dateMod,
+    author: { '@type': 'Person', name: 'Timothée Polfliet', url: 'https://webinti.com/studio/' },
+    publisher: { '@id': 'https://webinti.com/#organization' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://webinti.com/guides/publier-app-ios/' },
+    inLanguage: 'fr-FR',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<BaseLayout
+  title="Publier une application iOS sur l'App Store en 2026 — Guide complet | Webinti"
+  description="De l'inscription Apple Developer à la mise en ligne, toutes les étapes pour publier une app iOS sans se faire rejeter. Délais réels, coûts cachés, 6 motifs de rejet courants — basé sur 80+ projets livrés."
+  canonical="https://webinti.com/guides/publier-app-ios/"
+  keywords="publier app ios, app store soumission, apple developer program, xcode upload, app store connect, motif rejet apple, guideline 4.8, guideline 2.3.2, guideline 1.4.1, expedited review apple"
+  jsonLd={jsonLd}
+>
+  <Nav />
+  <main>
+    <article class="guide">
+      <a href="/guides/" class="guide-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Tous les guides</a>
+      <span class="guide-eyebrow"><span class="dot"></span>iOS · App Store</span>
+      <h1>Comment publier une application <em>iOS</em> sur l'App Store en 2026 ?</h1>
+      <p class="guide-lede"><strong>Ça dépend.</strong> Et même beaucoup plus que ce qu'on raconte sur les blogs tech qui résument la publication iOS à un « il suffit de cliquer sur Submit ». La première soumission d'une app sérieuse demande entre 3 et 8 semaines selon votre niveau de préparation, votre type de produit, et votre tolérance aux rejets.</p>
+      <div class="guide-meta">
+        <span><strong>Publié</strong> 5 mai 2026</span>
+        <span class="guide-meta-dot"></span>
+        <span><strong>Mis à jour</strong> 5 mai 2026</span>
+        <span class="guide-meta-dot"></span>
+        <span><strong>Auteur</strong> Timothée Polfliet · Bubble Champion 2024</span>
+        <span class="guide-meta-dot"></span>
+        <span><strong>Lecture</strong> 12 min</span>
+      </div>
+
+      <div class="guide-body">
+        <p>Je viens de publier <strong>Macrodiet</strong>, une app de nutrition macrobiotique. Première soumission le 24 avril 2026. Approbation le 4 mai. Entre les deux : <strong>deux rejets, six guidelines à corriger, et un build (4) finalement validé</strong>. Ce guide rassemble tout ce que j'aurais aimé savoir avant de commencer — pour vous éviter mes 8 jours de ping-pong avec le Resolution Center d'Apple.</p>
+
+        <h2>Les 6 grandes étapes pour publier sur l'App Store</h2>
+
+        <table class="guide-table">
+          <thead>
+            <tr><th>Étape</th><th>Délai réaliste</th><th class="price">Coût</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Inscription Apple Developer Program</td><td>24-48h (validation)</td><td class="price">99 USD / an</td></tr>
+            <tr><td>Configuration App Store Connect</td><td>1-2 jours</td><td class="price">Inclus</td></tr>
+            <tr><td>Build, signing, archive Xcode</td><td>0,5 à 2 jours</td><td class="price">Mac requis</td></tr>
+            <tr><td>Préparation des assets (screenshots, icône, vidéo)</td><td>2 à 5 jours</td><td class="price">Variable</td></tr>
+            <tr><td>Soumission + review Apple</td><td>24h à 7 jours</td><td class="price">Inclus</td></tr>
+            <tr><td>Corrections post-rejet (si rejet)</td><td>1 à 14 jours</td><td class="price">Variable</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Total réaliste pour une première soumission</strong> : 3 à 6 semaines, dont 70 % du temps passé sur la préparation et les corrections, pas sur le code lui-même.</p>
+
+        <h2>Les pré-requis avant de commencer</h2>
+
+        <h3>Le compte Apple Developer Program (99 USD / an)</h3>
+        <p>Sans ce compte, vous ne pouvez ni signer une app, ni la soumettre à l'App Store. L'inscription se fait sur <a href="https://developer.apple.com" target="_blank" rel="noopener">developer.apple.com</a> avec un Apple ID classique, mais Apple vous demandera :</p>
+        <ul>
+          <li>Une <strong>pièce d'identité</strong> valide (passeport ou carte d'identité)</li>
+          <li>Un <strong>moyen de paiement</strong> au nom du compte</li>
+          <li>Si vous publiez en tant qu'entreprise : un <strong>D-U-N-S Number</strong> (gratuit en France via Altares, mais comptez 30 jours pour l'obtenir la première fois)</li>
+        </ul>
+        <p>Le compte est validé en 24 à 48h. Vous pouvez choisir entre un compte <strong>Individuel</strong> (le plus rapide, votre nom apparaît comme éditeur) ou <strong>Organisation</strong> (votre raison sociale, plus de contributeurs possibles).</p>
+
+        <blockquote><strong>Mon conseil</strong> : si vous êtes auto-entrepreneur ou freelance, commencez en compte Individuel. Vous pourrez basculer plus tard. La bascule Individuel → Organisation est pénible mais possible.</blockquote>
+
+        <h3>Un Mac et Xcode</h3>
+        <p>Pas de raccourci possible : <strong>la signature et l'upload nécessitent un Mac</strong>. Pas de Xcode, pas d'app iOS. Comptez :</p>
+        <ul>
+          <li>Un Mac avec macOS récent (Sequoia ou plus pour 2026)</li>
+          <li>Xcode dernière version stable (gratuit sur le Mac App Store, ~12 Go)</li>
+          <li>Au moins 256 Go d'espace libre — Xcode et les simulateurs sont gourmands</li>
+        </ul>
+        <p>Si vous n'avez pas de Mac, des services comme <strong>MacinCloud</strong> ou <strong>MacStadium</strong> louent du Mac à distance (~30 €/mois). C'est plus lent qu'un Mac local mais ça dépanne.</p>
+
+        <h3>Le bundle ID et l'identité de l'app</h3>
+        <p>Le <strong>bundle ID</strong> est l'identifiant unique de votre app (ex : <code>app.macrodiet.macrodiet</code>). Une fois publié, <strong>il est gravé dans la pierre</strong> : pas de renommage possible. Choisissez-le avec soin, en respectant la convention reverse-DNS (<code>com.entreprise.app</code>).</p>
+        <p>À préparer en parallèle :</p>
+        <ul>
+          <li>Un <strong>nom d'app</strong> (max 30 caractères) — pensez aux mots-clés</li>
+          <li>Une <strong>icône</strong> 1024×1024 (sans transparence ni coins arrondis, Apple les ajoute)</li>
+          <li>Une <strong>catégorie principale</strong> + secondaire dans App Store Connect</li>
+        </ul>
+
+        <h3>Le site web (privacy, support)</h3>
+        <p><strong>Apple exige deux URLs publiques</strong> dans la fiche de l'app :</p>
+        <ol>
+          <li><strong>Politique de confidentialité</strong> (URL accessible sans login, en HTTPS)</li>
+          <li><strong>Page de support</strong> ou de contact</li>
+        </ol>
+        <p>Pas de site web ? Pas d'app. Le plus simple : un domaine + un VPS minimaliste avec Nginx et certbot (5 €/mois suffisent), ou Vercel/Netlify gratuit. Pour Macrodiet, j'ai monté un site statique sur un VPS Hostinger en moins d'une heure.</p>
+
+        <h2>Configuration dans App Store Connect</h2>
+        <p><a href="https://appstoreconnect.apple.com" target="_blank" rel="noopener">App Store Connect</a> est le tableau de bord d'Apple où vous gérez la fiche, les builds, les abonnements et les soumissions.</p>
+
+        <h3>Créer la fiche de l'app</h3>
+        <p><strong>Mes apps → « + » → Nouvelle app</strong>. Vous renseignez :</p>
+        <ul>
+          <li><strong>Plateformes</strong> : iOS (et macOS si applicable)</li>
+          <li><strong>Nom</strong> : visible sur le store, max 30 caractères</li>
+          <li><strong>Langue principale</strong> : déclaration définitive, choisissez bien</li>
+          <li><strong>Bundle ID</strong> : à sélectionner depuis votre Developer Account</li>
+          <li><strong>SKU</strong> : identifiant interne, peu importe la valeur (ex : <code>MACRODIET2026</code>)</li>
+          <li><strong>Accès utilisateur</strong> : qui peut éditer la fiche</li>
+        </ul>
+
+        <h3>Préparer les métadonnées</h3>
+        <p>Apple distingue <strong>les champs visibles côté store</strong> et <strong>les champs ASO/internes</strong> :</p>
+        <ul>
+          <li><strong>Sous-titre</strong> (30 chars) : visible sur la fiche, indexé pour la recherche</li>
+          <li><strong>Description</strong> (max 4000 chars) : visible, peu pondérée pour la recherche</li>
+          <li><strong>Mots-clés</strong> (max 100 chars) : invisibles, gros impact sur l'ASO</li>
+          <li><strong>URL de support</strong> + <strong>URL de marketing</strong> + <strong>URL de privacy</strong></li>
+          <li><strong>Catégorie principale</strong> + secondaire</li>
+          <li><strong>Note d'âge</strong> : remplissez le questionnaire honnêtement</li>
+        </ul>
+        <p>Pour les apps d'abonnement, ajoutez en bas de description : la liste des plans, la durée, le prix, et un lien vers vos conditions et la politique de confidentialité. <strong>C'est obligatoire</strong> depuis 2024 pour les apps avec auto-renewable subscriptions.</p>
+
+        <h3>Capturer les screenshots aux bons formats</h3>
+        <p>Apple demande des screenshots pour <strong>chaque format d'écran</strong> que votre app supporte :</p>
+        <ul>
+          <li><strong>6,9 pouces</strong> (iPhone 16 Pro Max) : 1320×2868 px — obligatoire</li>
+          <li><strong>6,5 pouces</strong> (iPhone 11 Pro Max) : 1242×2688 px — obligatoire</li>
+          <li><strong>iPad 13 pouces</strong> : 2064×2752 px — obligatoire si vous supportez l'iPad</li>
+        </ul>
+        <p>Minimum 3 captures par format, max 10. Apple génère automatiquement les rendus pour les anciens iPhones depuis le format 6,9".</p>
+
+        <div class="guide-callout">
+          <span class="guide-callout-label">Astuce</span>
+          <p>Depuis 2023, Apple permet d'uploader <strong>uniquement le format 6,9"</strong> et il génère les autres tailles automatiquement. Mais ça ne marche que si vos screenshots sont en pure UI sans overlay marketing. Si vous mettez du texte par-dessus (titres, accroches), il faut chaque format manuellement.</p>
+        </div>
+
+        <h3>Configurer les abonnements / IAP</h3>
+        <p>Pour les apps payantes, <strong>les produits IAP doivent être créés AVANT la première soumission</strong>. Path : App Store Connect → votre app → onglet <strong>Monétisation → Abonnements</strong>.</p>
+        <p>Pour chaque abonnement :</p>
+        <ul>
+          <li><strong>Reference Name</strong> (interne) — différent du nom affiché</li>
+          <li><strong>Product ID</strong> (irrévocable une fois publié) — utilisez la même valeur que dans votre code</li>
+          <li><strong>Localizations</strong> — display name et description visibles côté utilisateur, <strong>différents par abonnement</strong> (un piège classique de rejet : si vos plans mensuel et annuel ont le même display name, Apple rejette)</li>
+          <li><strong>Prix par région</strong></li>
+        </ul>
+        <p><strong>Pour l'IAP côté serveur</strong> : si votre backend valide les reçus, configurez les <strong>App Store Server Notifications V2</strong> avec un endpoint webhook (JWS ES256, vérification de la chaîne de certificats Apple Root CA). Comptez 2-3 jours d'implémentation pour faire ça proprement.</p>
+
+        <h3>Définir les règles de review</h3>
+        <p>Apple vous demande de fournir les infos qui leur permettent de tester l'app :</p>
+        <ul>
+          <li><strong>Compte de test</strong> (email + mot de passe) si l'app exige un login</li>
+          <li><strong>Notes pour le reviewer</strong> : un texte court qui explique comment naviguer, où trouver les features clés, etc.</li>
+          <li><strong>Coordonnées</strong> : email + téléphone joignables en cas de question</li>
+        </ul>
+
+        <blockquote><strong>Mon conseil</strong> : créez un compte dédié (<code>reviewer@votreapp.com</code>) avec <strong>abonnement Premium activé en base</strong>. Ne laissez jamais le reviewer face à un paywall qu'il ne peut pas contourner — c'est un motif de rejet automatique (Guideline 4.1).</blockquote>
+
+        <h2>Le build et la soumission</h2>
+
+        <h3>Build release dans Xcode</h3>
+        <p>Dans Xcode :</p>
+        <ol>
+          <li><strong>Configuration</strong> : Release (pas Debug)</li>
+          <li><strong>Generic iOS Device</strong> comme cible (pas un simulateur)</li>
+          <li><strong>Product → Archive</strong> pour générer un <code>.ipa</code> signé</li>
+          <li><strong>Window → Organizer</strong> pour voir l'archive</li>
+        </ol>
+        <p>L'archive est signée avec votre <strong>provisioning profile distribution</strong> (créé automatiquement par Xcode si vous êtes connecté à votre compte Apple Developer dans Xcode).</p>
+
+        <h3>Upload via Transporter ou Xcode</h3>
+        <p>Deux voies :</p>
+        <ul>
+          <li><strong>Xcode</strong> : depuis l'Organizer, « Distribute App » → App Store Connect → Upload</li>
+          <li><strong>Transporter</strong> (app séparée, gratuite sur le Mac App Store) : drag &amp; drop le <code>.ipa</code></li>
+        </ul>
+        <p>Transporter est <strong>plus fiable</strong> pour les apps lourdes (&gt;100 Mo) et donne des erreurs plus claires en cas de problème.</p>
+        <p>L'upload prend 5 à 30 minutes selon le poids. Apple traite ensuite le build (2 à 60 minutes), puis il apparaît dans App Store Connect comme <strong>« En cours de traitement »</strong> puis <strong>« Prêt à soumettre »</strong>.</p>
+
+        <h3>Soumettre pour review</h3>
+        <p>Quand votre build est prêt :</p>
+        <ol>
+          <li>Sélectionnez-le dans la fiche de version</li>
+          <li>Vérifiez <strong>toutes les métadonnées une dernière fois</strong></li>
+          <li>Cliquez sur <strong>« Ajouter pour examen »</strong> puis <strong>« Soumettre pour examen »</strong></li>
+        </ol>
+        <p>L'app passe en statut <strong>« En attente d'examen »</strong> puis <strong>« En cours d'examen »</strong> quand un reviewer la prend.</p>
+
+        <h2>La review Apple : à quoi s'attendre</h2>
+
+        <h3>Délais réels (mai 2026)</h3>
+        <ul>
+          <li><strong>Apps neuves</strong> : 24h à 7 jours (médiane à 48h)</li>
+          <li><strong>Updates</strong> : 24h à 48h</li>
+          <li><strong>App expedited</strong> (urgence justifiée) : 12-24h, demandable une fois par mois max</li>
+        </ul>
+        <p>Le délai Apple est plus court qu'avant — début 2024, on était à 5-7 jours. Aujourd'hui, 80 % des reviews passent sous 48h. Mais <strong>ne soumettez jamais le vendredi</strong> : les reviews ralentissent fortement le week-end.</p>
+
+        <h3>Le compte reviewer à fournir</h3>
+        <p>Apple teste votre app avec <strong>un de leurs comptes de pool</strong>. Si votre app exige un login (Google, Apple, email), le reviewer ne peut pas en créer — vous devez fournir des credentials.</p>
+
+        <blockquote><strong>Pour Macrodiet, j'ai utilisé</strong> : <code>apple-review@macrodiet.app</code> / mot de passe fort, marqué Premium en base avec <code>subscription_tier = 'yearly'</code> pour qu'il accède à toutes les fonctionnalités sans devoir simuler un IAP.</blockquote>
+
+        <h3>Les 6 motifs de rejet les plus courants (avec mes fixes)</h3>
+        <p>C'est ici que ça se passe vraiment. Voici les six guidelines qui ont fait recaler Macrodiet — et que je vois revenir sur 80 % des projets que j'audite.</p>
+
+        <h4>1. Guideline 4.8 — Login Services</h4>
+        <p><strong>Cause</strong> : votre app propose Google Sign-In, Facebook Sign-In ou tout autre login tiers, mais pas Sign in with Apple.</p>
+        <p><strong>Fix</strong> : depuis 2020, <strong>Sign in with Apple est obligatoire dès qu'un login tiers est présent</strong>. Ajoutez-le sur les écrans de signup ET de login. Le package Flutter <code>sign_in_with_apple</code> se branche en 30 minutes.</p>
+
+        <h4>2. Guideline 2.3.2 — Promotional Image IAP</h4>
+        <p><strong>Cause</strong> : la « promotional image » de votre IAP est identique à votre icône d'app, ou contient le nom de l'app sans valeur ajoutée.</p>
+        <p><strong>Fix</strong> : soit vous créez <strong>une image promotionnelle réellement différente</strong> de l'icône (avec un visuel produit), soit vous <strong>supprimez carrément le champ</strong> (il est optionnel). Dans 90 % des cas, supprimez-le.</p>
+
+        <h4>3. Guideline 2.3.2 — IAP Display Names dupliqués</h4>
+        <p><strong>Cause</strong> : vos abonnements « Premium Mensuel » et « Premium Annuel » ont le même <strong>display name</strong> ou la même <strong>description</strong> côté Localizations (la section visible par l'utilisateur, pas le Reference Name).</p>
+        <p><strong>Fix</strong> : différenciez les deux. Limite : 30 caractères pour le display name, 45 pour la description. Soyez explicite sur ce qui change : « 25 crédits IA / mois » vs « 400 crédits IA / an ».</p>
+
+        <h4>4. Guideline 3.1.2(c) — Subscriptions / EULA</h4>
+        <p><strong>Cause</strong> : votre app propose un abonnement auto-renouvelable, mais vous n'avez pas de lien Terms of Use accessible depuis la fiche App Store.</p>
+        <p><strong>Fix</strong> : ajoutez en bas de votre description App Store le bloc suivant :</p>
+        <blockquote>Conditions d'utilisation : https://www.apple.com/legal/internet-services/itunes/dev/stdeula/<br>Politique de confidentialité : https://votreapp.com/privacy</blockquote>
+        <p>Et reproduisez ces deux liens <strong>dans le paywall in-app</strong>, accessibles avant l'achat.</p>
+
+        <h4>5. Guideline 2.1(a) — App Completeness</h4>
+        <p><strong>Cause</strong> : Apple teste sur iPad même si votre app est principalement iPhone, et trouve un bug bloquant — un bouton qui freeze, un écran qui crash, etc.</p>
+        <p><strong>Fix</strong> : <strong>testez systématiquement sur iPad avant soumission</strong>, même si votre cible est iPhone. C'est un piège fréquent : votre code marche en iPhone parce que vous avez testé là-dessus, mais une marge ou un comportement diffère sur iPad. Pour Macrodiet, ce sont les liens « CGU » et « Confidentialité » du paywall qui freezaient sur iPad Air M3 — invisible sur iPhone.</p>
+
+        <h4>6. Guideline 1.4.1 — Apps santé / médical / nutrition</h4>
+        <p><strong>Cause</strong> : votre app donne des conseils santé sans citations vérifiables.</p>
+        <p><strong>Fix v1</strong> (refusé chez Macrodiet) : un écran « Sources » caché dans le profil avec des noms d'auteurs en texte plat. <strong>Apple a re-rejeté</strong> parce qu'il n'y avait ni liens cliquables ni mention « in-context ».</p>
+        <p><strong>Fix v2</strong> (validé) : (a) chaque référence dans Sources est une <strong>carte cliquable</strong> avec URL visible (OMS, Harvard Nutrition Source, Anses, ouvrages de référence), (b) un <strong>bandeau citation</strong> visible sur <strong>chaque écran</strong> qui surface des conseils santé, routé vers /sources.</p>
+
+        <blockquote><strong>Règle générale</strong> : Apple veut des <strong>liens cliquables</strong> (pas juste des noms d'auteurs) ET des citations <strong>in-context</strong> (pas seulement un écran isolé). Un écran Sources caché dans le profil ne suffit pas pour passer la review santé.</blockquote>
+
+        <h2>Post-approval : que faire après le go-live</h2>
+        <p>Le mail « Your app has been approved » tombe — bravo. Maintenant :</p>
+
+        <h3>Surveiller les premiers crash logs</h3>
+        <p>Dans App Store Connect → onglet <strong>Apple Analytics</strong>, vous voyez les sessions, les crashs, et les mises à jour. Si vous avez intégré <strong>Crashlytics</strong> ou <strong>Sentry</strong>, c'est encore mieux pour le détail des stack traces.</p>
+        <p>Les premières 24-48h post-launch sont cruciales : si un bug critique passe, vous voulez le repérer vite et soumettre une 1.0.1.</p>
+
+        <h3>Optimiser les keywords (ASO)</h3>
+        <p>L'<strong>App Store Optimization</strong> est aussi importante que le SEO web :</p>
+        <ul>
+          <li>Itérez sur le <strong>sous-titre</strong> (30 chars) à chaque update</li>
+          <li>Testez différents <strong>mots-clés</strong> (max 100 chars)</li>
+          <li>A/B testez vos <strong>screenshots</strong> via App Store Connect (feature gratuite depuis iOS 17)</li>
+        </ul>
+
+        <h3>Préparer les updates futures</h3>
+        <p>Apple <strong>n'oblige pas</strong> à updater régulièrement, mais une app sans update depuis 2 ans est susceptible d'être retirée de la recherche. Visez <strong>une update toutes les 4 à 8 semaines</strong>, même petite.</p>
+
+        <h2>Combien ça coûte au total ?</h2>
+
+        <table class="guide-table">
+          <thead><tr><th>Poste</th><th class="price">Coût</th></tr></thead>
+          <tbody>
+            <tr><td>Apple Developer Program</td><td class="price">99 USD / an (~95 €)</td></tr>
+            <tr><td>Mac (si pas déjà possédé)</td><td class="price">À partir de 1 200 € (Mac mini)</td></tr>
+            <tr><td>Site web (domaine + hosting)</td><td class="price">5-15 € / mois</td></tr>
+            <tr><td>Conception graphique (icône, screenshots)</td><td class="price">0 € (vous-même) à 500 € (designer)</td></tr>
+            <tr><td>Backend (Supabase / Firebase)</td><td class="price">Gratuit jusqu'à plusieurs centaines d'utilisateurs</td></tr>
+            <tr><td>Commission Apple sur ventes IAP</td><td class="price"><strong>30 %</strong> la 1<sup>re</sup> année, <strong>15 %</strong> ensuite</td></tr>
+          </tbody>
+        </table>
+
+        <div class="guide-callout">
+          <span class="guide-callout-label">Ordre de grandeur</span>
+          <p>Pour une app sérieuse type Macrodiet, comptez <strong>100 € fixes / an</strong> + 30 % de commission Apple sur les ventes IAP. Sans Mac neuf et sans designer externe.</p>
+        </div>
+
+        <h2>Mes 5 conseils issus de l'expérience Macrodiet</h2>
+        <ol>
+          <li><strong>Ne soumettez jamais une première version sans avoir testé sur iPad</strong> — même si votre cible est iPhone. C'est le piège n°1.</li>
+          <li><strong>Préparez un compte de review Premium</strong> avant la soumission. Pas de friction = moins de motifs de rejet.</li>
+          <li><strong>Le ping-pong avec le Resolution Center est plus rapide qu'un nouveau build</strong>. Si le rejet est un malentendu, <strong>répondez par message</strong> avant de re-soumettre.</li>
+          <li><strong>Anticipez la guideline 1.4.1 si votre app touche à la santé, finance, ou éducation</strong>. Citez des sources, et faites-les apparaître <strong>en contexte</strong> (pas dans un écran caché).</li>
+          <li><strong>Apple expedited review est utile dans deux cas</strong> : un crash critique en prod, ou un événement timing-sensitive (lancement marketing prévu). Pas pour gagner 2 jours sur une review normale.</li>
+        </ol>
+
+        <h2>Questions fréquentes</h2>
+        {faqs.map((f) => (
+          <div>
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="guide-cta">
+        <h3>Vous voulez publier votre app sur l'App Store <em>sans vous prendre les pieds</em> dans les guidelines ?</h3>
+        <p>Webinti accompagne fondateurs et équipes produit sur la mise en ligne de leurs apps Flutter, React Native ou Bubble. Audit de fiche, préparation, gestion du Resolution Center si rejet — vous gardez la main, on prend le relais sur la partie store.</p>
+        <div class="guide-cta-row">
+          <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="guide-btn guide-btn-primary">Réserver un créneau →</a>
+          <a href="/expertise/developpement-mobile/" class="guide-btn guide-btn-ghost">Voir le service mobile</a>
+        </div>
+      </div>
+
+      <div class="guide-related">
+        <h4>À lire ensuite</h4>
+        <div class="guide-related-list">
+          <a class="guide-related-card" href="/guides/publier-app-android/">
+            <div class="grc-eyebrow">Android · 13 min</div>
+            <div class="grc-title">Comment publier une application Android sur le Play Store en 2026 ?</div>
+          </a>
+          <a class="guide-related-card" href="/guides/combien-coute-application-mobile/">
+            <div class="grc-eyebrow">Tarifs · 8 min</div>
+            <div class="grc-title">Combien coûte une application mobile en 2026 ?</div>
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>

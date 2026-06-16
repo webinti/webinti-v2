@@ -1,0 +1,16 @@
+[Unit]
+Description=Cadrage Quai Sud — service formulaire → email (Postfix)
+After=network.target postfix.service
+
+[Service]
+Type=simple
+User=openclaw
+WorkingDirectory=/home/openclaw/projects/webinti/cadrage-service
+ExecStart=/usr/bin/node /home/openclaw/projects/webinti/cadrage-service/server.cjs
+Restart=on-failure
+RestartSec=3
+# NB : pas de NoNewPrivileges — postdrop (setgid) en a besoin pour déposer le mail.
+ProtectSystem=false
+
+[Install]
+WantedBy=multi-user.target

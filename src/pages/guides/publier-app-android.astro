@@ -1,0 +1,437 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/guide.css';
+
+const datePub = '2026-05-05';
+const dateMod = '2026-05-05';
+
+const faqs = [
+  {
+    q: "Combien de temps prend la review Google Play ?",
+    a: "1 à 7 jours pour une première publication, 1-3 jours pour une update. La médiane est sous les 3 jours — plus rapide qu'Apple. Pas de système d'expedited review."
+  },
+  {
+    q: "La règle des 14 jours de bêta fermée s'applique-t-elle vraiment à tout le monde ?",
+    a: "Aux comptes Personal créés après le 13 novembre 2023. Si vous avez un ancien compte Personal créé avant cette date et que vous y avez déjà publié au moins une app en prod, la règle ne s'applique plus (le compte est considéré « validé »). Pour les comptes Organization avec D-U-N-S, la règle ne s'est jamais appliquée."
+  },
+  {
+    q: "Google prend combien de commission ?",
+    a: "30 % standard sur les abonnements et achats one-shot. Si votre CA annuel est inférieur à 1 million USD, vous êtes éligible au Play Apps Reduced Fees Program : 15 % dès le premier euro. C'est appliqué automatiquement, pas besoin de candidater. Au-delà de 1M USD/an, vous repassez à 30 % sur la portion qui dépasse."
+  },
+  {
+    q: "Faut-il publier iOS et Android en parallèle ?",
+    a: "Si votre temps est limité : iOS d'abord. Apple est plus strict (si vous passez Apple, Google passe quasi systématiquement), le panier moyen iOS est 2× supérieur sur les apps d'abonnement, et le délai Apple pénalise moins les apps déjà polies. Si vous avez du temps : les deux en parallèle, le code Flutter est commun et vous économisez ~30 % d'effort vs publication séquentielle."
+  },
+  {
+    q: "Peut-on builder une .aab Android depuis Windows ou Linux ?",
+    a: "Oui sans problème. Android Studio est multi-plateforme. C'est l'avantage majeur vs iOS qui exige un Mac."
+  },
+  {
+    q: "Mon ancien compte Google Play Console a été fermé pour inactivité. Que faire ?",
+    a: "Les frais de 25 USD ne sont pas remboursables et vous ne pouvez pas réactiver le compte fermé. Solution : créez un nouveau compte avec un nouveau Gmail, payez 25 USD à nouveau. Astuce : un Gmail qui n'a jamais servi sur le Play Console est requis (Google détecte les liens entre anciens comptes)."
+  },
+  {
+    q: "TestFlight équivalent pour Android ?",
+    a: "Le Play Console intègre 3 tracks de test gratuits et illimités : test interne (jusqu'à 100 testeurs, instantané), test fermé (jusqu'à 1000 testeurs, propagation 24h), test ouvert (illimité, accessible via lien public). Pas besoin d'app séparée comme TestFlight."
+  },
+  {
+    q: "L'app peut-elle être publiée sans IAP créés ?",
+    a: "Oui, à condition de ne pas référencer d'IDs de produits IAP dans le code. Mais si votre app les query au démarrage (queryProductDetails) et qu'ils n'existent pas, vous obtenez un état « products vide » potentiellement bloquant pour le paywall. Créez les IAP avant le premier upload prod."
+  }
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: "Publier une application Android sur le Play Store en 2026",
+    description: "Étapes complètes pour publier une app Android sur le Play Store : Google Play Console, build .aab, keystore, bêta fermée 14 jours, abonnements, soumission.",
+    totalTime: "P5W",
+    estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '25' },
+    step: [
+      { '@type': 'HowToStep', name: 'Inscription Google Play Console', text: 'Créer le compte (25 USD une fois), choisir Personal ou Organization, valider identité ou D-U-N-S Number.' },
+      { '@type': 'HowToStep', name: 'Configuration Play Console', text: 'Créer la fiche, remplir Data Safety, classification du contenu, métadonnées et assets visuels.' },
+      { '@type': 'HowToStep', name: 'Build et keystore', text: 'Générer un keystore avec keytool, configurer le signing dans build.gradle, builder un .aab signé via flutter build appbundle.' },
+      { '@type': 'HowToStep', name: 'Préparation des assets', text: 'Icône 512×512, feature graphic 1024×500, screenshots ratio 9:16 à 16:9 (padding latéral si screenshots iOS 1320×2868).' },
+      { '@type': 'HowToStep', name: 'Upload + test interne', text: 'Uploader le .aab en test interne pour débloquer la création des produits IAP.' },
+      { '@type': 'HowToStep', name: 'Bêta fermée 14 jours', text: 'Recruter 12 testeurs minimum, créer la release sur le track Tests fermés, attendre 14 jours consécutifs.' },
+      { '@type': 'HowToStep', name: 'Soumission production', text: 'Promouvoir la release vers le track Production, attendre 1-7 jours de review Google.' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: "Comment publier une application Android sur le Play Store en 2026 — Guide complet",
+    description: "De l'inscription au Google Play Console à la mise en ligne, toutes les étapes pour publier une app Android. Le piège des 14 jours de bêta fermée, les coûts cachés, les motifs de rejet — basé sur la publication récente de Macrodiet.",
+    image: 'https://webinti.com/assets/images/og.jpg',
+    datePublished: datePub,
+    dateModified: dateMod,
+    author: { '@type': 'Person', name: 'Timothée Polfliet', url: 'https://webinti.com/studio/' },
+    publisher: { '@id': 'https://webinti.com/#organization' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://webinti.com/guides/publier-app-android/' },
+    inLanguage: 'fr-FR',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<BaseLayout
+  title="Publier une application Android sur le Play Store en 2026 — Guide complet | Webinti"
+  description="De l'inscription Google Play Console à la mise en ligne. Le piège des 14 jours de bêta fermée, le keystore, les IAP, les motifs de rejet — basé sur la publication récente de Macrodiet."
+  canonical="https://webinti.com/guides/publier-app-android/"
+  keywords="publier app android, google play console, bêta fermée 14 jours, keystore android, .aab, data safety play, play apps reduced fees, IAP android, flutter build appbundle"
+  jsonLd={jsonLd}
+>
+  <Nav />
+  <main>
+    <article class="guide">
+      <a href="/guides/" class="guide-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Tous les guides</a>
+      <span class="guide-eyebrow"><span class="dot"></span>Android · Google Play</span>
+      <h1>Comment publier une application <em>Android</em> sur le Play Store en 2026 ?</h1>
+      <p class="guide-lede"><strong>C'est moins cher et plus rapide qu'iOS — sauf depuis novembre 2023.</strong> Depuis cette date, Google a introduit une règle qui retarde toute première publication d'au moins <strong>14 jours</strong>, et ça fait grincer beaucoup de fondateurs qui pensaient pouvoir publier en parallèle d'iOS.</p>
+      <div class="guide-meta">
+        <span><strong>Publié</strong> 5 mai 2026</span>
+        <span class="guide-meta-dot"></span>
+        <span><strong>Mis à jour</strong> 5 mai 2026</span>
+        <span class="guide-meta-dot"></span>
+        <span><strong>Auteur</strong> Timothée Polfliet · Bubble Champion 2024</span>
+        <span class="guide-meta-dot"></span>
+        <span><strong>Lecture</strong> 13 min</span>
+      </div>
+
+      <div class="guide-body">
+        <p>Je suis en train de publier <strong>Macrodiet</strong>, mon app de nutrition macrobiotique, sur le Play Store. iOS approuvé le 4 mai. Android : compte créé, build (5) uploadé en test interne, abonnements configurés, fiche store complète. <strong>Mais pas encore en prod</strong> parce que je dois passer la fameuse phase de bêta fermée de 14 jours avec 12 testeurs minimum.</p>
+        <p>Ce guide rassemble tout ce que j'ai appris en faisant la publication des deux côtés — avec le <strong>vrai planning réaliste</strong> que personne ne te dit avant de t'engager.</p>
+
+        <h2>Les 7 grandes étapes pour publier sur Google Play</h2>
+
+        <table class="guide-table">
+          <thead>
+            <tr><th>Étape</th><th>Délai réaliste</th><th class="price">Coût</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Inscription Google Play Console</td><td>24-48h (validation)</td><td class="price">25 USD une fois</td></tr>
+            <tr><td>Configuration Play Console (fiche, data safety)</td><td>1-2 jours</td><td class="price">Inclus</td></tr>
+            <tr><td>Build, keystore, signing</td><td>0,5 à 1 jour</td><td class="price">Aucun (PC ou Mac)</td></tr>
+            <tr><td>Préparation des assets (icône, feature graphic, screenshots)</td><td>1 à 3 jours</td><td class="price">Variable</td></tr>
+            <tr><td>Upload + test interne</td><td>1 jour</td><td class="price">Inclus</td></tr>
+            <tr><td><strong>Bêta fermée 14 jours + 12 testeurs</strong> ⏳</td><td>14 jours <strong>obligatoires</strong></td><td class="price">Inclus</td></tr>
+            <tr><td>Soumission prod + review</td><td>1 à 7 jours</td><td class="price">Inclus</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Total réaliste pour une première publication</strong> : 4 à 6 semaines, dont 14 jours incompressibles si vous avez un compte Personal créé après novembre 2023.</p>
+
+        <div class="guide-callout">
+          <span class="guide-callout-label">Ordre de grandeur</span>
+          <p>La phase technique (compte → build → upload) prend 3-5 jours. La phase administrative (bêta fermée obligatoire) ajoute 14 jours fixes. Anticipez le recrutement des 12 testeurs <strong>dès le début</strong>, pas après le build.</p>
+        </div>
+
+        <h2>Les pré-requis avant de commencer</h2>
+
+        <h3>Le compte Google Play Console (25 USD une fois)</h3>
+        <p>Bonne nouvelle vs Apple : <strong>paiement unique de 25 USD</strong>, pas d'abonnement annuel. Le compte est valide à vie. L'inscription se fait sur <a href="https://play.google.com/console/signup" target="_blank" rel="noopener">play.google.com/console/signup</a>.</p>
+        <p>⚠️ <strong>Piège</strong> : si vous n'utilisez pas le compte pendant ~12 mois, <strong>Google le ferme automatiquement</strong> et les frais sont perdus. Pour Macrodiet, j'ai dû récupérer un ancien compte créé en octobre 2025 qui était sur le point d'être fermé pour inactivité — j'ai eu de la chance.</p>
+
+        <h3>Personal vs Organization : lequel choisir ?</h3>
+        <p>Au moment de l'inscription, Google vous demande de choisir entre <strong>Personal</strong> (Particulier) et <strong>Organization</strong> (Entreprise). Le choix a des conséquences importantes :</p>
+
+        <table class="guide-table">
+          <thead>
+            <tr><th>Critère</th><th>Personal</th><th>Organization</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Validation requise</td><td>Pièce d'identité</td><td><strong>D-U-N-S Number</strong> (gratuit en France via Altares)</td></tr>
+            <tr><td>Délai d'obtention</td><td>24-48h</td><td>30 jours pour le D-U-N-S la 1<sup>re</sup> fois</td></tr>
+            <tr><td>Bêta fermée 14j obligatoire (apps post-2023)</td><td><strong>Oui</strong></td><td>Non</td></tr>
+            <tr><td>Nom affiché sur le store</td><td>Votre nom (modifiable)</td><td>Raison sociale</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Mon conseil</strong> :</p>
+        <ul>
+          <li>Si vous avez <strong>une entreprise déjà déclarée</strong> + un D-U-N-S déjà obtenu → Organization</li>
+          <li>Si vous êtes auto-entrepreneur, freelance ou particulier → Personal (plus rapide à activer, mais 14j de bêta fermée à anticiper)</li>
+          <li>Si vous <strong>anticipez le D-U-N-S très tôt</strong> dans votre planning produit → vous pouvez le demander pendant que vous codez l'app</li>
+        </ul>
+        <p>Pour Macrodiet, j'ai choisi Personal parce que la vitesse d'activation primait sur l'éviction des 14 jours de bêta.</p>
+
+        <h3>Android Studio (pas besoin de Mac)</h3>
+        <p>Contrairement à iOS, <strong>vous pouvez publier une app Android depuis Windows, Linux ou Mac</strong>. Outils requis :</p>
+        <ul>
+          <li><strong>Android Studio</strong> (gratuit, multi-OS, ~3 Go) : IDE, simulateurs, build tools</li>
+          <li><strong>Java JDK</strong> (souvent inclus dans Android Studio) : nécessaire pour <code>keytool</code></li>
+          <li><strong>Flutter ou React Native</strong> ou Kotlin natif : selon votre stack</li>
+        </ul>
+        <p>Si votre app est <strong>multi-plateforme Flutter</strong>, vous travaillez sur le même projet que iOS — pas de duplication de code. C'est l'avantage massif d'un framework cross-platform.</p>
+
+        <h3>Le package name et l'identité de l'app</h3>
+        <p>Le <strong>package name</strong> Android est l'équivalent du bundle ID iOS (ex : <code>app.macrodiet.macrodiet</code>). Convention reverse-DNS, <strong>immuable une fois publié</strong>.</p>
+        <p>Si vous publiez la même app sur iOS et Android, <strong>utilisez le même identifiant des deux côtés</strong> : ça simplifie analytics, deep links, et branding.</p>
+
+        <h2>Configuration dans Play Console</h2>
+        <p><a href="https://play.google.com/console" target="_blank" rel="noopener">Google Play Console</a> est le tableau de bord équivalent à App Store Connect.</p>
+
+        <h3>Créer la fiche de l'app</h3>
+        <p><strong>Toutes les apps → Créer une application</strong>. Vous renseignez :</p>
+        <ul>
+          <li><strong>Nom de l'application</strong> : visible sur le store, max 30 caractères</li>
+          <li><strong>Langue par défaut</strong> : choisissez bien, ça oriente les autres champs</li>
+          <li><strong>Type d'application</strong> : App ou Jeu</li>
+          <li><strong>Gratuite ou Payante</strong> : pour les apps avec IAP, choisissez Gratuite (le store dit « Free », l'IAP gère le paiement)</li>
+        </ul>
+
+        <h3>Préparer les métadonnées</h3>
+        <p>Trois champs visibles par l'utilisateur :</p>
+        <ul>
+          <li><strong>Brève description</strong> (max 80 chars) : sous le nom dans la fiche, indexée pour la recherche</li>
+          <li><strong>Description complète</strong> (max 4000 chars) : la fiche complète, visible quand on tape « Plus d'infos »</li>
+          <li><strong>Tags</strong> (5 max) : choisis dans une liste prédéfinie selon votre catégorie</li>
+        </ul>
+        <p>⚠️ <strong>Évitez les claims marketing agressifs</strong> dans la description :</p>
+        <ul>
+          <li>❌ « Perdez 5 kg en une semaine ! » → flag automatique sur les apps santé</li>
+          <li>❌ « L'application n°1 mondiale » → claim non vérifiable</li>
+          <li>✅ « 110 aliments analysés, équilibre Yin/Yang, assistant IA » → factuel</li>
+        </ul>
+
+        <h3>Capturer les screenshots aux bons formats</h3>
+        <p>Google Play impose <strong>des dimensions strictes</strong> :</p>
+        <ul>
+          <li><strong>Icône</strong> : 512×512 px PNG (sans transparence)</li>
+          <li><strong>Image de présentation (Feature Graphic)</strong> : 1024×500 px JPG/PNG, <strong>sans screenshot ni mockup de téléphone</strong> (Google interdit explicitement)</li>
+          <li><strong>Screenshots téléphone</strong> : 2 à 8 captures, ratio entre 9:16 et 16:9, chaque côté entre 320 et 3840 px</li>
+        </ul>
+        <p>Si vos screenshots iOS sont en <strong>1320×2868</strong> (iPhone 16 Pro Max), le ratio est ~9:19.5 — <strong>trop allongé</strong> pour Google. Deux options :</p>
+        <ol>
+          <li><strong>Padding latéral</strong> : ajouter du blanc/cream sur les côtés pour atteindre 1614×2868 (9:16 exact)</li>
+          <li><strong>Crop centré</strong> : couper en hauteur vers 1320×2347</li>
+        </ol>
+        <p>J'ai choisi l'option 1 pour Macrodiet : ça préserve toute l'UI iOS, on ajoute juste du padding crème esthétique. Script Python en 10 lignes avec PIL.</p>
+
+        <h3>Data Safety — la déclaration de collecte de données</h3>
+        <p>C'est l'<strong>équivalent du Privacy Nutrition Label</strong> d'Apple, mais <strong>plus détaillé</strong>. Google vous demande de déclarer <strong>catégorie par catégorie</strong> :</p>
+        <ul>
+          <li><strong>Quels types de données</strong> vous collectez (email, nom, photos, conversations IA, etc.)</li>
+          <li><strong>Pour chaque type</strong> : objectif, partage tiers, optionnel ou requis</li>
+          <li><strong>Sécurité</strong> : chiffrement en transit, possibilité de suppression de compte</li>
+        </ul>
+        <p>⚠️ <strong>Mentir ici = violation directe de la politique Play</strong>. Si vous déclarez « Aucune donnée collectée » alors que votre app utilise Supabase + Firebase, votre app peut être <strong>retirée même après publication</strong> quand Google détecte la divergence.</p>
+
+        <div class="guide-callout">
+          <span class="guide-callout-label">Le piège des SDK transitifs</span>
+          <p>Certaines libs (Firebase Analytics, Google Mobile Ads) ajoutent automatiquement la permission <code>com.google.android.gms.permission.AD_ID</code> à votre manifest, même si vous ne l'utilisez pas. Pour cocher « Pas d'identifiant publicitaire » en toute honnêteté, ajoutez ce snippet dans votre <code>AndroidManifest.xml</code> :</p>
+          <pre><code>{`<uses-permission
+    android:name="com.google.android.gms.permission.AD_ID"
+    tools:node="remove" />`}</code></pre>
+        </div>
+
+        <h3>Classification du contenu</h3>
+        <p>Google génère automatiquement les ratings (PEGI, ESRB, ClassInd) à partir d'un questionnaire. Pour une app type Macrodiet (nutrition, IAP, login), vous obtenez généralement <strong>PEGI 3 / ESRB Everyone</strong> — sauf au Brésil (ClassInd 14+ à cause des « achats in-app », anomalie locale sans impact en Europe).</p>
+
+        <h3>Tranches d'âge cibles</h3>
+        <p>Pour une app wellness/nutrition adulte, cochez <strong>uniquement 16-17 et 18+</strong>. En cochant 13-15 ou moins, vous tombez sous <strong>Google Families Policy</strong> (interdiction de pub tierce non certifiée, parental consent obligatoire dans certains pays UE) — overhead réglementaire qu'on évite tant qu'on n'a pas une vraie cible enfant.</p>
+
+        <h2>Le build, la signature, et le keystore</h2>
+
+        <h3>Générer un keystore avec keytool</h3>
+        <p>Le <strong>keystore</strong> est le fichier de signature de votre app. <strong>C'est l'élément le plus critique de toute votre publication Android</strong> : si vous le perdez, vous ne pourrez plus jamais updater votre app sous le même package name.</p>
+        <p>Commande de génération (depuis le JDK Android Studio) :</p>
+        <pre><code>{`keytool -genkey -v \\
+  -keystore ~/keys/votre-app.jks \\
+  -storetype PKCS12 \\
+  -keyalg RSA -keysize 2048 \\
+  -validity 10000 \\
+  -alias votre-app`}</code></pre>
+        <p><code>keytool</code> vous demande un mot de passe (storePassword + keyPassword) et des infos de certificat. Stockez tout ça <strong>dans 1Password ou Bitwarden immédiatement</strong>.</p>
+
+        <h3>Configurer le signing dans build.gradle</h3>
+        <p>Créez un fichier <code>android/key.properties</code> (à NE PAS commit dans Git, vérifiez votre <code>.gitignore</code>) :</p>
+        <pre><code>{`storePassword=VOTRE_MOT_DE_PASSE
+keyPassword=VOTRE_MOT_DE_PASSE
+keyAlias=votre-app
+storeFile=/Users/vous/keys/votre-app.jks`}</code></pre>
+        <p>Puis dans <code>android/app/build.gradle.kts</code>, chargez ce fichier et configurez le signing config pour la build release. Flutter a une doc détaillée pour ce point.</p>
+
+        <h3>Builder le .aab signé</h3>
+        <pre><code>flutter build appbundle --release</code></pre>
+        <p>Vous obtenez un <code>.aab</code> (Android App Bundle) dans <code>build/app/outputs/bundle/release/</code>. Pour Macrodiet : 52,1 Mo.</p>
+
+        <blockquote><strong>Pourquoi .aab et pas .apk ?</strong> Google a abandonné les <code>.apk</code> en 2021. Le <code>.aab</code> est un format intermédiaire : Google génère ensuite des APK optimisés par device (ABI, density, langue) — l'utilisateur télécharge typiquement seulement 15-20 Mo au lieu des 52 Mo du bundle. C'est le <strong>dynamic delivery</strong>.</blockquote>
+
+        <h3>Sauvegarder le keystore (CRITICAL)</h3>
+        <p>Triple sauvegarde :</p>
+        <ol>
+          <li><strong>Local</strong> : votre Mac/PC, dans un dossier hors du repo Git</li>
+          <li><strong>Cloud chiffré</strong> : 1Password / Bitwarden / iCloud Drive personnel</li>
+          <li><strong>Backup physique</strong> : clé USB ou Time Machine</li>
+        </ol>
+        <p>Si tu perds les trois, <strong>tu perds Macrodiet sur Android pour toujours</strong> sous ce package name. Aucun support Google ne peut le récupérer.</p>
+
+        <h2>Le piège des nouveaux comptes : 14 jours de bêta fermée</h2>
+
+        <h3>Pourquoi cette règle existe</h3>
+        <p>Depuis novembre 2023, Google impose à <strong>tous les nouveaux comptes Personal</strong> une phase de validation avant publication en production :</p>
+        <ul>
+          <li><strong>12 testeurs minimum</strong>, opted-in à un test fermé</li>
+          <li><strong>14 jours consécutifs minimum</strong> de durée de test</li>
+          <li>Activité de test trackée par compte Google (pas par device)</li>
+        </ul>
+        <p>Le but : limiter les apps fraudeuses ou malveillantes publiées par des comptes neufs sans historique.</p>
+
+        <h3>Comment recruter 12 testeurs</h3>
+        <p>Les <strong>vrais testeurs uniques</strong> sont obligatoires — Google détecte les comptes fakes (même IP, fingerprint matériel commun, comptes récents sans historique). Trois approches qui fonctionnent :</p>
+        <ol>
+          <li><strong>Réseau perso</strong> : famille + amis + collègues qui ont un Android. Message WhatsApp générique : « j'ai besoin de 12 personnes pour tester mon app sur Android, 14 jours. Échange : 1 mois Premium gratuit ». Ça part vite.</li>
+          <li><strong>Reddit</strong> : r/AndroidBetaTester, r/AppBetaTesters, r/AlphaAndBetaUsers — vous postez une fois, vous recevez 30+ candidats en 24h, gratuit.</li>
+          <li><strong>Upwork</strong> : 5-10 USD par testeur, total ~60-100 USD pour les 12. Vous postez « Android beta tester for 14 days, opt-in + install required », vous avez 50 candidatures en 4h.</li>
+        </ol>
+
+        <h3>Comment lancer le test fermé</h3>
+        <p>Path : Play Console → <strong>Tester → Tests fermés → Créer une release</strong>.</p>
+        <ol>
+          <li>Uploader votre <code>.aab</code> (le build doit déjà avoir passé un test interne avec succès)</li>
+          <li>Configurer la <strong>liste des pays</strong> disponibles (sélectionnez large pour le test, vous restreindrez en prod)</li>
+          <li>Créer une <strong>liste d'adresses email</strong> des 12 testeurs (onglet Testeurs)</li>
+          <li>Activer le track → le compteur de 14 jours démarre</li>
+        </ol>
+        <p>Pendant ces 14 jours, vous pouvez <strong>continuer à pousser des updates</strong> sur le track de test. Le compteur ne redémarre pas tant que vous restez sur le même bundle ID.</p>
+
+        <h2>Configurer les abonnements (IAP)</h2>
+
+        <h3>Le piège chicken-and-egg</h3>
+        <p><strong>Vous ne pouvez pas créer les produits IAP avant d'avoir uploadé un .aab.</strong> La section « Abonnements » du Play Console reste verrouillée tant qu'aucune build n'est passée par n'importe quel track (interne, fermé, ou prod).</p>
+        <p>Donc l'ordre est :</p>
+        <ol>
+          <li>Builder un premier .aab même incomplet</li>
+          <li>Upload en test interne (le track le moins contraignant)</li>
+          <li><strong>Maintenant</strong> vous pouvez créer les abonnements</li>
+          <li>Re-builder une .aab (1.0.0+5) avec les vrais IDs IAP référencés</li>
+          <li>Promouvoir vers test fermé</li>
+        </ol>
+
+        <h3>Créer les produits avec les bons IDs</h3>
+        <p>Path : <strong>Monétiser avec Play → Produits → Abonnements</strong>.</p>
+        <p>⚠️ <strong>Les Product IDs doivent être identiques côté iOS et Android</strong> si vous utilisez du code Flutter cross-platform — sinon <code>queryProductDetails</code> échoue sur l'une des deux plateformes.</p>
+        <p>Pour Macrodiet :</p>
+        <ul>
+          <li><code>premium_mensuel</code> — 5 € / mois</li>
+          <li><code>premium_annuel</code> — 60 € / an</li>
+        </ul>
+        <p>Chaque abonnement a un <strong>plan de base</strong> (auto-renouvelable, période de facturation, prix) et optionnellement des <strong>offres</strong> (essai gratuit, prix réduit première période, etc.).</p>
+
+        <h3>Tester avec license testing</h3>
+        <p>Avant la prod, dans <strong>Paramètres → Paramètres de licence</strong> : ajoutez votre Gmail comme testeur de licence. Ça vous permet de tester les achats en mode <strong>sandbox</strong> sans débit réel — équivalent du bac à sable iOS.</p>
+
+        <blockquote><strong>Délai de propagation</strong> : les nouveaux IAP mettent <strong>2 à 24 heures</strong> pour être queryables côté app. Si vous lancez l'app juste après création et que <code>queryProductDetails</code> retourne vide, ne paniquez pas — attendez le lendemain.</blockquote>
+
+        <h2>La review Google Play : à quoi s'attendre</h2>
+
+        <h3>Délais réels (mai 2026)</h3>
+        <ul>
+          <li><strong>Apps neuves</strong> : 1 à 7 jours (médiane ~3 jours, plus rapide qu'Apple)</li>
+          <li><strong>Updates</strong> : 1-3 jours</li>
+          <li>Pas de système d'expedited review équivalent à Apple</li>
+        </ul>
+        <p>Google review beaucoup automatiquement (analyse statique du .aab) et fait du sampling humain. Moins strict qu'Apple sur la forme, plus strict sur certains points (politique Play Families, données sensibles).</p>
+
+        <h3>Compte reviewer</h3>
+        <p>Google ne pose <strong>pas systématiquement</strong> de questions au reviewer comme Apple. Mais si votre app exige un login, fournissez les credentials dans la section <strong>« Accès aux applications »</strong> lors de la création de la fiche.</p>
+
+        <blockquote><strong>Pour Macrodiet, j'ai utilisé</strong> le même compte reviewer que pour Apple : un compte Premium activé en base avec <code>subscription_tier = 'yearly'</code> côté Supabase, pour que le reviewer voie toutes les fonctionnalités sans devoir simuler un IAP.</blockquote>
+
+        <h3>Les motifs de rejet courants</h3>
+        <p>Google rejette moins que Apple en première soumission. Les rejets que je vois revenir :</p>
+        <ol>
+          <li><strong>Data Safety incohérent</strong> : déclaration « Aucune donnée collectée » alors que l'app utilise Firebase, Supabase, Sentry, etc. Détection automatique.</li>
+          <li><strong>Permissions excessives</strong> : demande de permissions non utilisées (location, contacts) sans justification — flagué par l'analyse statique.</li>
+          <li><strong>Politique Play Families</strong> : si vous cochez « moins de 13 ans » sans implémenter les protections requises.</li>
+          <li><strong>Apps santé sans disclaimer</strong> : équivalent de la guideline 1.4.1 d'Apple, mais Google est moins strict.</li>
+          <li><strong>Liens trompeurs</strong> : liens vers d'autres stores ou systèmes de paiement qui contournent Google Play Billing.</li>
+        </ol>
+
+        <h2>Les pièges Android-spécifiques (de l'expérience Macrodiet)</h2>
+
+        <h3><code>POST_NOTIFICATIONS</code> requis sur Android 13+</h3>
+        <p>Depuis Android 13 (API 33), <strong>les notifications push exigent une permission runtime</strong>. Sans déclaration explicite dans le manifest, FCM ne peut pas demander la permission à l'utilisateur.</p>
+        <p>Ajout dans <code>AndroidManifest.xml</code> :</p>
+        <pre><code>{`<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />`}</code></pre>
+
+        <h3>Subscription management URL platform-aware</h3>
+        <p>Si votre app a un bouton « Gérer mon abonnement » et qu'il pointe vers <code>https://apps.apple.com/account/subscriptions</code> (URL Apple), <strong>ça crashe ou ouvre Apple Account sur Android</strong>. Faites un check <code>Platform.isIOS</code> et redirigez vers <code>https://play.google.com/store/account/subscriptions</code> sur Android.</p>
+
+        <h3>Sign in with Apple à masquer sur Android</h3>
+        <p>Apple impose Sign in with Apple sur iOS dès qu'un autre login tiers est présent. <strong>Mais sur Android</strong>, c'est de la friction inutile : la majorité des utilisateurs Android n'ont pas d'Apple ID et seront perdus. Wrapez le bouton Apple dans un <code>if (Platform.isIOS)</code> Flutter et laissez seulement Google Sign-In + email/password sur Android.</p>
+
+        <h3>Le label de la bottom nav peut être tronqué</h3>
+        <p>Sur certains écrans Android, les labels longs (« Combinaisons » dans Macrodiet) peuvent être tronqués. Si vous testez sur émulateur, vérifiez en orientation portrait + landscape avant de soumettre.</p>
+
+        <h2>Combien ça coûte au total ?</h2>
+
+        <table class="guide-table">
+          <thead><tr><th>Poste</th><th class="price">Coût</th></tr></thead>
+          <tbody>
+            <tr><td>Compte Google Play Console</td><td class="price"><strong>25 USD une fois</strong> (~24 €)</td></tr>
+            <tr><td>PC ou Mac (Android Studio cross-platform)</td><td class="price">Aucun surcoût si déjà possédé</td></tr>
+            <tr><td>Site web (privacy + délétion compte)</td><td class="price">5-15 € / mois</td></tr>
+            <tr><td>Conception graphique (icône, feature graphic, screenshots)</td><td class="price">0 € à 500 €</td></tr>
+            <tr><td>Backend (Supabase / Firebase)</td><td class="price">Gratuit jusqu'à plusieurs centaines d'utilisateurs</td></tr>
+            <tr><td>Recrutement testeurs bêta (si Upwork)</td><td class="price">0 € à 100 USD</td></tr>
+            <tr><td>Commission Google sur ventes IAP</td><td class="price"><strong>30 %</strong> standard, <strong>15 %</strong> si CA &lt; 1M USD/an</td></tr>
+          </tbody>
+        </table>
+
+        <div class="guide-callout">
+          <span class="guide-callout-label">Ordre de grandeur</span>
+          <p>Pour publier sur Android, comptez <strong>24 € fixes une fois</strong> + 30 % (ou 15 %) de commission Google sur les ventes IAP. C'est moins cher qu'iOS sur la durée (Apple : 99 USD/an, Google : 25 USD à vie).</p>
+        </div>
+
+        <h2>Mes 5 conseils issus de l'expérience Macrodiet</h2>
+        <ol>
+          <li><strong>Anticipez les 14 jours de bêta fermée dès le début</strong>. Recrutez vos 12 testeurs <strong>en parallèle du dev</strong>, pas après le build. Sinon vous attendez une semaine pour réunir les gens, puis les 14 jours fixes — total 3 semaines perdues.</li>
+          <li><strong>Gardez le même Product ID iOS et Android</strong> pour les IAP. Sinon votre code Flutter doit gérer deux chemins, et vos analytics se compliquent.</li>
+          <li><strong>Créez le keystore une bonne fois pour toutes</strong> et backupez-le en 3 endroits dès la première seconde. C'est l'élément le plus critique de votre publication.</li>
+          <li><strong>Si vous publiez iOS d'abord</strong> (recommandé), vous pouvez <strong>réutiliser quasi tous vos assets</strong> sur Android : icône (resize 512), screenshots (juste padding latéral pour le ratio 9:16), description (à adapter pour éviter le duplicate content vs App Store).</li>
+          <li><strong>Le delta entre iOS et Android sur Macrodiet a été de ~10 jours de fix</strong> : Apple Sign-In conditionnel, URL d'abonnement platform-aware, permission POST_NOTIFICATIONS, AD_ID transitif à exclure. Anticipez ces 4 fixes dès l'écriture du code, c'est plus rapide.</li>
+        </ol>
+
+        <h2>Questions fréquentes</h2>
+        {faqs.map((f) => (
+          <div>
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="guide-cta">
+        <h3>Vous voulez publier votre app sur le Play Store <em>sans rester coincé</em> sur les 14 jours de bêta ?</h3>
+        <p>Webinti accompagne fondateurs et équipes produit sur la mise en ligne d'apps Flutter, React Native ou Bubble. iOS, Android, ou les deux en parallèle — audit de fiche, préparation, recrutement de bêta-testeurs, gestion de la review.</p>
+        <div class="guide-cta-row">
+          <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="guide-btn guide-btn-primary">Réserver un créneau →</a>
+          <a href="/expertise/developpement-mobile/" class="guide-btn guide-btn-ghost">Voir le service mobile</a>
+        </div>
+      </div>
+
+      <div class="guide-related">
+        <h4>À lire ensuite</h4>
+        <div class="guide-related-list">
+          <a class="guide-related-card" href="/guides/publier-app-ios/">
+            <div class="grc-eyebrow">iOS · 12 min</div>
+            <div class="grc-title">Comment publier une application iOS sur l'App Store en 2026 ?</div>
+          </a>
+          <a class="guide-related-card" href="/guides/combien-coute-application-mobile/">
+            <div class="grc-eyebrow">Tarifs · 8 min</div>
+            <div class="grc-title">Combien coûte une application mobile en 2026 ?</div>
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>

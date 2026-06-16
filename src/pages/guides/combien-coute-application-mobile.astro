@@ -1,0 +1,213 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/guide.css';
+
+const datePub = '2026-05-05';
+const dateMod = '2026-05-05';
+
+const faqs = [
+  {
+    q: "Combien coûte une application mobile en 2026 ?",
+    a: "Une app mobile cross-platform (iOS et Android) coûte entre 20 000 € (MVP simple) et 90 000 € (app complète avec backend). MVP en FlutterFlow ou Expo : 20-40k€. App marketplace mobile complète : 50-90k€. App enterprise (multi-tenant, SSO) : 80k€+. Le coût d'une app native pure (Swift + Kotlin) est généralement 2× plus élevé."
+  },
+  {
+    q: "Quelle est la différence de prix entre cross-platform et natif ?",
+    a: "Une app cross-platform (FlutterFlow, Expo/React Native) coûte 30 à 50 % moins cher qu'une app native (Swift pour iOS + Kotlin pour Android). Pour la majorité des produits, la différence de performances utilisateur est imperceptible. On garde le natif pour des cas vraiment spécifiques : audio temps réel, AR, gaming, accès matériel pointu."
+  },
+  {
+    q: "Combien de temps pour livrer une app mobile ?",
+    a: "MVP cadré : 6 à 10 semaines. App complète avec backend, paiements et messagerie : 12 à 18 semaines. La phase de cadrage initiale (1 semaine) verrouille le périmètre. Comptez aussi 2 à 7 jours de review Apple App Store et quelques heures pour Google Play."
+  },
+  {
+    q: "Faut-il publier sur les deux stores en même temps ?",
+    a: "Oui, c'est l'avantage du cross-platform. FlutterFlow et Expo génèrent des builds iOS et Android depuis le même projet. La publication coûte 99 €/an pour Apple Developer et 25 € one-shot pour Google Play. On gère pour vous certificats, descriptions ASO, screenshots, compliance."
+  },
+  {
+    q: "Les apps NoCode passent-elles la review Apple ?",
+    a: "Oui, les apps FlutterFlow et Expo passent l'App Store comme n'importe quelle app native. Webinti a publié plusieurs apps NoCode sans rejet. Les pièges à éviter : web-views trop simples (Apple rejette les apps qui sont juste un wrapper de site web), in-app purchases non implémentés correctement, contenu user-generated non modéré."
+  },
+  {
+    q: "Quels sont les coûts récurrents d'une app mobile en production ?",
+    a: "Comptez 100 à 400 €/mois selon la stack : abonnement FlutterFlow (30-70 $/mois) ou hébergement Expo/EAS (gratuit jusqu'à un seuil), backend (Supabase ou Bubble : 25-150 €/mois), notifications push (gratuit avec Firebase ou Expo Push), Apple Developer (99 €/an), Google Play (25 € une fois). Plus la maintenance évolutive (à partir de 900 €/mois en forfait Webinti)."
+  }
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: "Combien coûte une application mobile en 2026 ? Guide tarifaire complet",
+    description: "Tarifs détaillés pour développer une app mobile iOS et Android : MVP 20-40k€, app complète 50-90k€, app enterprise 80k€+. Cross-platform vs natif, coûts cachés, leviers pour réduire le budget. Guide rédigé par Webinti.",
+    image: 'https://webinti.com/assets/images/og.jpg',
+    datePublished: datePub,
+    dateModified: dateMod,
+    author: { '@type': 'Person', name: 'Timothée Polfliet', url: 'https://webinti.com/studio/' },
+    publisher: { '@id': 'https://webinti.com/#organization' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://webinti.com/guides/combien-coute-application-mobile/' },
+    inLanguage: 'fr-FR',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<BaseLayout
+  title="Combien coûte une application mobile en 2026 ? Guide tarifaire — Webinti"
+  description="Tarifs détaillés app mobile : MVP 20-40k€, app complète 50-90k€, enterprise 80k€+. Cross-platform vs natif, coûts cachés, leviers. Guide d'un studio produit ayant livré +80 produits."
+  canonical="https://webinti.com/guides/combien-coute-application-mobile/"
+  keywords="prix app mobile, tarif application mobile, coût app ios android, prix app flutterflow, prix app expo, créer app mobile france, agence mobile france"
+  jsonLd={jsonLd}
+>
+  <Nav />
+  <main>
+    <article class="guide">
+      <a href="/guides/" class="guide-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Tous les guides</a>
+      <span class="guide-eyebrow"><span class="dot"></span>Tarifs · Mobile</span>
+      <h1>Combien coûte une <em>application mobile</em> en 2026 ?</h1>
+      <p class="guide-lede">Une app mobile iOS et Android coûte entre 20 000 € pour un MVP cross-platform et 90 000 € pour une app complète avec backend, marketplace et paiements. Voici les fourchettes détaillées, le détail des coûts cachés, et les leviers pour livrer plus vite et moins cher.</p>
+      <div class="guide-meta">
+        <span><strong>Publié</strong> 5 mai 2026</span>
+        <span class="guide-meta-dot"></span>
+        <span><strong>Mis à jour</strong> 5 mai 2026</span>
+        <span class="guide-meta-dot"></span>
+        <span><strong>Auteur</strong> Timothée Polfliet</span>
+        <span class="guide-meta-dot"></span>
+        <span><strong>Lecture</strong> 8 min</span>
+      </div>
+
+      <div class="guide-body">
+        <p>Faire développer une application mobile reste l'un des chantiers les plus mal chiffrés en 2026. Entre les agences parisiennes qui annoncent 150 000 € pour un MVP, les freelances à 8 000 €, et les outils NoCode qui prétendent qu'on peut livrer en un weekend — il est dur de s'y retrouver. Voici les fourchettes réelles basées sur 80+ projets livrés depuis 2020.</p>
+
+        <h2>Les 4 catégories de projets mobiles en 2026</h2>
+
+        <table class="guide-table">
+          <thead>
+            <tr><th>Type d'app</th><th>Délai</th><th class="price">Budget HT</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>App MVP simple</strong><br><small>Auth, profil, 1-2 features cœur, base de données</small></td><td>4 à 6 semaines</td><td class="price">15 000 – 25 000 €</td></tr>
+            <tr><td><strong>App complète cross-platform</strong><br><small>Auth, push, paiements, messagerie, panel admin</small></td><td>10 à 14 semaines</td><td class="price">35 000 – 60 000 €</td></tr>
+            <tr><td><strong>App marketplace mobile</strong><br><small>Multi-vendeurs, Stripe Connect, KYC, modération</small></td><td>14 à 20 semaines</td><td class="price">60 000 – 90 000 €</td></tr>
+            <tr><td><strong>App enterprise</strong><br><small>Multi-tenant, SSO, audit logs, intégrations métier</small></td><td>4 à 8 mois</td><td class="price">80 000 – 200 000 €</td></tr>
+          </tbody>
+        </table>
+
+        <h3>App MVP simple : 15 000 à 25 000 €</h3>
+        <p>Idéal pour valider une idée avec de vrais utilisateurs avant de chercher des fonds. Authentification, 1-2 fonctionnalités cœur, profil utilisateur, notifications push basiques. Stack : FlutterFlow ou Expo + Firebase ou Supabase. Livré sur les stores en 4-6 semaines.</p>
+
+        <h3>App complète cross-platform : 35 000 à 60 000 €</h3>
+        <p>L'app produit complète : authentification multi-fournisseurs, paiements Stripe, messagerie temps réel, notifications push avancées, géolocalisation, intégrations tierces, panel admin web pour gérer le contenu et les utilisateurs. C'est la majorité des apps que nous livrons chez Webinti.</p>
+
+        <h3>App marketplace mobile : 60 000 à 90 000 €</h3>
+        <p>Une marketplace mobile combine la complexité d'une marketplace (Stripe Connect tripartite, KYC, messagerie, modération, avis) avec celle du mobile (deux stores, builds natifs, push, offline-first). Compter 14 à 20 semaines.</p>
+
+        <h3>App enterprise : 80 000 € et plus</h3>
+        <p>Multi-tenant, SSO d'entreprise, audit logs, exports massifs, intégrations propriétaires (SAP, Salesforce). On accompagne souvent d'un backend code custom (Node.js + Postgres) pour les opérations data lourdes.</p>
+
+        <h2>Cross-platform vs natif : quel impact sur le budget ?</h2>
+        <p>L'option cross-platform (FlutterFlow, Expo/React Native, Flutter natif) divise le coût par 2 par rapport à du natif pur (Swift pour iOS + Kotlin pour Android). En 2026, les performances cross-platform atteignent 95 à 100 % du natif sur la plupart des cas. Quand garder le natif :</p>
+
+        <ul>
+          <li>Audio temps réel complexe (apps de musique, communication)</li>
+          <li>Réalité augmentée (ARKit / ARCore avancé)</li>
+          <li>Gaming avec rendu 3D haute performance</li>
+          <li>Accès matériel pointu (capteurs, NFC, accessoires Bluetooth spécifiques)</li>
+        </ul>
+
+        <p>Pour 90 % des apps métier, e-commerce, marketplace, lifestyle ou social : cross-platform est le choix par défaut, point.</p>
+
+        <div class="guide-callout">
+          <span class="guide-callout-label">Comparaison rapide</span>
+          <p>Une app de réservation de prestataires : <strong>natif</strong> = 80 000 €, 6 mois. <strong>FlutterFlow</strong> = 38 000 €, 12 semaines. Pour la même app finale, vues utilisateur identiques, l'écart est massif. La différence finance ensuite le marketing et le commercial.</p>
+        </div>
+
+        <h2>Les coûts cachés à anticiper</h2>
+
+        <h3>1. Comptes développeur Apple et Google</h3>
+        <p>Apple Developer Program : <strong>99 €/an</strong> obligatoire pour publier sur l'App Store. Google Play : <strong>25 €</strong> à vie (one-shot). Ces frais sont à votre nom — pas au nom de l'agence.</p>
+
+        <h3>2. Outils de la stack</h3>
+        <ul>
+          <li><strong>FlutterFlow</strong> : 30 à 70 $/mois (selon le plan)</li>
+          <li><strong>Expo / EAS</strong> : gratuit jusqu'à un seuil, puis 19 à 99 $/mois pour les builds illimités</li>
+          <li><strong>Backend</strong> : Bubble 134 €/mois ou Supabase 25 €/mois (Pro)</li>
+          <li><strong>Notifications push</strong> : Firebase Cloud Messaging gratuit jusqu'à 100K notifications/jour</li>
+          <li><strong>Stockage médias</strong> : Cloudinary, Bunny CDN ou Firebase Storage (15-50 €/mois selon volume)</li>
+        </ul>
+
+        <h3>3. ASO et marketing du store</h3>
+        <p>L'ASO (App Store Optimization) est essentiel. Compter 2 à 5k€ pour un audit ASO + production des assets (screenshots optimisés, vidéos teaser, descriptions multilingues). Sans ASO, votre app n'est pas trouvée.</p>
+
+        <h3>4. Maintenance et MAJ iOS/Android</h3>
+        <p>iOS et Android sortent une version majeure par an. Compter <strong>3 à 5 jours de dev/an</strong> pour adapter votre app aux nouvelles APIs et garantir la compatibilité. Webinti propose des forfaits maintenance à partir de 900 €/mois.</p>
+
+        <h2>Comment choisir la stack mobile en 2026 ?</h2>
+
+        <table class="guide-table">
+          <thead><tr><th>Cas d'usage</th><th>Stack recommandée</th></tr></thead>
+          <tbody>
+            <tr><td>MVP rapide pour valider</td><td><strong>FlutterFlow</strong> + Firebase/Supabase</td></tr>
+            <tr><td>App produit avec back-office riche</td><td><strong>FlutterFlow</strong> + <strong>Bubble</strong> en backend</td></tr>
+            <tr><td>App grand public B2C</td><td><strong>Expo</strong> (React Native) + Supabase</td></tr>
+            <tr><td>App qui doit scaler à millions d'users</td><td><strong>Expo</strong> ou Flutter natif + Postgres + AWS</td></tr>
+            <tr><td>App AR / gaming / temps réel</td><td>Swift + Kotlin (natif pur)</td></tr>
+            <tr><td>App d'entreprise multi-tenant</td><td>Expo + backend custom Node.js</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Les leviers pour réduire le coût</h2>
+
+        <ol>
+          <li><strong>Cadrer rigoureusement.</strong> 80 % des dépassements viennent d'un scope mal défini. Une semaine de cadrage Webinti permet d'éliminer 20 à 40 % de fonctionnalités "nice-to-have".</li>
+          <li><strong>Lancer un MVP, pas l'app finale.</strong> Sortez en 6-8 semaines avec votre proposition de valeur, ajoutez le reste après les premiers retours.</li>
+          <li><strong>Mutualiser un backend existant.</strong> Si vous avez déjà un produit web (Bubble ou Next.js), votre app mobile peut consommer la même API. Économie : 10 à 20 k€.</li>
+          <li><strong>Choisir cross-platform par défaut.</strong> Sauf cas très spécifique, FlutterFlow ou Expo livrent une app de qualité production en moitié moins de temps que du natif.</li>
+          <li><strong>Travailler avec un studio plutôt qu'une agence-usine.</strong> Une équipe restreinte, un interlocuteur senior, des décisions rapides — moins coûteux en TCO sur 12 mois.</li>
+        </ol>
+
+        <h2>Comment Webinti chiffre vos projets mobile</h2>
+        <ol>
+          <li><strong>Premier échange (30 min, gratuit)</strong> en visio pour comprendre votre projet, votre marché et votre calendrier.</li>
+          <li><strong>Atelier de cadrage (1 semaine, gratuit pour les projets &gt; 20 000 €)</strong> : architecture data, user flows clés, design system, devis ferme et planning détaillé.</li>
+          <li><strong>Devis ferme</strong> avec jalons hebdomadaires, démos, et facturation 30/40/30. Pas de dépassement non validé.</li>
+        </ol>
+
+        <h2>Questions fréquentes</h2>
+        {faqs.map((f) => (
+          <div>
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="guide-cta">
+        <h3>Prêt à <em>chiffrer votre app</em> ?</h3>
+        <p>Premier échange offert en visio pour cadrer votre projet — devis ferme sous 5 jours après cadrage.</p>
+        <div class="guide-cta-row">
+          <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="guide-btn guide-btn-primary">Réserver un créneau →</a>
+          <a href="/expertise/developpement-mobile/" class="guide-btn guide-btn-ghost">Voir le service mobile</a>
+        </div>
+      </div>
+
+      <div class="guide-related">
+        <h4>À lire ensuite</h4>
+        <div class="guide-related-list">
+          <a class="guide-related-card" href="/guides/bubble-vs-flutterflow/">
+            <div class="grc-eyebrow">Comparaison · 7 min</div>
+            <div class="grc-title">Bubble vs FlutterFlow : lequel choisir pour votre projet ?</div>
+          </a>
+          <a class="guide-related-card" href="/guides/combien-coute-application-bubble/">
+            <div class="grc-eyebrow">Tarifs · 8 min</div>
+            <div class="grc-title">Combien coûte une application Bubble en 2026 ?</div>
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,566 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const stack = [
+  { name: 'Claude Code', icon: '/assets/images/claude.svg',      bg: '#D97757' },
+  { name: 'Next.js',     icon: '/assets/images/nextdotjs.svg',   bg: '#000000' },
+  { name: 'Supabase',    icon: '/assets/images/supabase.svg',    bg: '#3ECF8E' },
+  { name: 'Stripe',      icon: '/assets/images/stripe.svg',      bg: '#635BFF' },
+  { name: 'FlutterFlow', icon: '/assets/images/Flutterflow.svg', bg: '#5D5DFF' },
+  { name: 'n8n',         icon: '/assets/images/n8n.svg',         bg: '#EA4B71' },
+  { name: 'Bubble',      icon: '/assets/images/Bubble.svg',      bg: '#0082F4' },
+  { name: 'Firebase',    icon: '/assets/images/firebase.svg',    bg: '#FFA500' },
+  { name: 'Algolia',     icon: '/assets/images/algolia.svg',     bg: '#003DFF' },
+  { name: 'Webflow',     icon: '/assets/images/webflow.svg',     bg: '#146EF5' },
+];
+const stackRepeated = [...stack, ...stack];
+
+const testimonials = [
+  {
+    text: "Je recommande Tim ! Il m'a permis de lancer mon site internet avec Bubble. Il est de très bon conseil !!",
+    name: "Charlotte Quintin",
+    role: "CEO · Ezym",
+    avatar: "/assets/avatars/charlotte-quintin.jpeg",
+  },
+  {
+    text: "Nous recommandons cette agence. Nous avions un besoin spécifique de vente en ligne en BtoB sur Prestashop et nous avons trouvé une excellente solution pour notre business grâce à Webinti. Le site en ligne en moins de deux mois, pas mal :)",
+    name: "Fanny de Lipowski",
+    role: "CEO · L'atelier 14",
+    avatar: "/assets/avatars/fanny.avif",
+  },
+  {
+    text: "J'ai recours régulièrement à l'agence Webinti pour des opérations ponctuelles de maintenance après la refonte de mon site. Je retrouve toujours la même réactivité et le même sérieux dans leur travail, je vous recommande leurs services !",
+    name: "Tom Becquart",
+    role: "CEO · Tom Coss",
+    avatar: "/assets/avatars/tom.avif",
+  },
+  {
+    text: "Force de proposition et rigoureux, Tim démontre une très grande capacité d'adaptation. Il m'a aidé à sortir un projet important tout en y apportant des idées qui l'ont rendu bien plus efficace. Je recommande ++",
+    name: "Yohan Cary",
+    role: "CEO · Mon Agent",
+    avatar: "/assets/avatars/yohan.webp",
+  },
+  {
+    text: "En tant que Mentor durant les bootcamp chez Ottho, j'ai été surpris de la qualité pédagogique de Tim. Il arrive à traduire les notions complexes en termes simples. Son état d'esprit orienté solution et sa maîtrise totale de Bubble sont impressionnantes.",
+    name: "Wesley Wasielewski",
+    role: "CEO · DocComs",
+    avatar: "/assets/avatars/wesley.webp",
+  },
+  {
+    text: "Depuis maintenant plusieurs semaines, je m'éclate à suivre les Lives de Tim, qui prend le temps de bien expliquer, de donner des exemples concrets. Tim donne également de sa personne pour faire vivre la communauté et proposer de super formations sur son site !",
+    name: "Matthieu Berteaux",
+    role: "Senior Product Manager",
+    avatar: "/assets/avatars/matthieu.avif",
+  },
+  {
+    text: "Un excellent travail de A à Z. Tim avait pour mission le développement de notre site internet. Le travail a été fait de manière très professionnelle. Je recommande à 100% et il est certain que je ferais appel à cette agence pour d'autres projets.",
+    name: "Lydia Maneru",
+    role: "CEO · Goal Mama",
+    avatar: "/assets/avatars/lydia.webp",
+  },
+  {
+    text: "Excellent formateur Bubble. Pro et à l'écoute. J'ai beaucoup appris grâce à lui.",
+    name: "Kevin Teisseire",
+    role: "Développeur No-Code",
+    avatar: "/assets/avatars/kevin.avif",
+  },
+  {
+    text: "Cette agence de création de website est tout simplement au TOP, toujours disponible et super PRO. Moi qui est eu affaire avec beaucoup d'autres web masters, je peux vous dire que l'agence Webinti est tout simplement la référence dans ce domaine !",
+    name: "Frédéric Edange",
+    role: "Client · 2024",
+    avatar: "/assets/avatars/fred.avif",
+  },
+  {
+    text: "Super formation sur Bubble avec Tim ! Les tutos vidéos dispos sur la plateforme sont très quali ! Je recommande.",
+    name: "Coraline G.",
+    role: "Freelance Webflow · 2025",
+    avatar: "/assets/avatars/coraline.avif",
+  },
+  {
+    text: "Très bon formateur, très compétent et très impliqué dans sa manière d'enseigner et d'aider ses élèves. Recommandé à 200 % !",
+    name: "Mehdi Z.",
+    role: "Apprenant · 2025",
+    avatar: "/assets/avatars/mehdi.avif",
+  },
+  {
+    text: "J'ai pu apprécier l'étendue de ses compétences qui confirment son professionnalisme. Tim cerne les besoins, propose des solutions et livre dans les temps.",
+    name: "Charlotte Mendy",
+    role: "Développeuse Freelance",
+    avatar: "/assets/avatars/charlotte-mendy.webp",
+  },
+  {
+    text: "Tim cerne particulièrement bien les besoins du client, auxquels il apporte de nombreuses suggestions créatives. Il travaille avec rigueur sur les projets et les rend dans les temps définis. Je le recommande.",
+    name: "Félix Becquart",
+    role: "Développeur Freelance",
+    avatar: "/assets/avatars/felix.webp",
+  },
+  {
+    text: "Tim est un super formateur qui maîtrise parfaitement Bubble. Rien que ses lives m'ont beaucoup apporté, et je compte bien très bientôt intégrer sa formation pour aller plus loin.",
+    name: "Emmanuel",
+    role: "Apprenant Bubble",
+    avatar: "/assets/avatars/emmanuel.webp",
+  },
+];
+// 12+ testimonials répartis en 3 colonnes (scroll en boucle, dupliqués côté template)
+const testiCol1 = testimonials.filter((_, i) => i % 3 === 0);
+const testiCol2 = testimonials.filter((_, i) => i % 3 === 1);
+const testiCol3 = testimonials.filter((_, i) => i % 3 === 2);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    '@id': 'https://webinti.com/#organization',
+    name: 'Webinti',
+    alternateName: ['Webinti Studio', 'Studio produit augmenté par l\'IA', 'Agence Bubble France', 'Agence IA France'],
+    url: 'https://webinti.com',
+    logo: 'https://webinti.com/assets/images/logo.png',
+    image: 'https://webinti.com/assets/images/og.jpg',
+    description: "Studio produit français qui conçoit, développe et livre des applications web et mobiles sur-mesure, augmentées par l'IA. Stack adaptée à chaque projet : code généré par IA (Claude Code, Cursor), NoCode (Bubble, FlutterFlow), ou hybride. Plus de 80 produits livrés depuis 2020.",
+    foundingDate: '2020',
+    founder: { '@type': 'Person', name: 'Timothée Polfliet', jobTitle: 'CEO & Bubble Champion Community 2024', sameAs: ['https://www.linkedin.com/in/tim-webinti-61503374/', 'https://www.malt.fr/profile/timotheepolfliet'] },
+    areaServed: [{ '@type': 'Country', name: 'France' }, { '@type': 'Place', name: 'Belgique' }, { '@type': 'Place', name: 'Suisse' }, { '@type': 'Place', name: 'Canada' }],
+    address: { '@type': 'PostalAddress', streetAddress: '11 boulevard Edmond Rostand', addressLocality: 'Sainte-Maxime', postalCode: '83120', addressCountry: 'FR' },
+    geo: { '@type': 'GeoCoordinates', latitude: 43.3097, longitude: 6.6385 },
+    telephone: '+33-6-30-78-86-43',
+    email: 'contact@webinti.com',
+    priceRange: '€€-€€€',
+    knowsAbout: ['Claude Code', 'Cursor', 'Vibe coding', 'Next.js', 'Supabase', 'Bubble.io', 'FlutterFlow', 'Webflow', 'NoCode', 'AI agents', 'Anthropic Claude', 'OpenAI', 'Stripe Connect', 'Marketplace', 'SaaS', 'Apps mobiles iOS Android', 'Make', 'n8n', 'Algolia', 'Brevo'],
+    award: 'Bubble Champion Community 2024',
+    sameAs: ['https://www.linkedin.com/in/tim-webinti-61503374/', 'https://www.youtube.com/@WebintiNoCode', 'https://discord.gg/cbJ5HCTKVS', 'https://www.malt.fr/profile/timotheepolfliet'],
+    aggregateRating: { '@type': 'AggregateRating', ratingValue: '5.0', reviewCount: testimonials.length, bestRating: '5', worstRating: '1' },
+    review: testimonials.map((t) => ({
+      '@type': 'Review',
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      author: { '@type': 'Person', name: t.name },
+      reviewBody: t.text,
+    })),
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Services Webinti',
+      itemListElement: [
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Développement Bubble', description: 'MVP, SaaS, marketplace en NoCode avec Bubble.io', url: 'https://webinti.com/agence-bubble-france/' }, priceCurrency: 'EUR', priceSpecification: { '@type': 'PriceSpecification', minPrice: 5000, maxPrice: 80000 } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Développement Web', description: 'Sites, CRM, intranet, e-commerce NoCode', url: 'https://webinti.com/expertise/developpement-web/' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Développement Mobile', description: 'Apps iOS et Android cross-platform avec FlutterFlow et Expo', url: 'https://webinti.com/expertise/developpement-mobile/' }, priceCurrency: 'EUR', priceSpecification: { '@type': 'PriceSpecification', minPrice: 20000, maxPrice: 90000 } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Formations NoCode', description: '+110h sur Bubble, FlutterFlow, Stripe, IA NoCode', url: 'https://webinti.com/expertise/formations/' } },
+      ],
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://webinti.com/#website',
+    name: 'Webinti',
+    url: 'https://webinti.com',
+    inLanguage: 'fr-FR',
+    publisher: { '@id': 'https://webinti.com/#organization' },
+    potentialAction: { '@type': 'SearchAction', target: 'https://webinti.com/showcase/?q={search_term_string}', 'query-input': 'required name=search_term_string' },
+  },
+];
+---
+<BaseLayout
+  title="Webinti — Studio produit augmenté par l'IA"
+  description="Studio produit français qui conçoit, développe et livre vos applications web et mobiles en quelques semaines. Stack adaptée à votre projet : code généré par IA, NoCode, ou hybride. Posture senior, sans bullshit technique."
+  keywords="studio produit, agence IA, développement web sur mesure, app mobile sur mesure, vibe coding agence, agence ia france, claude code, cursor, bubble, flutterflow, nocode IA"
+  jsonLd={jsonLd}
+>
+  <Nav active="why" />
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg">
+        <div class="hero-grid"></div>
+        <div class="hero-ember"></div>
+        <div class="hero-ember-core"></div>
+        <div class="hero-noise"></div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="eyebrow">
+          <span class="eyebrow-pill">Studio</span>
+          Produit augmenté par l'IA · Depuis 2020
+          <span class="eyebrow-arrow">↗</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="line"><span>Vous avez un projet</span></span>
+          <span class="line"><span>d'app web &amp; <span class="grad">mobile</span> ?</span></span>
+        </h1>
+
+        <p class="hero-sub">
+          On le conçoit, on le développe, on le livre — en quelques semaines, sur-mesure,
+          avec la stack adaptée à votre besoin.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="btn-primary">Démarrer un projet <span>→</span></a>
+          <a href="/showcase/" class="btn-ghost">Voir nos réalisations</a>
+        </div>
+
+        <div class="hero-visual">
+          <div class="app-window">
+            <div class="aw-topbar">
+              <div class="aw-dots"><span></span><span></span><span></span></div>
+              <div class="aw-url"><span>crm.</span>webinti<span>.com</span>/agents-marketing</div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <button class="dash-new">+ Nouvel agent</button>
+                <div class="dash-bell">🔔</div>
+                <div class="dash-avatar">TP</div>
+              </div>
+            </div>
+            <div class="aw-body">
+              <div class="aw-side">
+                <div class="aw-brand-side"><span class="brand-dot" style="width:18px;height:18px"></span><b>Webinti</b></div>
+                <div class="aw-item"><i>▦</i>Tableau de bord</div>
+                <div class="aw-item"><i>◫</i>Sociétés</div>
+                <div class="aw-item"><i>◉</i>Contacts</div>
+                <div class="aw-item"><i>⇥</i>Prospection</div>
+                <div class="aw-item"><i>✦</i>Prospection IA</div>
+                <div class="aw-item"><i>◇</i>Facturation</div>
+                <div class="aw-item active"><i>◈</i>Agents IA<span class="aw-pulse"></span></div>
+                <div class="aw-item"><i>⚙</i>Paramètres</div>
+              </div>
+              <div class="aw-main">
+                <div class="dash-h">
+                  <h3>Agents Marketing</h3>
+                  <div class="dash-sub">4 agents · 1 791 emails envoyés · 680 ouverts</div>
+                </div>
+
+                <div class="dash-tabs">
+                  <button class="active">Dashboard</button>
+                  <button>Agents</button>
+                  <button>Activité</button>
+                </div>
+
+                <div class="dash-stats">
+                  <div class="dash-stat hoverable"><div class="dash-stat-lbl">✉ Emails envoyés</div><div class="dash-stat-v">1 791</div><div class="dash-stat-d">+506 ces 7 derniers jours</div></div>
+                  <div class="dash-stat hoverable"><div class="dash-stat-lbl">◉ Taux d'ouverture</div><div class="dash-stat-v">38%</div><div class="dash-stat-d">680 ouverts / 1 791 envoyés</div></div>
+                  <div class="dash-stat hoverable"><div class="dash-stat-lbl">↗ Taux de clic</div><div class="dash-stat-v">4%</div><div class="dash-stat-d">72 clics / 1 791 envoyés</div></div>
+                  <div class="dash-stat hoverable"><div class="dash-stat-lbl">⎈ Taux de réponse</div><div class="dash-stat-v">7%</div><div class="dash-stat-d">125 réponses / 1 791 envoyés</div></div>
+                </div>
+
+                <div class="dash-section-t">Pipeline de conversion</div>
+                <div class="dash-pipeline">
+                  <div class="dash-pipe hoverable"><b style="color:var(--accent)">3 264</b><span>Nouveau</span></div>
+                  <div class="dash-pipe hoverable"><b style="color:var(--accent-2)">1 732</b><span>Contacté</span></div>
+                  <div class="dash-pipe hoverable"><b style="color:#FFB870">428</b><span>Qualifié</span></div>
+                  <div class="dash-pipe hoverable"><b style="color:#6EE7B7">127</b><span>Converti</span></div>
+                  <div class="dash-pipe hoverable"><b class="muted">89</b><span>Rejeté</span></div>
+                </div>
+
+                <div class="dash-section-t">Équipe Marketing</div>
+                <div class="dash-agents">
+                  <div class="dash-agent hoverable"><div class="dash-agent-ico" style="background:rgba(139,92,246,.15);color:var(--accent-2)">✉</div><div><b>Email Optimizer</b><p>Optimise les sujets pour maximiser l'ouverture</p><div class="dash-agent-ft"><span class="dash-idle">idle</span><span>24 leads</span></div></div></div>
+                  <div class="dash-agent hoverable"><div class="dash-agent-ico" style="background:rgba(255,170,64,.15);color:#FFB870">↺</div><div><b>Follow-up Agent</b><p>Relances personnalisées</p><div class="dash-agent-ft"><span class="dash-idle">idle</span><span>139 leads</span></div></div></div>
+                  <div class="dash-agent hoverable"><div class="dash-agent-ico" style="background:rgba(74,222,128,.15);color:#6EE7B7">✓</div><div><b>Closer Agent</b><p>Convertit les leads chauds</p><div class="dash-agent-ft"><span class="dash-idle">idle</span><span>0 leads</span></div></div></div>
+                  <div class="dash-agent hoverable"><div class="dash-agent-ico" style="background:rgba(14,165,233,.15);color:#38BDF8">in</div><div><b>LinkedIn Scout</b><p>Trouve les décideurs</p><div class="dash-agent-ft"><span class="dash-idle">idle</span><span>0 leads</span></div></div></div>
+                </div>
+
+                <div class="dash-section-t">↗ Leads chauds — ont cliqué dans l'email</div>
+                <table class="dash-tbl">
+                  <thead><tr><th>Entreprise</th><th>Ville</th><th class="num">Clics</th><th class="num">Ouvertures</th><th>Dernier clic</th></tr></thead>
+                  <tbody>
+                    <tr class="hoverable"><td><b>MAJ</b> <span class="dash-chip">✦ Maquette envoyée</span></td><td>MONTMERLE-SUR-SAONE</td><td class="num" style="color:var(--accent)">2</td><td class="num">0</td><td>03/04/2026</td></tr>
+                    <tr class="hoverable"><td><b>E.P.C.</b> <span class="dash-chip">✦ Maquette envoyée</span></td><td>VIRIEU-LE-GRAND</td><td class="num" style="color:var(--accent)">2</td><td class="num">0</td><td>02/04/2026</td></tr>
+                    <tr class="hoverable"><td><b>MULTI PRT</b> <span class="dash-chip">✦ Maquette envoyée</span></td><td>TORCIEU</td><td class="num" style="color:var(--accent)">1</td><td class="num">0</td><td>03/04/2026</td></tr>
+                    <tr class="hoverable"><td><b>TMA</b> <span class="dash-chip alt">✦ Maquette prête</span></td><td>CONFRANCON</td><td class="num" style="color:var(--accent)">1</td><td class="num">0</td><td>01/04/2026</td></tr>
+                    <tr class="hoverable"><td><b>ADM</b> <span class="dash-chip">✦ Maquette envoyée</span></td><td>VILLIEU-LOYES-MOLLON</td><td class="num" style="color:var(--accent)">1</td><td class="num">0</td><td>02/04/2026</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="aw-cursor" id="aw-cursor">
+                  <svg width="20" height="20" viewBox="0 0 18 18"><path fill="#fff" stroke="#000" stroke-width=".5" d="M2 1l13 7-6 1.5-2 6z"/></svg>
+                </div>
+                <div class="aw-tooltip" id="aw-tooltip"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-reflect"></div>
+        </div>
+
+        <div class="trust">
+          <div class="trust-label">Ils nous ont fait confiance</div>
+          <div class="trust-logos">
+            <b>Ezym</b><b>Goal Mama</b><b>Mon Agent</b><b>L'Atelier 14</b><b>DocComs</b><b>Tom Coss</b>
+          </div>
+          <div class="trust-label trust-label-sub">Écoles partenaires</div>
+          <div class="trust-logos trust-logos-schools">
+            <b>Ottho</b><b>Alegria</b><b>Illith</b><b>La Strat</b><b>L'École Numérique</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section class="stack">
+      <div class="stack-label">La stack qu'on choisit <b>selon votre projet</b> — pas l'inverse</div>
+      <div class="marquee">
+        <div class="marquee-track">
+          {stackRepeated.map((t) => (
+            <div class="stack-item">
+              <div class="stack-item-icon" style={`background:${t.bg}`}>
+                <img src={t.icon} alt="" width="18" height="18" loading="lazy" />
+              </div>
+              {t.name}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY / PILLARS -->
+    <section class="sec-pad" id="why">
+      <div class="container">
+        <div class="sec-head reveal">
+          <div class="sec-label">Pourquoi Webinti</div>
+          <h2 class="sec-title">Un studio produit <em>augmenté par l'IA.</em></h2>
+          <p class="sec-sub">On construit vite, bien, et on transmet. Chaque livraison embarque une couche d'IA pensée pour votre métier, et vos équipes sont formées pour prendre le relais.</p>
+        </div>
+
+        <div class="pillars">
+          <div class="pillar pillar-big reveal">
+            <div class="pillar-visual">
+              <div class="pv-nodes">
+                <div class="pv-node" style="top:20px;left:30px;">Brief client</div>
+                <div class="pv-node" style="top:20px;right:30px;">Design system</div>
+                <div class="pv-node" style="top:90px;left:80px;">Agent IA spec</div>
+                <div class="pv-node" style="top:90px;right:80px;">Prompt → UI</div>
+                <div class="pv-line" style="top:30px;left:120px;right:120px;"></div>
+                <div class="pv-line" style="top:100px;left:160px;right:160px;"></div>
+              </div>
+            </div>
+            <div class="pillar-num">01 / Vélocité</div>
+            <div class="pillar-title">De l'idée au produit en ligne,<br>en quelques semaines.</div>
+            <p class="pillar-desc">Code généré par IA, NoCode, ou hybride — on choisit ce qui livre le plus vite sans dette technique. Démos hebdo, pas de roadmap à 18 mois.</p>
+          </div>
+
+          <div class="pillar reveal">
+            <div class="pillar-visual">
+              <div class="pv-ai">
+                <div class="pv-ai-ring"></div>
+                <div class="pv-ai-ring"></div>
+                <div class="pv-ai-core"></div>
+              </div>
+            </div>
+            <div class="pillar-num">02 / IA native</div>
+            <div class="pillar-title">L'IA dans le produit,<br>et dans le process.</div>
+            <p class="pillar-desc">Claude, OpenAI, Make, n8n — connectés à votre produit pour automatiser ce qui peut l'être. Et côté studio, on développe avec Cursor et Claude Code pour aller 3× plus vite.</p>
+          </div>
+
+          <div class="pillar reveal">
+            <div class="pillar-num">03 / Posture senior</div>
+            <div class="pillar-title">Architecte produit,<br>pas exécutant.</div>
+            <p class="pillar-desc">On challenge le brief, on cadre l'archi, on choisit la stack. Vous repartez avec un produit qui tient, pas avec un cahier des charges exécuté à la lettre.</p>
+          </div>
+
+          <div class="pillar pillar-wide reveal">
+            <div class="pillar-visual">
+              <div class="pv-train">
+                <div class="pv-train-row"><span>Accès Linear & Notion</span><div class="pv-train-bar"><div style="width:100%"></div></div><span>100%</span></div>
+                <div class="pv-train-row"><span>Suivi temps réel</span><div class="pv-train-bar"><div style="width:100%"></div></div><span>100%</span></div>
+                <div class="pv-train-row"><span>Code review hebdo</span><div class="pv-train-bar"><div style="width:98%"></div></div><span>98%</span></div>
+                <div class="pv-train-row"><span>Handover technique</span><div class="pv-train-bar"><div style="width:96%"></div></div><span>96%</span></div>
+              </div>
+            </div>
+            <div class="pillar-num">04 / Transparence</div>
+            <div class="pillar-title">Chaque ligne, documentée.<br>Chaque décision, expliquée.</div>
+            <p class="pillar-desc">Accès direct à Linear, Figma, Notion. Vous suivez l'avancement en temps réel. Pas de black box, pas de surprise.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACADEMY CALLOUT -->
+    <section class="sec-pad" id="academy" style="background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+      <div class="container">
+        <div class="academy-card reveal">
+          <div class="academy-card-glow"></div>
+          <div class="academy-card-body">
+            <div class="academy-eyebrow">
+              <span class="academy-dot"></span>
+              <span>Webinti Academy</span>
+            </div>
+            <h2 class="academy-title">Vous préférez <em>apprendre</em><br>plutôt que déléguer ?</h2>
+            <p class="academy-sub">Bubble, FlutterFlow, Stripe, IA NoCode — notre catalogue de formations et mentoring vit à part, sur <b>academy.webinti.com</b>. Tarifs à la carte ou abonnement, +110h de contenu structuré, Discord privé, mises à jour à vie.</p>
+            <div class="academy-ctas">
+              <a href="https://academy.webinti.com" target="_blank" rel="noopener" class="btn-primary">Explorer l'Academy <span>→</span></a>
+              <a href="https://rdv.webinti.com/tim/mentoring-personnalise" target="_blank" rel="noopener" class="btn-ghost">Mentoring 1:1 <span>↗</span></a>
+            </div>
+          </div>
+          <div class="academy-card-stack" aria-hidden="true">
+            <div class="academy-chip academy-chip-1"><img src="/assets/images/Bubble.svg" alt="" width="18" height="18" /> Bubble</div>
+            <div class="academy-chip academy-chip-2"><img src="/assets/images/Flutterflow.svg" alt="" width="18" height="18" /> FlutterFlow</div>
+            <div class="academy-chip academy-chip-3"><img src="/assets/images/stripe.svg" alt="" width="18" height="18" /> Stripe</div>
+            <div class="academy-chip academy-chip-4"><img src="/assets/images/claude.svg" alt="" width="18" height="18" /> IA NoCode</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- TESTIMONIALS -->
+    <section class="sec-pad" id="testimonials" style="background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+      <div class="container">
+        <div class="sec-head reveal">
+          <div class="sec-label">Ils nous ont fait confiance</div>
+          <h2 class="sec-title">Des produits <em>qui tournent.</em></h2>
+        </div>
+        <div class="testi-cols reveal">
+          <div class="testi-col" style="--dur:34s">
+            <div class="testi-track">
+              {[...testiCol1, ...testiCol1].map((t, i) => (
+                <div class={`testi${i >= testiCol1.length ? ' testi-dup' : ''}`} aria-hidden={i >= testiCol1.length ? 'true' : undefined}>
+                  <p class="testi-quote">"{t.text}"</p>
+                  <div class="testi-author">
+                    <img class="testi-avatar" src={t.avatar} alt={t.name} loading="lazy" width="40" height="40" />
+                    <div>
+                      <div class="testi-name">{t.name}</div>
+                      <div class="testi-role">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="testi-col testi-col-md" style="--dur:42s">
+            <div class="testi-track">
+              {[...testiCol2, ...testiCol2].map((t, i) => (
+                <div class={`testi${i >= testiCol2.length ? ' testi-dup' : ''}`} aria-hidden={i >= testiCol2.length ? 'true' : undefined}>
+                  <p class="testi-quote">"{t.text}"</p>
+                  <div class="testi-author">
+                    <img class="testi-avatar" src={t.avatar} alt={t.name} loading="lazy" width="40" height="40" />
+                    <div>
+                      <div class="testi-name">{t.name}</div>
+                      <div class="testi-role">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="testi-col testi-col-lg" style="--dur:38s">
+            <div class="testi-track">
+              {[...testiCol3, ...testiCol3].map((t, i) => (
+                <div class={`testi${i >= testiCol3.length ? ' testi-dup' : ''}`} aria-hidden={i >= testiCol3.length ? 'true' : undefined}>
+                  <p class="testi-quote">"{t.text}"</p>
+                  <div class="testi-author">
+                    <img class="testi-avatar" src={t.avatar} alt={t.name} loading="lazy" width="40" height="40" />
+                    <div>
+                      <div class="testi-name">{t.name}</div>
+                      <div class="testi-role">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="sec-pad" id="contact">
+      <div class="container">
+        <div class="cta-block reveal">
+          <h2 class="cta-title">Parlons de votre <em style="font-style:italic;background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent">projet.</em></h2>
+          <p class="cta-sub">Premier échange de 30 min, offert. On regarde ensemble ce qu'on peut livrer et dans quel délai.</p>
+          <div class="hero-ctas" style="margin-bottom:0">
+            <a href="https://rdv.webinti.com/tim/parlons-de-votre-projet" target="_blank" rel="noopener" class="btn-primary">Réserver un créneau <span>→</span></a>
+            <a href="mailto:agence.webinti@gmail.com" class="btn-ghost">Nous écrire</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script>
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+// Hero ember scroll intensifier
+    (function () {
+      const hero = document.querySelector<HTMLElement>('.hero');
+      if (!hero) return;
+      let ticking = false;
+      function update() {
+        const r = hero!.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const p = Math.min(1, Math.max(0, 1 - (r.bottom / (vh + r.height * 0.5))));
+        const op = 0.5 + p * 0.45;
+        const sc = 1 + p * 0.2;
+        hero!.style.setProperty('--ember-opacity', op.toFixed(3));
+        hero!.style.setProperty('--ember-scale', sc.toFixed(3));
+        ticking = false;
+      }
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      update();
+    })();
+
+    // Smooth scroll
+    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href') || '';
+        if (id.length > 1) {
+          const t = document.querySelector(id);
+          if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        }
+      });
+    });
+
+    // Dashboard cursor tour
+    (function () {
+      const cursor = document.getElementById('aw-cursor');
+      const tip = document.getElementById('aw-tooltip');
+      const main = document.querySelector<HTMLElement>('.aw-main');
+      if (!cursor || !main || !tip) return;
+      const targets = [
+        { sel: '.dash-stat:nth-child(2)', text: "Taux d'ouverture · 5%" },
+        { sel: '.dash-pipe:nth-child(1)', text: '3 264 leads · Nouveau' },
+        { sel: '.dash-agent:nth-child(2)', text: 'Follow-up Agent' },
+        { sel: '.dash-tbl tr:nth-child(2)', text: 'E.P.C. · 2 clics' },
+        { sel: '.dash-stat:nth-child(4)', text: 'Pipeline · 1 732 contacts' },
+      ];
+      let i = 0;
+      function step() {
+        const t = targets[i % targets.length];
+        const el = main!.querySelector<HTMLElement>(t.sel);
+        if (!el) { i++; setTimeout(step, 800); return; }
+        const mr = main!.getBoundingClientRect();
+        const er = el.getBoundingClientRect();
+        const x = er.left - mr.left + er.width * 0.35;
+        const y = er.top - mr.top + er.height * 0.5;
+        cursor!.style.transform = `translate(${x}px,${y}px)`;
+        document.querySelectorAll('.hoverable.cursor-active').forEach((e) => e.classList.remove('cursor-active'));
+        setTimeout(() => {
+          el.classList.add('hoverable', 'cursor-active');
+          tip!.textContent = t.text;
+          tip!.style.left = (x + 22) + 'px';
+          tip!.style.top = (y + 10) + 'px';
+          tip!.classList.add('on');
+        }, 1100);
+        setTimeout(() => {
+          tip!.classList.remove('on');
+          el.classList.remove('cursor-active');
+        }, 2400);
+        i++;
+        setTimeout(step, 2800);
+      }
+      setTimeout(step, 1500);
+    })();
+  </script>
+</BaseLayout>

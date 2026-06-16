@@ -1,0 +1,85 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((p) => ({ params: { slug: p.id }, props: { project: p } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const d = project.data;
+const canonical = `https://webinti.com/showcase/${project.id}/`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: d.title,
+    description: d.summary,
+    author: { '@type': 'Organization', name: 'Webinti', url: 'https://webinti.com' },
+    dateCreated: String(d.year),
+    url: canonical,
+    keywords: d.stack.join(', '),
+  },
+];
+---
+<BaseLayout
+  title={`${d.title} — Showcase Webinti`}
+  description={d.summary}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <Nav active="showcase" />
+  <main>
+    <article class="pr">
+      <div class="container">
+        <a class="pr-back" href="/showcase/">← Retour au showcase</a>
+        <span class="eyebrow">{d.category}</span>
+        <h1>{d.title}</h1>
+        <p class="lead">{d.summary}</p>
+
+        <aside class="pr-meta">
+          <div><span>Client</span><b>{d.client}</b></div>
+          <div><span>Année</span><b>{d.year}</b></div>
+          {d.duration && <div><span>Durée</span><b>{d.duration}</b></div>}
+          <div><span>Stack</span><b>{d.stack.join(' · ')}</b></div>
+        </aside>
+
+        {d.url && (
+          <p><a class="pr-cta" href={d.url} target="_blank" rel="noopener">Voir le projet en ligne →</a></p>
+        )}
+
+        <div class="pr-body">
+          <Content />
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+
+  <style>
+    .pr{padding:120px 0 120px}
+    .pr .container{max-width:760px}
+    .pr-back{display:inline-block;margin-bottom:32px;color:var(--text-dim);font-size:14px;text-decoration:none}
+    .pr-back:hover{color:var(--ember)}
+    .pr h1{font-size:clamp(36px,5vw,60px);line-height:1.05;margin:16px 0 16px;font-weight:700;letter-spacing:-0.02em}
+    .pr .lead{font-size:20px;color:var(--text-dim);margin-bottom:40px;line-height:1.5}
+    .pr-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px;padding:24px;border:1px solid var(--border);border-radius:16px;background:var(--card);margin-bottom:40px}
+    .pr-meta div{display:flex;flex-direction:column;gap:4px}
+    .pr-meta span{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim)}
+    .pr-meta b{font-weight:500;font-size:14px}
+    .pr-cta{display:inline-block;padding:14px 24px;border-radius:12px;background:var(--ember);color:#fff;text-decoration:none;font-weight:500;margin-bottom:40px}
+    .pr-cta:hover{filter:brightness(1.1)}
+    .pr-body{line-height:1.7;color:var(--text-dim)}
+    .pr-body h2{font-size:28px;font-weight:600;color:var(--text);margin:40px 0 16px;letter-spacing:-0.01em}
+    .pr-body h3{font-size:20px;font-weight:600;color:var(--text);margin:28px 0 12px}
+    .pr-body p{margin-bottom:16px}
+    .pr-body ul{margin:16px 0;padding-left:24px}
+    .pr-body li{margin-bottom:8px}
+    .pr-body strong{color:var(--text)}
+  </style>
+</BaseLayout>

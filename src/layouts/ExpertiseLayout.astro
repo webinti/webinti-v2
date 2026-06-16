@@ -1,0 +1,51 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import '../styles/expertise.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  serviceName: string;
+  faqs: { q: string; a: string }[];
+}
+const { title, description, canonical, serviceName, faqs } = Astro.props;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: serviceName,
+    description,
+    provider: { '@type': 'Organization', name: 'Webinti', url: 'https://webinti.com' },
+    areaServed: 'FR',
+    url: canonical,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd}>
+  <Nav active="expertise" />
+  <main>
+    <slot />
+  </main>
+  <footer class="ftr">
+    <div class="container" style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;width:100%">
+      <span>© 2026 Webinti · Agence NoCode & IA</span>
+      <div style="display:flex;gap:20px">
+        <a href="/">Accueil</a>
+        <a href="/expertise/developpement-web/">Expertise</a>
+        <a href="/#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+</BaseLayout>
